@@ -97,6 +97,7 @@
     .agc-excerpt { font-size: 0.87rem; color: var(--mist); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .agc-footer { display: flex; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); }
     .agc-arrow { color: var(--mist-light); }
+    a.agc { text-decoration: none; color: inherit; }
 
     /* ── SERIES ── */
     .series-section { padding: 80px 0; border-top: 1px solid var(--rule); background: var(--ink-mid); }
@@ -182,12 +183,12 @@
         <div class="agc-excerpt">Modern insider threat programs are evolving from punitive detection to anticipatory behavioral analytics.</div>
         <div class="agc-footer"><span>Coming Soon</span><span class="agc-arrow">—</span></div>
       </div>
-     <a href="/articles/ceo-doppelganger.html" class="article-card reveal">
-  <div class="card-tag">AI &amp; Security</div>
-  <div class="card-title">The CEO <em>Doppelgänger</em></div>
-  <div class="card-excerpt">Your executives' voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity — and draining corporate accounts at scale.</div>
-  <div class="card-footer"><span>March 2026</span><span class="card-read">10 min →</span></div>
-</a>
+      <a href="/articles/ceo-doppelganger.html" class="agc" data-category="ai-security" style="text-decoration:none;color:inherit;">
+        <div class="agc-tag">AI &amp; Security</div>
+        <div class="agc-title">The CEO <em>Doppelgänger</em></div>
+        <div class="agc-excerpt">Your executives' voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity — and draining corporate accounts at scale.</div>
+        <div class="agc-footer"><span>March 2026</span><span class="agc-arrow"> · 10 min →</span></div>
+      </a>
       <div class="agc disabled" data-category="governance">
         <div class="agc-tag">Board Governance</div>
         <div class="agc-title">Fiduciary <em>Exposure</em></div>
