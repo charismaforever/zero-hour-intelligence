@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Imminent Flair — Intelligence pillars covering quantum risk, AI-native defense, executive governance, and insider intelligence."/>
+  <title>Topics · Imminent Flair</title>
+  <link rel="stylesheet" href="/css/global.css"/>
+  <style>
+    .page-hero {
+      padding-top: 68px; min-height: 36vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding-bottom: 64px;
+      background: radial-gradient(ellipse 50% 80% at 30% 20%, rgba(184,150,110,0.07) 0%, transparent 55%), var(--ink-mid);
+      border-bottom: 1px solid var(--rule);
+    }
+    .page-hero-eyebrow { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .page-hero-desc { font-size: 1rem; color: var(--mist); max-width: 500px; margin-top: 16px; }
+
+    .topics-page { padding: 80px 0; }
+
+    .topic-section { margin-bottom: 1px; }
+    .topic-anchor { display: block; padding-top: 88px; margin-top: -88px; }
+
+    .topic-header {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 0; border: 1px solid var(--rule); border-bottom: none;
+    }
+    .topic-num-col {
+      padding: 48px 40px; background: var(--ink-soft);
+      display: flex; align-items: center; justify-content: center;
+      border-right: 1px solid var(--rule); min-width: 120px;
+    }
+    .topic-num-col span { font-family: var(--ff-display); font-size: 4rem; font-weight: 300; color: rgba(184,150,110,0.2); }
+    .topic-header-content { padding: 48px 52px; }
+    .topic-category { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .topic-name { font-family: var(--ff-display); font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 400; color: var(--ivory); margin-bottom: 12px; }
+    .topic-overview { font-size: 1rem; color: var(--mist); line-height: 1.8; max-width: 680px; }
+
+    .topic-articles {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    }
+    .ta-card {
+      background: var(--ink); padding: 32px;
+      display: flex; flex-direction: column; gap: 12px;
+      text-decoration: none; transition: background 0.3s;
+    }
+    .ta-card:hover { background: var(--ink-soft); }
+    .ta-card.disabled { opacity: 0.4; pointer-events: none; }
+    .ta-tag { font-family: var(--ff-mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .ta-title { font-family: var(--ff-display); font-size: 1.25rem; color: var(--ivory); line-height: 1.2; flex: 1; }
+    .ta-status { font-family: var(--ff-mono); font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); padding-top: 12px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; }
+
+    .topic-divider { height: 48px; }
+
+    /* KEY CONCEPTS */
+    .concepts-band { background: var(--ink-mid); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 72px 0; margin-top: 80px; }
+    .concepts-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+    .concept-item { background: var(--ink-mid); padding: 32px; }
+    .concept-label { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .concept-term { font-family: var(--ff-display); font-size: 1.2rem; color: var(--ivory); margin-bottom: 8px; }
+    .concept-def { font-size: 0.87rem; color: var(--mist); line-height: 1.75; }
+
+    @media(max-width:1024px) {
+      .topic-articles { grid-template-columns: 1fr 1fr; }
+      .concepts-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:768px) {
+      .topic-header { grid-template-columns: 1fr; }
+      .topic-num-col { display: none; }
+      .topic-articles { grid-template-columns: 1fr; }
+      .concepts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-mount"></div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="page-hero-eyebrow">Intelligence Pillars</div>
+    <h1>Topics &amp; <em>Focus Areas</em></h1>
+    <p class="page-hero-desc">Four core intelligence pillars shaping Imminent Flair's research and analysis — the strategic dimensions every security-conscious executive must understand.</p>
+  </div>
+</div>
+
+<section class="topics-page">
+  <div class="container">
+
+    <!-- QUANTUM -->
+    <div class="topic-section reveal" id="quantum">
+      <a class="topic-anchor"></a>
+      <div class="topic-header">
+        <div class="topic-num-col"><span>01</span></div>
+        <div class="topic-header-content">
+          <div class="topic-category">Cryptography · National Security</div>
+          <div class="topic-name">Quantum <em>Risk</em></div>
+          <p class="topic-overview">The quantum computing threat to existing encryption is not a future problem — it is an active, ongoing operation. Nation-state adversaries are harvesting encrypted data today, with plans to decrypt it within a 3–5 year window. Post-quantum cryptographic migration, crypto agility, and NIST FIPS compliance are now baseline requirements, not future aspirations.</p>
+        </div>
+      </div>
+      <div class="topic-articles">
+        <a href="/articles/architecture-of-failure.html" class="ta-card">
+          <div class="ta-tag">Strategic Analysis</div>
+          <div class="ta-title">The Architecture of <em>Failure</em></div>
+          <div class="ta-status"><span>March 2026</span><span>12 min →</span></div>
+        </a>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Deep Dive</div>
+          <div class="ta-title">Harvest Now, Decrypt <em>Later</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Framework</div>
+          <div class="ta-title">Crypto Agility as <em>Architecture</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+      </div>
+      <div class="topic-divider"></div>
+    </div>
+
+    <!-- AI -->
+    <div class="topic-section reveal" id="ai">
+      <a class="topic-anchor"></a>
+      <div class="topic-header">
+        <div class="topic-num-col"><span>02</span></div>
+        <div class="topic-header-content">
+          <div class="topic-category">Artificial Intelligence · Threat Detection</div>
+          <div class="topic-name">AI-Native <em>Defense</em></div>
+          <p class="topic-overview">AI is simultaneously the most powerful defensive tool available to security teams and the most dangerous weapon in the adversary's arsenal. This pillar covers autonomous threat detection, machine-speed response, the security of AI agents within enterprise environments, and the adversarial use of generative models to probe, deceive, and exploit organizations at scale.</p>
+        </div>
+      </div>
+      <div class="topic-articles">
+        <a href="/articles/architecture-of-failure.html" class="ta-card">
+          <div class="ta-tag">Strategic Analysis</div>
+          <div class="ta-title">The Architecture of <em>Failure</em></div>
+          <div class="ta-status"><span>March 2026</span><span>12 min →</span></div>
+        </a>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Threat Intelligence</div>
+          <div class="ta-title">The CEO <em>Doppelgänger</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Operations</div>
+          <div class="ta-title">AI Agents &amp; the Identity <em>Explosion</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+      </div>
+      <div class="topic-divider"></div>
+    </div>
+
+    <!-- GOVERNANCE -->
+    <div class="topic-section reveal" id="governance">
+      <a class="topic-anchor"></a>
+      <div class="topic-header">
+        <div class="topic-num-col"><span>03</span></div>
+        <div class="topic-header-content">
+          <div class="topic-category">Board Leadership · Executive Strategy</div>
+          <div class="topic-name">Executive <em>Governance</em></div>
+          <p class="topic-overview">Cybersecurity is no longer a technical department problem. It is a matter of executive accountability, fiduciary obligation, and existential risk management. This pillar provides board-level risk communication frameworks, governance best practices, incident response leadership guidance, and the strategic context that allows non-technical leaders to make high-stakes decisions with clarity.</p>
+        </div>
+      </div>
+      <div class="topic-articles">
+        <div class="ta-card disabled">
+          <div class="ta-tag">Governance</div>
+          <div class="ta-title">Fiduciary <em>Exposure</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Regulatory</div>
+          <div class="ta-title">NIS2 &amp; the Supply Chain <em>Mandate</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Crisis Leadership</div>
+          <div class="ta-title">The Board in the <em>Breach Room</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+      </div>
+      <div class="topic-divider"></div>
+    </div>
+
+    <!-- INSIDER -->
+    <div class="topic-section reveal" id="insider">
+      <a class="topic-anchor"></a>
+      <div class="topic-header">
+        <div class="topic-num-col"><span>04</span></div>
+        <div class="topic-header-content">
+          <div class="topic-category">Behavioral Analytics · Access Governance</div>
+          <div class="topic-name">Insider <em>Intelligence</em></div>
+          <p class="topic-overview">The most dangerous threat actor in your organization may already have credentials. This pillar examines the full insider risk landscape — from malicious insiders and negligent employees to the psychology of trust exploitation. Coverage includes behavioral threat analytics, privileged access governance, detection program design, and the organizational culture practices that reduce risk before it becomes incident.</p>
+        </div>
+      </div>
+      <div class="topic-articles">
+        <div class="ta-card disabled">
+          <div class="ta-tag">Program Design</div>
+          <div class="ta-title">The Enemy Inside the <em>Walls</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Psychology</div>
+          <div class="ta-title">The Anatomy of <em>Betrayal</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+        <div class="ta-card disabled">
+          <div class="ta-tag">Identity Governance</div>
+          <div class="ta-title">Privileged Access in the <em>AI Age</em></div>
+          <div class="ta-status"><span>Coming Soon</span><span>—</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- KEY CONCEPTS -->
+<section class="concepts-band">
+  <div class="container">
+    <div class="section-label reveal"><span class="mono">Core Concepts</span></div>
+    <div class="concepts-grid">
+      <div class="concept-item reveal"><div class="concept-label">Architecture</div><div class="concept-term">Zero Trust</div><div class="concept-def">Never trust, always verify. Every access request is authenticated and authorized continuously — regardless of network location or prior session.</div></div>
+      <div class="concept-item reveal"><div class="concept-label">Cryptography</div><div class="concept-term">Post-Quantum PQC</div><div class="concept-def">NIST-finalized algorithms designed to remain secure against attacks from quantum computers. FIPS 203 (ML-KEM), 204 (ML-DSA), and 205 (SLH-DSA).</div></div>
+      <div class="concept-item reveal"><div class="concept-label">Strategy</div><div class="concept-term">Harvest Now, Decrypt Later</div><div class="concept-def">Nation-state tactic of collecting encrypted data today to decrypt retroactively once quantum computing capability matures — within 3–5 years.</div></div>
+      <div class="concept-item reveal"><div class="concept-label">Operations</div><div class="concept-term">AI Agent Identity</div><div class="concept-def">Autonomous AI agents require identity governance equal to privileged human accounts. The 82:1 agent-to-human ratio has made this a critical attack surface.</div></div>
+      <div class="concept-item reveal"><div class="concept-label">Resilience</div><div class="concept-term">Crypto Agility</div><div class="concept-def">The architectural capability to rotate cryptographic algorithms and standards without operational disruption — essential for long-term quantum resistance.</div></div>
+      <div class="concept-item reveal"><div class="concept-label">Governance</div><div class="concept-term">Fiduciary Cyber Risk</div><div class="concept-def">The legal and strategic obligation of boards and executives to proactively govern cybersecurity risk — not merely receive briefings after a breach.</div></div>
+    </div>
+  </div>
+</section>
+
+<div id="ticker-mount"></div>
+<div id="footer-mount"></div>
+
+<script src="/css/components.js"></script>
+<script>
+  document.getElementById('nav-mount').innerHTML = getNavHTML('Topics');
+  document.getElementById('ticker-mount').innerHTML = getTickerHTML();
+  document.getElementById('footer-mount').innerHTML = getFooterHTML();
+</script>
+</body>
+</html>
