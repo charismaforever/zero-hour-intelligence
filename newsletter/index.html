@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscribe · Imminent Flair</title>
+  <link rel="stylesheet" href="/css/global.css"/>
+  <style>
+    .nl-hero {
+      min-height: 100vh; padding-top: 68px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .nl-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 40%, rgba(184,150,110,0.07) 0%, transparent 60%),
+        var(--ink-mid);
+    }
+    .nl-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(184,150,110,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(184,150,110,0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black, transparent);
+    }
+    .nl-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; text-align: center; padding: 0 32px; }
+    .nl-eyebrow { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; animation: fadeUp 0.8s var(--ease-out) both; }
+    .nl-title { font-family: var(--ff-display); font-size: clamp(2.8rem,6vw,5rem); font-weight: 300; line-height: 1.05; color: var(--ivory); margin-bottom: 24px; animation: fadeUp 0.8s 0.1s var(--ease-out) both; }
+    .nl-desc { font-size: 1.05rem; color: var(--mist); line-height: 1.8; margin-bottom: 52px; animation: fadeUp 0.8s 0.2s var(--ease-out) both; }
+
+    .nl-form-wrap { animation: fadeUp 0.8s 0.3s var(--ease-out) both; }
+    .nl-form-main { display: flex; border: 1px solid var(--rule); margin-bottom: 16px; }
+    .nl-form-main input { flex: 1; background: transparent; border: none; outline: none; padding: 18px 24px; font-family: var(--ff-body); font-size: 1rem; color: var(--ivory); font-weight: 300; }
+    .nl-form-main input::placeholder { color: var(--gold-dim); }
+    .nl-form-main button { background: var(--gold); border: none; padding: 18px 32px; font-family: var(--ff-mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); font-weight: 400; cursor: pointer; transition: background 0.25s; white-space: nowrap; }
+    .nl-form-main button:hover { background: var(--gold-light); }
+    .nl-form-note { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); }
+
+    .nl-features { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 80px; }
+    .nl-feat { background: var(--ink); padding: 36px 28px; text-align: left; }
+    .nl-feat-label { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .nl-feat-title { font-family: var(--ff-display); font-size: 1.15rem; color: var(--ivory); margin-bottom: 8px; }
+    .nl-feat-desc { font-size: 0.87rem; color: var(--mist); line-height: 1.75; }
+
+    /* SUCCESS STATE */
+    .nl-success { display: none; text-align: center; padding: 40px; border: 1px solid var(--rule-strong); background: rgba(74,124,89,0.08); border-left: 3px solid #4a7c59; }
+    .nl-success-icon { font-family: var(--ff-display); font-size: 2.5rem; color: #4a7c59; margin-bottom: 12px; }
+    .nl-success-title { font-family: var(--ff-display); font-size: 1.5rem; color: var(--ivory); margin-bottom: 8px; }
+    .nl-success-msg { font-size: 0.92rem; color: var(--mist); }
+
+    @media(max-width:768px) {
+      .nl-form-main { flex-direction: column; }
+      .nl-form-main input { border-bottom: 1px solid var(--rule); }
+      .nl-features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-mount"></div>
+
+<section class="nl-hero">
+  <div class="nl-bg"></div>
+  <div class="nl-grid"></div>
+  <div class="container">
+    <div class="nl-content">
+      <div class="nl-eyebrow">Intelligence Briefing · Imminent Flair</div>
+      <h1 class="nl-title">Stay Ahead of the <em>Threat Horizon</em></h1>
+      <p class="nl-desc">Strategic cybersecurity intelligence for executives and board members who need to make high-stakes decisions in a threat landscape that no longer follows the old rules. No noise. No vendor pitches. Only the analysis that matters.</p>
+      <div class="nl-form-wrap">
+        <div id="nl-form-container">
+          <form class="nl-form-main" onsubmit="handleSubscribe(event)">
+            <input type="email" id="nl-email" placeholder="your@organization.com" required/>
+            <button type="submit">Subscribe →</button>
+          </form>
+          <div class="nl-form-note">No spam · Strategic frequency · Unsubscribe anytime</div>
+        </div>
+        <div class="nl-success" id="nl-success">
+          <div class="nl-success-icon">◆</div>
+          <div class="nl-success-title">You're in.</div>
+          <p class="nl-success-msg">Welcome to the Imminent Flair intelligence briefing. Expect your first analysis shortly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="nl-features reveal">
+      <div class="nl-feat">
+        <div class="nl-feat-label">Content</div>
+        <div class="nl-feat-title">Strategic Analysis</div>
+        <div class="nl-feat-desc">In-depth examination of the cybersecurity landscape — written for leaders who need context, not just headlines.</div>
+      </div>
+      <div class="nl-feat">
+        <div class="nl-feat-label">Frequency</div>
+        <div class="nl-feat-title">Signal Over Volume</div>
+        <div class="nl-feat-desc">Delivered when the analysis is ready — not on an arbitrary schedule. Quality over cadence.</div>
+      </div>
+      <div class="nl-feat">
+        <div class="nl-feat-label">Audience</div>
+        <div class="nl-feat-title">Executive-First</div>
+        <div class="nl-feat-desc">Written for C-suite leaders, board members, and senior decision-makers navigating cyber risk at the highest level.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="ticker-mount"></div>
+<div id="footer-mount"></div>
+
+<script src="/css/components.js"></script>
+<script>
+  document.getElementById('nav-mount').innerHTML = getNavHTML('');
+  document.getElementById('ticker-mount').innerHTML = getTickerHTML();
+  document.getElementById('footer-mount').innerHTML = getFooterHTML();
+
+  function handleSubscribe(e) {
+    e.preventDefault();
+    const email = document.getElementById('nl-email').value;
+    if (email && email.includes('@')) {
+      document.getElementById('nl-form-container').style.display = 'none';
+      document.getElementById('nl-success').style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>
