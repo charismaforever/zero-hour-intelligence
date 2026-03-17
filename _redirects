@@ -1,0 +1,10 @@
+# Imminent Flair — Cloudflare Pages Redirects
+
+# Clean URL support
+/articles   /articles/index.html   200
+/topics     /topics/index.html     200
+/about      /about/index.html      200
+/newsletter /newsletter/index.html  200
+
+# Legacy / external redirect
+/ArchitectureofFailure  /articles/architecture-of-failure.html  301
