@@ -3,273 +3,413 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Imminent Flair — Full intelligence library. Strategic cybersecurity analysis for executive and board-level leaders."/>
-  <title>Analysis · Imminent Flair</title>
+  <meta name="description" content="Imminent Flair — Strategic cybersecurity intelligence by Catrina Turner. Translating technical risk into executive clarity for C-suite and board-level leaders."/>
+  <title>Imminent Flair · Cybersecurity Intelligence</title>
   <link rel="stylesheet" href="/css/global.css"/>
   <style>
-    .page-hero {
-      padding-top: 68px; min-height: 38vh;
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; padding-top: 68px;
       display: flex; flex-direction: column; justify-content: flex-end;
-      padding-bottom: 64px;
-      background:
-        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(184,150,110,0.07) 0%, transparent 55%),
-        var(--ink-mid);
-      border-bottom: 1px solid var(--rule);
+      padding-bottom: 88px;
       position: relative; overflow: hidden;
     }
-    .page-hero-grid {
+    .hero-bg {
       position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(184,150,110,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(184,150,110,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: linear-gradient(to bottom, transparent, black 50%);
+      background:
+        radial-gradient(ellipse 90% 70% at 75% 25%, rgba(184,150,110,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 60% at 5% 85%, rgba(184,150,110,0.04) 0%, transparent 50%),
+        linear-gradient(160deg, #0f0e0d 0%, #090909 55%, #0b0a09 100%);
     }
-    .page-hero-content { position: relative; z-index: 1; }
-    .page-hero-eyebrow { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-    .page-hero h1 { margin-bottom: 16px; }
-    .page-hero-desc { font-size: 1rem; color: var(--mist); max-width: 500px; }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(184,150,110,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,150,110,0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, transparent 10%, black 35%, black 65%, transparent 100%);
+    }
+    .hero-line {
+      position: absolute; top: 0; right: 25%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(184,150,110,0.12) 30%, rgba(184,150,110,0.12) 70%, transparent);
+    }
 
-    /* ── FILTER BAR ── */
-    .filter-bar {
-      border-bottom: 1px solid var(--rule);
-      padding: 20px 0;
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 36px;
+      animation: fadeUp 0.9s var(--ease-out) both;
+    }
+    .hero-eyebrow .mono { color: var(--gold); }
+    .hero-eyebrow::after { content: ''; width: 100px; height: 1px; background: var(--rule); }
+
+    .hero h1 {
+      font-size: clamp(3.4rem, 7.5vw, 7rem);
+      font-weight: 300; letter-spacing: -0.02em;
+      margin-bottom: 32px; max-width: 900px;
+      animation: fadeUp 0.9s 0.1s var(--ease-out) both;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem; font-weight: 300; color: var(--mist);
+      max-width: 520px; line-height: 1.8; margin-bottom: 56px;
+      animation: fadeUp 0.9s 0.2s var(--ease-out) both;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; gap: 36px;
+      animation: fadeUp 0.9s 0.3s var(--ease-out) both;
+    }
+
+    .hero-stat-row {
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%); width: 22%;
+      display: flex; flex-direction: column; gap: 2px;
+      animation: fadeUp 0.9s 0.4s var(--ease-out) both;
+    }
+    .hero-stat {
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--rule);
+      border-right: none;
+      padding: 20px 28px;
+    }
+    .hero-stat-value { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 300; color: var(--gold-light); line-height: 1; margin-bottom: 6px; }
+    .hero-stat-label { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); line-height: 1.5; }
+
+    /* ── FEATURED ── */
+    .featured {
       background: var(--ink-mid);
-      position: sticky; top: 68px; z-index: 50;
+      border-top: 1px solid var(--rule);
+      padding: 100px 0;
     }
-    .filter-bar-inner { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .filter-btn {
-      font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
-      padding: 7px 16px; border: 1px solid var(--rule); background: transparent;
-      color: var(--mist); cursor: pointer; transition: all 0.2s;
+    .featured-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
     }
-    .filter-btn:hover, .filter-btn.active {
-      border-color: var(--gold); color: var(--gold-light); background: rgba(184,150,110,0.06);
+    .featured-visual {
+      position: relative; aspect-ratio: 4/3;
+      background: var(--ink-soft); overflow: hidden;
     }
+    .featured-visual-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(184,150,110,0.1) 0%, transparent 70%);
+    }
+    .featured-visual-text {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; padding: 40px;
+      font-family: var(--ff-display); font-size: clamp(2rem,4vw,3.8rem);
+      font-weight: 300; font-style: italic; color: rgba(184,150,110,0.28);
+      text-align: center; line-height: 1.15;
+    }
+    .featured-frame {
+      position: absolute; inset: 0; border: 1px solid var(--rule);
+      pointer-events: none;
+    }
+    .featured-corner {
+      position: absolute; width: 18px; height: 18px;
+      border-color: var(--gold); border-style: solid; border-width: 0;
+    }
+    .fc-tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+    .fc-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+    .fc-bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+    .fc-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
 
-    /* ── ARTICLES MAIN ── */
-    .articles-main { padding: 80px 0; }
+    .featured-label {
+      font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .featured-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .featured-title { font-size: clamp(1.6rem,2.8vw,2.6rem); margin-bottom: 20px; }
+    .featured-excerpt { font-size: 0.95rem; color: var(--mist); line-height: 1.85; margin-bottom: 28px; }
+    .featured-meta {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 36px;
+      font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold-dim);
+    }
+    .featured-meta span { color: var(--mist-light); }
 
-    /* HERO CARD — first article, full width */
-    .article-hero-card {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; border: 1px solid var(--rule);
-      margin-bottom: 1px;
-      text-decoration: none;
-      background: var(--ink-soft);
-      transition: border-color 0.3s;
+    /* ── ARTICLES GRID ── */
+    .articles-section { padding: 100px 0; border-top: 1px solid var(--rule); }
+    .articles-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--rule);
+      border: 1px solid var(--rule);
     }
-    .article-hero-card:hover { border-color: var(--rule-strong); }
-    .ahc-visual {
-      aspect-ratio: unset; min-height: 320px;
-      background: var(--ink-lifted); position: relative; overflow: hidden;
-    }
-    .ahc-visual-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(184,150,110,0.1) 0%, transparent 70%); }
-    .ahc-visual-label {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      font-family: var(--ff-display); font-size: clamp(1.5rem,3vw,3rem); font-weight: 300; font-style: italic;
-      color: rgba(184,150,110,0.25); text-align: center; padding: 40px; line-height: 1.2;
-    }
-    .ahc-content { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-    .ahc-badge { display: flex; align-items: center; gap: 12px; }
-    .ahc-badge-pill { border: 1px solid var(--gold-dim); padding: 4px 12px; font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
-    .ahc-featured-flag { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mist); }
-    .ahc-title { font-family: var(--ff-display); font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 400; color: var(--ivory); line-height: 1.15; }
-    .ahc-excerpt { font-size: 0.95rem; color: var(--mist); line-height: 1.8; }
-    .ahc-meta { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); display: flex; gap: 12px; }
-    .ahc-meta span { color: var(--mist-light); }
-    .ahc-read { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-light); transition: gap 0.2s; display: flex; align-items: center; gap: 8px; }
-    .article-hero-card:hover .ahc-read { gap: 14px; }
-
-    /* GRID CARDS */
-    .article-grid {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 1px; background: var(--rule); border: 1px solid var(--rule);
-      border-top: none;
-    }
-    .agc {
-      background: var(--ink); padding: 36px;
+    .article-card {
+      background: var(--ink); padding: 40px;
       display: flex; flex-direction: column; gap: 14px;
-      text-decoration: none; transition: background 0.3s;
+      text-decoration: none;
+      transition: background 0.3s;
     }
-    .agc:hover { background: var(--ink-soft); }
-    .agc.disabled { opacity: 0.4; pointer-events: none; }
-    .agc-tag { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-    .agc-title { font-family: var(--ff-display); font-size: 1.4rem; color: var(--ivory); line-height: 1.2; flex: 1; }
-    .agc-excerpt { font-size: 0.87rem; color: var(--mist); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .agc-footer { display: flex; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); }
-    .agc-arrow { color: var(--mist-light); }
-    a.agc { text-decoration: none; color: inherit; }
+    .article-card:hover { background: var(--ink-soft); }
+    .article-card.coming-soon { opacity: 0.45; pointer-events: none; }
+    .card-tag { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .card-title { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 400; color: var(--ivory); line-height: 1.2; flex: 1; }
+    .card-excerpt { font-size: 0.88rem; color: var(--mist); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); }
+    .card-read { color: var(--mist-light); }
+    a.article-card { text-decoration: none; color: inherit; }
 
-    /* ── SERIES ── */
-    .series-section { padding: 80px 0; border-top: 1px solid var(--rule); background: var(--ink-mid); }
-    .series-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; background: var(--rule); border: 1px solid var(--rule); }
-    .series-card { background: var(--ink-mid); padding: 48px; display: flex; gap: 32px; align-items: flex-start; transition: background 0.3s; cursor: default; }
-    .series-num { font-family: var(--ff-display); font-size: 3.5rem; font-weight: 300; color: rgba(184,150,110,0.15); line-height: 1; flex-shrink: 0; min-width: 56px; }
-    .series-content {}
-    .series-label { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-    .series-name { font-family: var(--ff-display); font-size: 1.5rem; color: var(--ivory); margin-bottom: 10px; }
-    .series-desc { font-size: 0.9rem; color: var(--mist); line-height: 1.75; }
-    .series-count { margin-top: 16px; font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dim); }
-
-    @media(max-width:1024px) {
-      .article-hero-card { grid-template-columns: 1fr; }
-      .ahc-visual { min-height: 200px; }
-      .article-grid { grid-template-columns: 1fr 1fr; }
+    /* ── TOPICS PREVIEW ── */
+    .topics-section {
+      background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 100px 0;
     }
-    @media(max-width:768px) {
-      .article-grid { grid-template-columns: 1fr; }
-      .series-grid { grid-template-columns: 1fr; }
+    .topics-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    }
+    .topic-card {
+      background: var(--ink-mid); padding: 40px 32px;
+      display: flex; flex-direction: column; gap: 20px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .topic-card:hover { background: var(--ink-soft); }
+    .topic-num { font-family: var(--ff-display); font-size: 2.8rem; font-weight: 300; color: rgba(184,150,110,0.18); line-height: 1; }
+    .topic-name { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 400; color: var(--ivory); }
+    .topic-desc { font-size: 0.88rem; color: var(--mist); line-height: 1.75; flex: 1; }
+    .topic-link { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); transition: color 0.2s; }
+    .topic-card:hover .topic-link { color: var(--gold-light); }
+
+    /* ── AUTHOR STRIP ── */
+    .author-strip {
+      border-top: 1px solid var(--rule); padding: 80px 0;
+    }
+    .author-strip-inner {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 48px;
+    }
+    .author-monogram {
+      width: 88px; height: 88px; border: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--ink-soft); flex-shrink: 0;
+    }
+    .author-monogram span { font-family: var(--ff-display); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold-dim); }
+    .author-info {}
+    .author-name { font-family: var(--ff-display); font-size: 1.8rem; font-weight: 400; color: var(--ivory); margin-bottom: 8px; }
+    .author-bio { font-size: 0.95rem; color: var(--mist); line-height: 1.8; max-width: 560px; }
+    .author-rule { width: 1px; height: 80px; background: var(--rule); }
+
+    /* ── NEWSLETTER STRIP ── */
+    .nl-strip {
+      background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 80px 0;
+      position: relative; overflow: hidden;
+    }
+    .nl-strip-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 50% 120% at 50% 50%, rgba(184,150,110,0.05) 0%, transparent 70%); }
+    .nl-strip-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 60px; }
+    .nl-strip-text {}
+    .nl-strip-eyebrow { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .nl-strip-title { font-family: var(--ff-display); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 300; color: var(--ivory); }
+    .nl-form { display: flex; min-width: 400px; border: 1px solid var(--rule); }
+    .nl-form input { flex: 1; background: transparent; border: none; outline: none; padding: 14px 20px; font-family: var(--ff-body); font-size: 0.9rem; color: var(--ivory); font-weight: 300; }
+    .nl-form input::placeholder { color: var(--gold-dim); }
+    .nl-form button { background: var(--gold); border: none; padding: 14px 24px; font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 400; transition: background 0.25s; white-space: nowrap; }
+    .nl-form button:hover { background: var(--gold-light); }
+
+    @media (max-width: 1024px) {
+      .hero-stat-row { display: none; }
+      .featured-layout { grid-template-columns: 1fr; gap: 48px; }
+      .articles-grid { grid-template-columns: 1fr 1fr; }
+      .topics-grid { grid-template-columns: 1fr 1fr; }
+      .nl-strip-inner { flex-direction: column; align-items: flex-start; }
+      .nl-form { min-width: 100%; width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.6rem; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .topics-grid { grid-template-columns: 1fr; }
+      .author-strip-inner { grid-template-columns: 1fr; text-align: center; }
+      .author-rule { display: none; }
+      .author-monogram { margin: 0 auto; }
     }
   </style>
 </head>
 <body>
 
-<div id="nav-mount"></div>
+  <!-- NAV -->
+  <div id="nav-mount"></div>
 
-<!-- PAGE HERO -->
-<div class="page-hero">
-  <div class="page-hero-grid"></div>
-  <div class="container page-hero-content">
-    <div class="page-hero-eyebrow">Intelligence Library</div>
-    <h1>Strategic <em>Analysis</em></h1>
-    <p class="page-hero-desc">In-depth intelligence on cybersecurity, quantum risk, AI-native threats, and board-level governance — written for leaders, not technicians.</p>
-  </div>
-</div>
-
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <div class="container filter-bar-inner">
-    <button class="filter-btn active" onclick="filterArticles('all', this)">All</button>
-    <button class="filter-btn" onclick="filterArticles('strategic-analysis', this)">Strategic Analysis</button>
-    <button class="filter-btn" onclick="filterArticles('quantum-risk', this)">Quantum Risk</button>
-    <button class="filter-btn" onclick="filterArticles('ai-security', this)">AI &amp; Security</button>
-    <button class="filter-btn" onclick="filterArticles('governance', this)">Governance</button>
-    <button class="filter-btn" onclick="filterArticles('insider-risk', this)">Insider Risk</button>
-    <button class="filter-btn" onclick="filterArticles('regulatory', this)">Regulatory</button>
-  </div>
-</div>
-
-<!-- ARTICLES -->
-<section class="articles-main">
-  <div class="container">
-    <!-- HERO CARD -->
-    <a href="/articles/architecture-of-failure.html" class="article-hero-card reveal" data-category="strategic-analysis">
-      <div class="ahc-visual">
-        <div class="ahc-visual-bg"></div>
-        <div class="ahc-visual-label">The Architecture<br>of Failure</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-line"></div>
+    <div class="container hero-content">
+      <div class="hero-eyebrow">
+        <span class="mono">Strategic Intelligence · Executive Briefings · March 2026</span>
       </div>
-      <div class="ahc-content">
-        <div class="ahc-badge">
-          <span class="ahc-badge-pill">Strategic Analysis</span>
-          <span class="ahc-featured-flag">Featured</span>
-        </div>
-        <div class="ahc-title">The Architecture of <em>Failure</em></div>
-        <div class="ahc-excerpt">How the old walls of cybersecurity crumbled — and the radical overhaul now rewriting the rules of digital defense forever. The perimeter is gone. The password is dead. What comes next will define civilization's digital survival.</div>
-        <div class="ahc-meta"><span>Catrina Turner</span>·<span>March 2026</span>·<span>12 min read</span></div>
-        <div class="ahc-read">Read Full Analysis <span>→</span></div>
-      </div>
-    </a>
-
-    <!-- GRID -->
-    <div class="article-grid">
-      <div class="agc disabled" data-category="quantum-risk">
-        <div class="agc-tag">Quantum Risk</div>
-        <div class="agc-title">Harvest Now, Decrypt <em>Later</em></div>
-        <div class="agc-excerpt">Nation-state actors are collecting encrypted data today — waiting for quantum capability to break it within a three-to-five year horizon.</div>
-        <div class="agc-footer"><span>Coming Soon</span><span class="agc-arrow">—</span></div>
-      </div>
-      <div class="agc disabled" data-category="insider-risk">
-        <div class="agc-tag">Insider Risk</div>
-        <div class="agc-title">The Enemy Inside the <em>Walls</em></div>
-        <div class="agc-excerpt">Modern insider threat programs are evolving from punitive detection to anticipatory behavioral analytics.</div>
-        <div class="agc-footer"><span>Coming Soon</span><span class="agc-arrow">—</span></div>
-      </div>
-      <a href="/articles/ceo-doppelganger.html" class="agc" data-category="ai-security" style="text-decoration:none;color:inherit;">
-        <div class="agc-tag">AI &amp; Security</div>
-        <div class="agc-title">The CEO <em>Doppelgänger</em></div>
-        <div class="agc-excerpt">Your executives' voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity — and draining corporate accounts at scale.</div>
-        <div class="agc-footer"><span>March 2026</span><span class="agc-arrow"> · 10 min →</span></div>
-      </a>
-      <div class="agc disabled" data-category="governance">
-        <div class="agc-tag">Board Governance</div>
-        <div class="agc-title">Fiduciary <em>Exposure</em></div>
-        <div class="agc-excerpt">What boards must understand about legal and strategic obligations in the post-breach accountability era.</div>
-        <div class="agc-footer"><span>Coming Soon</span><span class="agc-arrow">—</span></div>
-      </div>
-      <div class="agc disabled" data-category="regulatory">
-        <div class="agc-tag">Regulatory</div>
-        <div class="agc-title">NIS2 &amp; the Supply Chain <em>Mandate</em></div>
-        <div class="agc-excerpt">The EU Cyber Resilience Act is embedding security into product lifecycles — and private supply chains follow.</div>
-        <div class="agc-footer"><span>Coming Soon</span><span class="agc-arrow">—</span></div>
-      </div>
-      <div class="agc disabled" data-category="quantum-risk">
-        <div class="agc-tag">Quantum Risk</div>
-        <div class="agc-title">Crypto Agility as <em>Architecture</em></div>
-        <div class="agc-excerpt">The capability to rotate cryptographic standards without disrupting operations — why it's now a design requirement, not a future project.</div>
-        <div class="agc-footer"><span>Coming Soon</span><span class="agc-arrow">—</span></div>
+      <h1>Where <em>Cyber Risk</em><br>Meets the Boardroom</h1>
+      <p class="hero-desc">Intelligence for leaders shaping digital civilization — translated from technical threat to executive strategy, without losing the signal.</p>
+      <div class="hero-actions">
+        <a href="/articles/" class="btn btn-solid">Read the Analysis</a>
+        <a href="/about/" class="btn btn-ghost">About Catrina</a>
       </div>
     </div>
-  </div>
-</section>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <div class="hero-stat-value">$10.5T</div>
+        <div class="hero-stat-label">Annual cost of cybercrime by 2025</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">4.8M</div>
+        <div class="hero-stat-label">Global cybersecurity workforce gap</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">82:1</div>
+        <div class="hero-stat-label">AI agents to human workers in enterprise</div>
+      </div>
+    </div>
+  </section>
 
-<!-- SERIES -->
-<section class="series-section">
-  <div class="container">
-    <div class="section-label reveal"><span class="mono">Content Series</span></div>
-    <div class="series-grid">
-      <div class="series-card reveal">
-        <div class="series-num">I</div>
-        <div class="series-content">
-          <div class="series-label">Active Series</div>
-          <div class="series-name">The Great <em>Reckoning</em></div>
-          <div class="series-desc">An ongoing strategic analysis of how the foundational assumptions of cybersecurity have collapsed — and the radical architectural overhaul underway.</div>
-          <div class="series-count">1 of 5 published</div>
+  <!-- TICKER -->
+  <div id="ticker-mount"></div>
+
+  <!-- FEATURED -->
+  <section class="featured">
+    <div class="container">
+      <div class="section-label reveal"><span class="mono">Featured Analysis</span></div>
+      <div class="featured-layout">
+        <div class="featured-visual reveal">
+          <div class="featured-visual-bg"></div>
+          <div class="featured-visual-text">The Architecture<br>of Failure</div>
+          <div class="featured-frame">
+            <div class="featured-corner fc-tl"></div>
+            <div class="featured-corner fc-tr"></div>
+            <div class="featured-corner fc-bl"></div>
+            <div class="featured-corner fc-br"></div>
+          </div>
         </div>
-      </div>
-      <div class="series-card reveal">
-        <div class="series-num">II</div>
-        <div class="series-content">
-          <div class="series-label">Upcoming Series</div>
-          <div class="series-name">Quantum <em>Migration</em></div>
-          <div class="series-desc">A practitioner's guide to post-quantum cryptographic migration — from cryptographic inventory to full NIST FIPS compliance for enterprise organizations.</div>
-          <div class="series-count">Coming Q2 2026</div>
-        </div>
-      </div>
-      <div class="series-card reveal">
-        <div class="series-num">III</div>
-        <div class="series-content">
-          <div class="series-label">Upcoming Series</div>
-          <div class="series-name">The Board <em>Imperative</em></div>
-          <div class="series-desc">Cybersecurity briefings written for directors — covering fiduciary risk, incident response governance, regulatory obligations, and crisis communication.</div>
-          <div class="series-count">Coming Q3 2026</div>
-        </div>
-      </div>
-      <div class="series-card reveal">
-        <div class="series-num">IV</div>
-        <div class="series-content">
-          <div class="series-label">Upcoming Series</div>
-          <div class="series-name">Insider <em>Architecture</em></div>
-          <div class="series-desc">A deep-dive series on insider risk program design — behavioral analytics, identity governance, and the psychology of trusted-insider exploitation.</div>
-          <div class="series-count">Coming Q3 2026</div>
+        <div class="featured-content reveal">
+          <div class="featured-label">Strategic Analysis · March 2026</div>
+          <h2 class="featured-title">The Architecture of <em>Failure</em></h2>
+          <p class="featured-excerpt">How the old walls of cybersecurity crumbled — and the radical overhaul now rewriting the rules of digital defense forever. The perimeter is gone. The password is dead. The firewall is a relic. What comes next will define civilization's digital survival.</p>
+          <div class="featured-meta">
+            <span>12 min read</span>·<span>Catrina Turner</span>·<span>Zero Trust · Quantum · AI</span>
+          </div>
+          <a href="/articles/architecture-of-failure.html" class="btn btn-ghost">Read Full Analysis</a>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div id="footer-mount"></div>
+  <!-- ARTICLES -->
+  <section class="articles-section">
+    <div class="container">
+      <div class="section-label reveal"><span class="mono">Intelligence Library</span></div>
+      <div class="articles-grid">
+        <a href="/articles/architecture-of-failure.html" class="article-card reveal">
+          <div class="card-tag">Strategic Analysis</div>
+          <div class="card-title">The Architecture of <em>Failure</em></div>
+          <div class="card-excerpt">The perimeter model has collapsed. Zero Trust, post-quantum cryptography, and AI-native operations are rewriting the rules of digital defense.</div>
+          <div class="card-footer"><span>March 2026</span><span class="card-read">12 min →</span></div>
+        </a>
+        <div class="article-card coming-soon reveal">
+          <div class="card-tag">Quantum Risk</div>
+          <div class="card-title">Harvest Now, Decrypt <em>Later</em></div>
+          <div class="card-excerpt">Nation-state actors are collecting encrypted data today with one intention — decrypting it within a three-to-five year horizon.</div>
+          <div class="card-footer"><span>Coming Soon</span><span class="card-read">—</span></div>
+        </div>
+        <a href="/articles/enemy-inside-the-walls.html" class="article-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="card-tag">Insider Risk</div>
+          <div class="card-title">The Enemy Inside the <em>Walls</em></div>
+          <div class="card-excerpt">How organizations are rethinking insider threat programs — from punitive detection to behavioral analytics that identify anomaly before action.</div>
+          <div class="card-footer"><span>March 2026</span><span class="card-read"> · 14 min →</span></div>
+        </a>
+        <a href="/articles/ceo-doppelganger.html" class="article-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="card-tag">AI &amp; Security</div>
+          <div class="card-title">The CEO <em>Doppelgänger</em></div>
+          <div class="card-excerpt">Your executives' voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity — and draining corporate accounts at scale.</div>
+          <div class="card-footer"><span>March 2026</span><span class="card-read"> · 10 min →</span></div>
+        </a>
+        <div class="article-card coming-soon reveal">
+          <div class="card-tag">Board Governance</div>
+          <div class="card-title">Fiduciary <em>Exposure</em></div>
+          <div class="card-excerpt">Cybersecurity has become a matter of executive accountability. What boards must understand about legal and strategic obligations in the post-breach era.</div>
+          <div class="card-footer"><span>Coming Soon</span><span class="card-read">—</span></div>
+        </div>
+        <div class="article-card coming-soon reveal">
+          <div class="card-tag">Regulatory</div>
+          <div class="card-title">NIS2 &amp; the Supply Chain <em>Mandate</em></div>
+          <div class="card-excerpt">The EU's Cyber Resilience Act is embedding security requirements directly into product lifecycles. What organizations must do before deadlines arrive.</div>
+          <div class="card-footer"><span>Coming Soon</span><span class="card-read">—</span></div>
+        </div>
+      </div>
+      <div style="margin-top:40px; text-align:center;">
+        <a href="/articles/" class="btn btn-outline">View All Analysis →</a>
+      </div>
+    </div>
+  </section>
 
-<script src="/css/components.js"></script>
-<script>
-  document.getElementById('nav-mount').innerHTML = getNavHTML('Analysis');
-  document.getElementById('footer-mount').innerHTML = getFooterHTML();
+  <!-- TOPICS -->
+  <section class="topics-section">
+    <div class="container">
+      <div class="section-label reveal"><span class="mono">Intelligence Pillars</span></div>
+      <div class="topics-grid">
+        <a href="/topics/#quantum" class="topic-card reveal">
+          <div class="topic-num">01</div>
+          <div class="topic-name">Quantum <em>Risk</em></div>
+          <div class="topic-desc">Post-quantum cryptography, NIST FIPS standards, crypto agility, and the harvest-now-decrypt-later threat landscape.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+        <a href="/topics/#ai" class="topic-card reveal">
+          <div class="topic-num">02</div>
+          <div class="topic-name">AI-Native <em>Defense</em></div>
+          <div class="topic-desc">Autonomous threat detection, machine-speed response, and the adversarial use of generative AI at enterprise scale.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+        <a href="/topics/#governance" class="topic-card reveal">
+          <div class="topic-num">03</div>
+          <div class="topic-name">Executive <em>Governance</em></div>
+          <div class="topic-desc">Board-level risk communication, fiduciary obligations, and cybersecurity as a strategic executive imperative.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+        <a href="/topics/#insider" class="topic-card reveal">
+          <div class="topic-num">04</div>
+          <div class="topic-name">Insider <em>Intelligence</em></div>
+          <div class="topic-desc">Behavioral analytics, privileged access governance, and the psychology of insider risk in modern enterprise.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  function filterArticles(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('[data-category]').forEach(el => {
-      el.style.display = (cat === 'all' || el.dataset.category === cat) ? '' : 'none';
-    });
-  }
-</script>
+  <!-- AUTHOR -->
+  <section class="author-strip">
+    <div class="container author-strip-inner reveal">
+      <div class="author-monogram"><span>CT</span></div>
+      <div class="author-info">
+        <div class="author-name">Catrina <em>Turner</em></div>
+        <p class="author-bio">Principal of Imminent Flair. Senior cybersecurity professional and researcher at the intersection of security, quantum computing, and artificial intelligence. Advisor to C-suite leaders and boards navigating existential digital risk.</p>
+      </div>
+      <div class="author-rule"></div>
+      <a href="/about/" class="btn btn-ghost" style="flex-shrink:0;">Full Profile</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="nl-strip">
+    <div class="nl-strip-bg"></div>
+    <div class="container nl-strip-inner reveal">
+      <div class="nl-strip-text">
+        <div class="nl-strip-eyebrow">Intelligence Briefing</div>
+        <div class="nl-strip-title">Stay ahead of the <em>threat horizon</em></div>
+      </div>
+      <form class="nl-form" onsubmit="return false;">
+        <input type="email" placeholder="your@organization.com"/>
+        <button type="submit" onclick="this.textContent='Subscribed ✓'; this.style.background='#4a7c59'">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div id="footer-mount"></div>
+
+  <script src="/css/components.js"></script>
+  <script>
+    document.getElementById('nav-mount').innerHTML = getNavHTML('');
+    document.getElementById('ticker-mount').innerHTML = getTickerHTML();
+    document.getElementById('footer-mount').innerHTML = getFooterHTML();
+  </script>
 </body>
 </html>
