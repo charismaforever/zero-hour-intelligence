@@ -389,7 +389,7 @@
           <div class="sidebar-block-label">Share</div>
           <div class="share-links">
             <a href="https://linkedin.com/share" target="_blank" class="share-link">LinkedIn <span>↗</span></a>
-            <a href="mailto:?subject=The Architecture of Failure&body=https://imminentflair.com/articles/architecture-of-failure.html" class="share-link">Email <span>↗</span></a>
+            <a href="/cdn-cgi/l/email-protection#1a25696f78707f796e274e727f3a5b687972736e7f796e6f687f3a757c3a5c7b73766f687f3c78757e6327726e6e6a6920353573777773747f746e7c767b736834797577357b686e7379767f69357b687972736e7f796e6f687f37757c377c7b73766f687f34726e7776" class="share-link">Email <span>↗</span></a>
             <a href="#" onclick="navigator.clipboard.writeText(window.location.href); this.textContent='Copied ✓'; return false;" class="share-link">Copy Link</a>
           </div>
         </div>
@@ -409,12 +409,12 @@
         <p class="aeg-author-bio">Senior cybersecurity professional and researcher at the intersection of security, quantum computing, and artificial intelligence. Advisor to C-suite leaders and boards on existential digital risk strategy.</p>
         <a href="/about/" class="btn btn-ghost">Full Profile</a>
       </div>
-      <div class="aeg-next">
+      <div class="aeg-next" style="cursor:pointer;" onclick="window.location='/articles/harvest-now-decrypt-later.html'">
         <div>
           <div class="aeg-next-label">Next in the Series</div>
-          <div class="aeg-next-title">Harvest Now,<br>Decrypt Later</div>
+          <div class="aeg-next-title" style="color:var(--gold-dim);">Harvest Now,<br>Decrypt Later</div>
         </div>
-        <div class="aeg-next-note">Coming Soon · Quantum Risk Series</div>
+        <a href="/articles/harvest-now-decrypt-later.html" class="btn btn-ghost" style="align-self:flex-start;">Read Now →</a>
       </div>
     </div>
   </div>
@@ -440,11 +440,6 @@
 
 <div id="footer-mount"></div>
 
-<script src="/css/components.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/css/components.js"></script>
 <script>
-  document.getElementById('nav-mount').innerHTML = getNavHTML('Analysis');
-  document.getElementById('ticker-mount').innerHTML = getTickerHTML();
-  document.getElementById('footer-mount').innerHTML = getFooterHTML();
-</script>
-</body>
-</html>
+  docum
