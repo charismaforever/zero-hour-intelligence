@@ -3,276 +3,413 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Catrina Turner — Principal of Imminent Flair. Senior cybersecurity professional, researcher, and advisor at the intersection of security, quantum computing, and AI."/>
-  <title>About · Imminent Flair</title>
+  <meta name="description" content="Imminent Flair — Strategic cybersecurity intelligence by Catrina Turner. Translating technical risk into executive clarity for C-suite and board-level leaders."/>
+  <title>Imminent Flair · Cybersecurity Intelligence</title>
   <link rel="stylesheet" href="/css/global.css"/>
   <style>
-    .about-hero {
-      padding-top: 68px; min-height: 60vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      position: relative; overflow: hidden;
-    }
-    .ah-left {
-      background: var(--ink-mid); padding: 80px 64px 80px;
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; padding-top: 68px;
       display: flex; flex-direction: column; justify-content: flex-end;
-      border-right: 1px solid var(--rule);
+      padding-bottom: 88px;
       position: relative; overflow: hidden;
     }
-    .ah-left-bg {
+    .hero-bg {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 10% 80%, rgba(184,150,110,0.07) 0%, transparent 55%);
+      background:
+        radial-gradient(ellipse 90% 70% at 75% 25%, rgba(184,150,110,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 60% at 5% 85%, rgba(184,150,110,0.04) 0%, transparent 50%),
+        linear-gradient(160deg, #0f0e0d 0%, #090909 55%, #0b0a09 100%);
     }
-    .ah-left-grid {
+    .hero-grid {
       position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(184,150,110,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(184,150,110,0.025) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to top, black, transparent 60%);
+      background-image:
+        linear-gradient(rgba(184,150,110,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,150,110,0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, transparent 10%, black 35%, black 65%, transparent 100%);
     }
-    .ah-left-content { position: relative; z-index: 1; }
-    .ah-eyebrow { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .ah-name { font-family: var(--ff-display); font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; line-height: 1.0; color: var(--ivory); margin-bottom: 16px; }
-    .ah-title { font-family: var(--ff-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 32px; }
-    .ah-lead { font-size: 1.05rem; color: var(--mist); line-height: 1.8; max-width: 480px; }
+    .hero-line {
+      position: absolute; top: 0; right: 25%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(184,150,110,0.12) 30%, rgba(184,150,110,0.12) 70%, transparent);
+    }
 
-    .ah-right {
-      background: var(--ink-soft);
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 36px;
+      animation: fadeUp 0.9s var(--ease-out) both;
+    }
+    .hero-eyebrow .mono { color: var(--gold); }
+    .hero-eyebrow::after { content: ''; width: 100px; height: 1px; background: var(--rule); }
+
+    .hero h1 {
+      font-size: clamp(3.4rem, 7.5vw, 7rem);
+      font-weight: 300; letter-spacing: -0.02em;
+      margin-bottom: 32px; max-width: 900px;
+      animation: fadeUp 0.9s 0.1s var(--ease-out) both;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem; font-weight: 300; color: var(--mist);
+      max-width: 520px; line-height: 1.8; margin-bottom: 56px;
+      animation: fadeUp 0.9s 0.2s var(--ease-out) both;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; gap: 36px;
+      animation: fadeUp 0.9s 0.3s var(--ease-out) both;
+    }
+
+    .hero-stat-row {
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%); width: 22%;
+      display: flex; flex-direction: column; gap: 2px;
+      animation: fadeUp 0.9s 0.4s var(--ease-out) both;
+    }
+    .hero-stat {
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--rule);
+      border-right: none;
+      padding: 20px 28px;
+    }
+    .hero-stat-value { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 300; color: var(--gold-light); line-height: 1; margin-bottom: 6px; }
+    .hero-stat-label { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); line-height: 1.5; }
+
+    /* ── FEATURED ── */
+    .featured {
+      background: var(--ink-mid);
+      border-top: 1px solid var(--rule);
+      padding: 100px 0;
+    }
+    .featured-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .featured-visual {
+      position: relative; aspect-ratio: 4/3;
+      background: var(--ink-soft); overflow: hidden;
+    }
+    .featured-visual-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(184,150,110,0.1) 0%, transparent 70%);
+    }
+    .featured-visual-text {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; padding: 40px;
+      font-family: var(--ff-display); font-size: clamp(2rem,4vw,3.8rem);
+      font-weight: 300; font-style: italic; color: rgba(184,150,110,0.28);
+      text-align: center; line-height: 1.15;
+    }
+    .featured-frame {
+      position: absolute; inset: 0; border: 1px solid var(--rule);
+      pointer-events: none;
+    }
+    .featured-corner {
+      position: absolute; width: 18px; height: 18px;
+      border-color: var(--gold); border-style: solid; border-width: 0;
+    }
+    .fc-tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+    .fc-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+    .fc-bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+    .fc-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+    .featured-label {
+      font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .featured-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .featured-title { font-size: clamp(1.6rem,2.8vw,2.6rem); margin-bottom: 20px; }
+    .featured-excerpt { font-size: 0.95rem; color: var(--mist); line-height: 1.85; margin-bottom: 28px; }
+    .featured-meta {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 36px;
+      font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold-dim);
+    }
+    .featured-meta span { color: var(--mist-light); }
+
+    /* ── ARTICLES GRID ── */
+    .articles-section { padding: 100px 0; border-top: 1px solid var(--rule); }
+    .articles-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .article-card {
+      background: var(--ink); padding: 40px;
+      display: flex; flex-direction: column; gap: 14px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .article-card:hover { background: var(--ink-soft); }
+    .article-card.coming-soon { opacity: 0.45; pointer-events: none; }
+    .card-tag { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .card-title { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 400; color: var(--ivory); line-height: 1.2; flex: 1; }
+    .card-excerpt { font-size: 0.88rem; color: var(--mist); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); }
+    .card-read { color: var(--mist-light); }
+    a.article-card { text-decoration: none; color: inherit; }
+
+    /* ── TOPICS PREVIEW ── */
+    .topics-section {
+      background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 100px 0;
+    }
+    .topics-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    }
+    .topic-card {
+      background: var(--ink-mid); padding: 40px 32px;
+      display: flex; flex-direction: column; gap: 20px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .topic-card:hover { background: var(--ink-soft); }
+    .topic-num { font-family: var(--ff-display); font-size: 2.8rem; font-weight: 300; color: rgba(184,150,110,0.18); line-height: 1; }
+    .topic-name { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 400; color: var(--ivory); }
+    .topic-desc { font-size: 0.88rem; color: var(--mist); line-height: 1.75; flex: 1; }
+    .topic-link { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); transition: color 0.2s; }
+    .topic-card:hover .topic-link { color: var(--gold-light); }
+
+    /* ── AUTHOR STRIP ── */
+    .author-strip {
+      border-top: 1px solid var(--rule); padding: 80px 0;
+    }
+    .author-strip-inner {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 48px;
+    }
+    .author-monogram {
+      width: 88px; height: 88px; border: 1px solid var(--rule);
       display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden; min-height: 400px;
+      background: var(--ink-soft); flex-shrink: 0;
     }
-    .ah-right-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(184,150,110,0.1) 0%, transparent 65%); }
-    .ah-monogram {
-      position: relative; z-index: 1;
-      font-family: var(--ff-display); font-size: 10rem; font-weight: 300;
-      font-style: italic; color: rgba(184,150,110,0.15); line-height: 1; user-select: none;
+    .author-monogram span { font-family: var(--ff-display); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold-dim); }
+    .author-info {}
+    .author-name { font-family: var(--ff-display); font-size: 1.8rem; font-weight: 400; color: var(--ivory); margin-bottom: 8px; }
+    .author-bio { font-size: 0.95rem; color: var(--mist); line-height: 1.8; max-width: 560px; }
+    .author-rule { width: 1px; height: 80px; background: var(--rule); }
+
+    /* ── NEWSLETTER STRIP ── */
+    .nl-strip {
+      background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 80px 0;
+      position: relative; overflow: hidden;
     }
-    .ah-right-border { position: absolute; inset: 40px; border: 1px solid var(--rule); pointer-events: none; }
-    .ah-corner { position: absolute; width: 20px; height: 20px; border-color: var(--gold); border-style: solid; border-width: 0; }
-    .ahc-tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
-    .ahc-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
-    .ahc-bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
-    .ahc-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+    .nl-strip-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 50% 120% at 50% 50%, rgba(184,150,110,0.05) 0%, transparent 70%); }
+    .nl-strip-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 60px; }
+    .nl-strip-text {}
+    .nl-strip-eyebrow { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .nl-strip-title { font-family: var(--ff-display); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 300; color: var(--ivory); }
+    .nl-form { display: flex; min-width: 400px; border: 1px solid var(--rule); }
+    .nl-form input { flex: 1; background: transparent; border: none; outline: none; padding: 14px 20px; font-family: var(--ff-body); font-size: 0.9rem; color: var(--ivory); font-weight: 300; }
+    .nl-form input::placeholder { color: var(--gold-dim); }
+    .nl-form button { background: var(--gold); border: none; padding: 14px 24px; font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 400; transition: background 0.25s; white-space: nowrap; }
+    .nl-form button:hover { background: var(--gold-light); }
 
-    /* CREDENTIALS BAND */
-    .cred-band {
-      display: grid; grid-template-columns: repeat(4,1fr);
-      gap: 1px; background: var(--rule); border-bottom: 1px solid var(--rule);
+    @media (max-width: 1024px) {
+      .hero-stat-row { display: none; }
+      .featured-layout { grid-template-columns: 1fr; gap: 48px; }
+      .articles-grid { grid-template-columns: 1fr 1fr; }
+      .topics-grid { grid-template-columns: 1fr 1fr; }
+      .nl-strip-inner { flex-direction: column; align-items: flex-start; }
+      .nl-form { min-width: 100%; width: 100%; }
     }
-    .cred-cell { background: var(--ink-mid); padding: 32px; }
-    .cred-label { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-    .cred-value { font-family: var(--ff-display); font-size: 1.1rem; font-weight: 400; color: var(--ivory); }
-
-    /* BIO SECTION */
-    .bio-section { padding: 80px 0; }
-    .bio-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-    .bio-col h3 { font-family: var(--ff-display); font-size: 1.6rem; color: var(--ivory); margin-bottom: 20px; }
-    .bio-col p { font-size: 0.97rem; color: var(--mist); line-height: 1.85; margin-bottom: 1.4em; }
-
-    /* EXPERTISE */
-    .expertise-section { background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 80px 0; }
-    .expertise-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-    .exp-item { background: var(--ink-mid); padding: 36px; }
-    .exp-icon { font-family: var(--ff-display); font-size: 2rem; color: rgba(184,150,110,0.3); margin-bottom: 16px; }
-    .exp-label { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-    .exp-name { font-family: var(--ff-display); font-size: 1.2rem; color: var(--ivory); margin-bottom: 10px; }
-    .exp-desc { font-size: 0.88rem; color: var(--mist); line-height: 1.75; }
-
-    /* APPROACH */
-    .approach-section { padding: 80px 0; border-top: 1px solid var(--rule); }
-    .approach-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
-    .approach-label { font-family: var(--ff-display); font-size: 2rem; font-weight: 300; color: rgba(184,150,110,0.3); }
-    .approach-content {}
-    .approach-title { font-family: var(--ff-display); font-size: clamp(1.5rem,2.5vw,2.2rem); font-weight: 400; color: var(--ivory); margin-bottom: 20px; }
-    .approach-text { font-size: 0.97rem; color: var(--mist); line-height: 1.85; margin-bottom: 1.4em; }
-
-    .pullquote-standalone {
-      border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
-      padding: 40px 0; margin: 3em 0;
-    }
-    .pullquote-standalone p { font-family: var(--ff-display); font-size: clamp(1.2rem,2vw,1.7rem); font-style: italic; color: var(--gold-pale); font-weight: 300; line-height: 1.5; }
-
-    /* CONNECT */
-    .connect-section { background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 80px 0; }
-    .connect-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-    .connect-card { background: var(--ink-mid); padding: 40px; display: flex; flex-direction: column; gap: 16px; text-decoration: none; transition: background 0.3s; }
-    .connect-card:hover { background: var(--ink-soft); }
-    .connect-card-label { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-    .connect-card-name { font-family: var(--ff-display); font-size: 1.35rem; color: var(--ivory); }
-    .connect-card-desc { font-size: 0.88rem; color: var(--mist); line-height: 1.75; flex: 1; }
-    .connect-card-link { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); transition: color 0.2s; }
-    .connect-card:hover .connect-card-link { color: var(--gold-light); }
-
-    @media(max-width:1024px) {
-      .about-hero { grid-template-columns: 1fr; }
-      .ah-right { min-height: 280px; }
-      .cred-band { grid-template-columns: 1fr 1fr; }
-      .bio-layout { grid-template-columns: 1fr; gap: 40px; }
-      .expertise-grid { grid-template-columns: 1fr 1fr; }
-      .approach-inner { grid-template-columns: 1fr; gap: 32px; }
-      .connect-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media(max-width:768px) {
-      .ah-left { padding: 60px 24px 60px; }
-      .cred-band { grid-template-columns: 1fr 1fr; }
-      .expertise-grid { grid-template-columns: 1fr; }
-      .connect-grid { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.6rem; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .topics-grid { grid-template-columns: 1fr; }
+      .author-strip-inner { grid-template-columns: 1fr; text-align: center; }
+      .author-rule { display: none; }
+      .author-monogram { margin: 0 auto; }
     }
   </style>
 </head>
 <body>
 
-<div id="nav-mount"></div>
+  <!-- NAV -->
+  <div id="nav-mount"></div>
 
-<!-- ABOUT HERO -->
-<div class="about-hero">
-  <div class="ah-left reveal">
-    <div class="ah-left-bg"></div>
-    <div class="ah-left-grid"></div>
-    <div class="ah-left-content">
-      <div class="ah-eyebrow">Principal · Imminent Flair</div>
-      <h1 class="ah-name">Catrina<br><em>Turner</em></h1>
-      <div class="ah-title">Cybersecurity Intelligence · Quantum Risk · AI Security</div>
-      <p class="ah-lead">I translate the most complex, consequential risks in the digital world into language that moves leaders to act — before the breach, not after.</p>
-    </div>
-  </div>
-  <div class="ah-right reveal">
-    <div class="ah-right-bg"></div>
-    <div class="ah-monogram">CT</div>
-    <div class="ah-right-border">
-      <div class="ah-corner ahc-tl"></div>
-      <div class="ah-corner ahc-tr"></div>
-      <div class="ah-corner ahc-bl"></div>
-      <div class="ah-corner ahc-br"></div>
-    </div>
-  </div>
-</div>
-
-<!-- CREDENTIALS BAND -->
-<div class="cred-band">
-  <div class="cred-cell reveal"><div class="cred-label">Firm</div><div class="cred-value">Imminent Flair</div></div>
-  <div class="cred-cell reveal"><div class="cred-label">Focus</div><div class="cred-value">Cybersecurity · Quantum · AI</div></div>
-  <div class="cred-cell reveal"><div class="cred-label">Audience</div><div class="cred-value">C-Suite · Board-Level</div></div>
-  <div class="cred-cell reveal"><div class="cred-label">Research</div><div class="cred-value">ORCID-Verified Publications</div></div>
-</div>
-
-<!-- BIO -->
-<section class="bio-section">
-  <div class="container">
-    <div class="section-label reveal"><span class="mono">Background</span></div>
-    <div class="bio-layout">
-      <div class="bio-col reveal">
-        <h3>The <em>Mission</em></h3>
-        <p>Imminent Flair exists because the gap between technical cybersecurity reality and executive understanding is costing organizations billions — and in some cases, threatening their existence. That gap is not a failure of intelligence on the part of executives. It is a failure of translation on the part of the security industry.</p>
-        <p>My work is built around a single conviction: that the most consequential cybersecurity decisions are made by people who were never trained as security professionals — and they deserve the same quality of strategic intelligence that the best technical teams receive, expressed in the language of risk, governance, and business outcome.</p>
-        <p>This blog is where that research becomes public — unfiltered, without vendor sponsorship, and without the softening that happens when intelligence is packaged for mass consumption.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-line"></div>
+    <div class="container hero-content">
+      <div class="hero-eyebrow">
+        <span class="mono">Strategic Intelligence · Executive Briefings · March 2026</span>
       </div>
-      <div class="bio-col reveal">
-        <h3>The <em>Research</em></h3>
-        <p>My research operates at three convergences: cybersecurity strategy and business risk; quantum computing and its near-term implications for cryptographic infrastructure; and artificial intelligence as both a defensive tool and an adversarial weapon.</p>
-        <p>These aren't three separate fields. They are three dimensions of the same existential challenge facing every organization that transmits, stores, or processes sensitive information in 2026. The quantum threat to today's encryption. The AI-enabled attacker operating at machine speed. The insider risk hiding in plain sight within identity infrastructure. They are interconnected — and they require leaders who understand the intersections, not just the individual components.</p>
-        <p>Academic work is catalogued under my ORCID profile, with a focus on applied research that bridges the practitioner and theoretical worlds.</p>
+      <h1>Where <em>Cyber Risk</em><br>Meets the Boardroom</h1>
+      <p class="hero-desc">Intelligence for leaders shaping digital civilization — translated from technical threat to executive strategy, without losing the signal.</p>
+      <div class="hero-actions">
+        <a href="/articles/" class="btn btn-solid">Read the Analysis</a>
+        <a href="/about/" class="btn btn-ghost">About Catrina</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- EXPERTISE -->
-<section class="expertise-section">
-  <div class="container">
-    <div class="section-label reveal"><span class="mono">Areas of Expertise</span></div>
-    <div class="expertise-grid">
-      <div class="exp-item reveal">
-        <div class="exp-icon">◈</div>
-        <div class="exp-label">Cryptography</div>
-        <div class="exp-name">Post-Quantum Migration</div>
-        <div class="exp-desc">NIST FIPS standards, cryptographic inventorying, migration roadmap design, and crypto agility architecture for organizations with long-lived sensitive data.</div>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <div class="hero-stat-value">$10.5T</div>
+        <div class="hero-stat-label">Annual cost of cybercrime by 2025</div>
       </div>
-      <div class="exp-item reveal">
-        <div class="exp-icon">◈</div>
-        <div class="exp-label">Threat Intelligence</div>
-        <div class="exp-name">Insider Risk Programs</div>
-        <div class="exp-desc">Behavioral analytics-based detection, privileged access governance, program architecture, and the organizational culture factors that reduce insider threat before incident.</div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">4.8M</div>
+        <div class="hero-stat-label">Global cybersecurity workforce gap</div>
       </div>
-      <div class="exp-item reveal">
-        <div class="exp-icon">◈</div>
-        <div class="exp-label">Governance</div>
-        <div class="exp-name">Executive &amp; Board Advisory</div>
-        <div class="exp-desc">Board-level risk communication, fiduciary cyber obligation frameworks, crisis response governance, and translating technical risk into business language for non-technical decision-makers.</div>
-      </div>
-      <div class="exp-item reveal">
-        <div class="exp-icon">◈</div>
-        <div class="exp-label">Architecture</div>
-        <div class="exp-name">Zero Trust Frameworks</div>
-        <div class="exp-desc">Zero Trust design, implementation strategy, and organizational change management for enterprises transitioning away from perimeter-based security architectures.</div>
-      </div>
-      <div class="exp-item reveal">
-        <div class="exp-icon">◈</div>
-        <div class="exp-label">Artificial Intelligence</div>
-        <div class="exp-name">AI-Native Security Operations</div>
-        <div class="exp-desc">Autonomous threat detection strategy, AI agent identity governance, adversarial AI analysis, and the operational integration of machine-speed security response.</div>
-      </div>
-      <div class="exp-item reveal">
-        <div class="exp-icon">◈</div>
-        <div class="exp-label">Risk Strategy</div>
-        <div class="exp-name">Cyber Resilience Design</div>
-        <div class="exp-desc">Organizational resilience architecture that accepts breach as operational certainty — designing systems, processes, and culture for detection, containment, and rapid recovery.</div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">82:1</div>
+        <div class="hero-stat-label">AI agents to human workers in enterprise</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- APPROACH -->
-<section class="approach-section">
-  <div class="container">
-    <div class="approach-inner reveal">
-      <div class="approach-label">The Approach</div>
-      <div class="approach-content">
-        <h2 class="approach-title">Intelligence that <em>moves</em> people to act</h2>
-        <p class="approach-text">The security industry has a communication problem. Technical teams produce brilliant analysis that never reaches the people with the authority and budget to act on it. Boards receive sanitized summaries that obscure the magnitude of risk. Executives make decisions in a vacuum because the intelligence they receive was designed for a different audience.</p>
-        <p class="approach-text">Imminent Flair was built to close that gap — not by dumbing down the technical reality, but by elevating the quality and precision of the strategic translation. The executives and board members I advise don't need to understand how a cryptographic algorithm works. They need to understand what it means that the algorithm protecting their data will be broken within three to five years — and what decisions need to be made today, before that window closes.</p>
-        <div class="pullquote-standalone">
-          <p>"The strongest security programs are not the most rigid ones. They are the ones that adapt without losing control."</p>
+  <!-- TICKER -->
+  <div id="ticker-mount"></div>
+
+  <!-- FEATURED -->
+  <section class="featured">
+    <div class="container">
+      <div class="section-label reveal"><span class="mono">Featured Analysis</span></div>
+      <div class="featured-layout">
+        <div class="featured-visual reveal">
+          <div class="featured-visual-bg"></div>
+          <div class="featured-visual-text">The Architecture<br>of Failure</div>
+          <div class="featured-frame">
+            <div class="featured-corner fc-tl"></div>
+            <div class="featured-corner fc-tr"></div>
+            <div class="featured-corner fc-bl"></div>
+            <div class="featured-corner fc-br"></div>
+          </div>
         </div>
-        <p class="approach-text">That is the standard this blog holds itself to: intelligence precise enough to be actionable, clear enough to be understood by any leader, and honest enough to say the things the industry often won't.</p>
+        <div class="featured-content reveal">
+          <div class="featured-label">Strategic Analysis · March 2026</div>
+          <h2 class="featured-title">The Architecture of <em>Failure</em></h2>
+          <p class="featured-excerpt">How the old walls of cybersecurity crumbled — and the radical overhaul now rewriting the rules of digital defense forever. The perimeter is gone. The password is dead. The firewall is a relic. What comes next will define civilization's digital survival.</p>
+          <div class="featured-meta">
+            <span>12 min read</span>·<span>Catrina Turner</span>·<span>Zero Trust · Quantum · AI</span>
+          </div>
+          <a href="/articles/architecture-of-failure.html" class="btn btn-ghost">Read Full Analysis</a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONNECT -->
-<section class="connect-section">
-  <div class="container">
-    <div class="section-label reveal"><span class="mono">Connect</span></div>
-    <div class="connect-grid">
-      <a href="https://linkedin.com/in/" target="_blank" class="connect-card reveal">
-        <div class="connect-card-label">Professional Network</div>
-        <div class="connect-card-name">LinkedIn</div>
-        <div class="connect-card-desc">Strategic commentary, analysis updates, and professional engagement with executive and board-level security leaders.</div>
-        <div class="connect-card-link">View Profile →</div>
-      </a>
-      <a href="https://orcid.org/" target="_blank" class="connect-card reveal">
-        <div class="connect-card-label">Academic Research</div>
-        <div class="connect-card-name">ORCID Profile</div>
-        <div class="connect-card-desc">Verified academic and research publications at the intersection of cybersecurity, quantum computing, and artificial intelligence.</div>
-        <div class="connect-card-link">View Research →</div>
-      </a>
-      <a href="/newsletter/" class="connect-card reveal">
-        <div class="connect-card-label">Intelligence Briefing</div>
-        <div class="connect-card-name">Newsletter</div>
-        <div class="connect-card-desc">Strategic analysis delivered directly to executive and board-level audiences. No noise. No vendor pitches. Only the intelligence that shapes decisions.</div>
-        <div class="connect-card-link">Subscribe →</div>
-      </a>
+  <!-- ARTICLES -->
+  <section class="articles-section">
+    <div class="container">
+      <div class="section-label reveal"><span class="mono">Intelligence Library</span></div>
+      <div class="articles-grid">
+        <a href="/articles/architecture-of-failure.html" class="article-card reveal">
+          <div class="card-tag">Strategic Analysis</div>
+          <div class="card-title">The Architecture of <em>Failure</em></div>
+          <div class="card-excerpt">The perimeter model has collapsed. Zero Trust, post-quantum cryptography, and AI-native operations are rewriting the rules of digital defense.</div>
+          <div class="card-footer"><span>March 2026</span><span class="card-read">12 min →</span></div>
+        </a>
+        <a href="/articles/harvest-now-decrypt-later.html" class="article-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="card-tag">Quantum Risk</div>
+          <div class="card-title">Harvest Now, Decrypt <em>Later</em></div>
+          <div class="card-excerpt">Nation-state actors are collecting encrypted data today with one intention — decrypting it within a three-to-five year horizon.</div>
+          <div class="card-footer"><span>March 2026</span><span class="card-read">14 min →</span></div>
+        </a>
+        <a href="/articles/enemy-inside-the-walls.html" class="article-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="card-tag">Insider Risk</div>
+          <div class="card-title">The Enemy Inside the <em>Walls</em></div>
+          <div class="card-excerpt">How organizations are rethinking insider threat programs — from punitive detection to behavioral analytics that identify anomaly before action.</div>
+          <div class="card-footer"><span>March 2026</span><span class="card-read"> · 14 min →</span></div>
+        </a>
+        <a href="/articles/ceo-doppelganger.html" class="article-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="card-tag">AI &amp; Security</div>
+          <div class="card-title">The CEO <em>Doppelgänger</em></div>
+          <div class="card-excerpt">Your executives' voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity — and draining corporate accounts at scale.</div>
+          <div class="card-footer"><span>March 2026</span><span class="card-read"> · 10 min →</span></div>
+        </a>
+        <a href="/articles/fiduciary-exposure.html" class="article-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="card-tag">Board Governance</div>
+          <div class="card-title">Fiduciary <em>Exposure</em></div>
+          <div class="card-excerpt">Cybersecurity has become a matter of executive accountability. What boards must understand about legal and strategic obligations in the post-breach era.</div>
+          <div class="card-footer"><span>April 2026</span><span class="card-read">13 min →</span></div>
+        </a>
+        <div class="article-card coming-soon reveal">
+          <div class="card-tag">Regulatory</div>
+          <div class="card-title">NIS2 &amp; the Supply Chain <em>Mandate</em></div>
+          <div class="card-excerpt">The EU's Cyber Resilience Act is embedding security requirements directly into product lifecycles. What organizations must do before deadlines arrive.</div>
+          <div class="card-footer"><span>Coming Soon</span><span class="card-read">—</span></div>
+        </div>
+      </div>
+      <div style="margin-top:40px; text-align:center;">
+        <a href="/articles/" class="btn btn-outline">View All Analysis →</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div id="ticker-mount"></div>
-<div id="footer-mount"></div>
+  <!-- TOPICS -->
+  <section class="topics-section">
+    <div class="container">
+      <div class="section-label reveal"><span class="mono">Intelligence Pillars</span></div>
+      <div class="topics-grid">
+        <a href="/topics/#quantum" class="topic-card reveal">
+          <div class="topic-num">01</div>
+          <div class="topic-name">Quantum <em>Risk</em></div>
+          <div class="topic-desc">Post-quantum cryptography, NIST FIPS standards, crypto agility, and the harvest-now-decrypt-later threat landscape.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+        <a href="/topics/#ai" class="topic-card reveal">
+          <div class="topic-num">02</div>
+          <div class="topic-name">AI-Native <em>Defense</em></div>
+          <div class="topic-desc">Autonomous threat detection, machine-speed response, and the adversarial use of generative AI at enterprise scale.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+        <a href="/topics/#governance" class="topic-card reveal">
+          <div class="topic-num">03</div>
+          <div class="topic-name">Executive <em>Governance</em></div>
+          <div class="topic-desc">Board-level risk communication, fiduciary obligations, and cybersecurity as a strategic executive imperative.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+        <a href="/topics/#insider" class="topic-card reveal">
+          <div class="topic-num">04</div>
+          <div class="topic-name">Insider <em>Intelligence</em></div>
+          <div class="topic-desc">Behavioral analytics, privileged access governance, and the psychology of insider risk in modern enterprise.</div>
+          <div class="topic-link">Explore →</div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-<script src="/css/components.js"></script>
-<script>
-  document.getElementById('nav-mount').innerHTML = getNavHTML('About');
-  document.getElementById('ticker-mount').innerHTML = getTickerHTML();
-  document.getElementById('footer-mount').innerHTML = getFooterHTML();
-</script>
+  <!-- AUTHOR -->
+  <section class="author-strip">
+    <div class="container author-strip-inner reveal">
+      <div class="author-monogram"><span>CT</span></div>
+      <div class="author-info">
+        <div class="author-name">Catrina <em>Turner</em></div>
+        <p class="author-bio">Principal of Imminent Flair. Senior cybersecurity professional and researcher at the intersection of security, quantum computing, and artificial intelligence. Advisor to C-suite leaders and boards navigating existential digital risk.</p>
+      </div>
+      <div class="author-rule"></div>
+      <a href="/about/" class="btn btn-ghost" style="flex-shrink:0;">Full Profile</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="nl-strip">
+    <div class="nl-strip-bg"></div>
+    <div class="container nl-strip-inner reveal">
+      <div class="nl-strip-text">
+        <div class="nl-strip-eyebrow">Intelligence Briefing</div>
+        <div class="nl-strip-title">Stay ahead of the <em>threat horizon</em></div>
+      </div>
+      <form class="nl-form" onsubmit="return false;">
+        <input type="email" placeholder="your@organization.com"/>
+        <button type="submit" onclick="this.textContent='Subscribed ✓'; this.style.background='#4a7c59'">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div id="footer-mount"></div>
+
+  <script src="/css/components.js"></script>
+  <script>
+    document.getElementById('nav-mount').innerHTML = getNavHTML('');
+    document.getElementById('ticker-mount').innerHTML = getTickerHTML();
+    document.getElementById('footer-mount').innerHTML = getFooterHTML();
+  </script>
 </body>
 </html>
