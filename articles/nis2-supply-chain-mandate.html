@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="The EU's Cyber Resilience Act is embedding security requirements directly into product lifecycles. What organizations must do before the clock runs out."/>
+  <meta property="og:title" content="NIS2 & the Supply Chain Mandate | Zero Hour Intelligence"/>
+  <meta property="og:description" content="The EU's Cyber Resilience Act is embedding security requirements directly into product lifecycles. What organizations must do before the clock runs out."/>
+  <meta property="og:type" content="article"/>
+  <title>NIS2 & the Supply Chain Mandate | Zero Hour Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── CSS VARIABLES (inlined from global.css) ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:        #0a0a09;
+      --ink-mid:    #111110;
+      --ink-soft:   #1a1a18;
+      --ivory:      #f0ede6;
+      --ivory-dim:  #c8c4bc;
+      --mist:       #8a8680;
+      --mist-light: #a8a49e;
+      --gold:       #b8966e;
+      --gold-light: #d4aa84;
+      --gold-dim:   #7a6448;
+      --rule:       rgba(184,150,110,0.18);
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Inter', system-ui, sans-serif;
+      --ff-mono:    'DM Mono', 'Courier New', monospace;
+      --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--ink); color: var(--ivory); font-family: var(--ff-body); font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, h4 { font-family: var(--ff-display); font-weight: 300; }
+    em { font-style: italic; }
+    a { color: var(--gold); }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .mono { font-family: var(--ff-mono); }
+    .section-label { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+    .btn { display: inline-flex; align-items: center; padding: 12px 28px; font-family: var(--ff-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; cursor: pointer; border: none; }
+    .btn-solid { background: var(--gold); color: var(--ink); }
+    .btn-solid:hover { background: var(--gold-light); }
+    .btn-ghost { border: 1px solid var(--rule); color: var(--mist-light); background: transparent; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+    .btn-outline { border: 1px solid var(--rule); color: var(--mist-light); background: transparent; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── NAV ── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(10,10,9,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(184,150,110,0.18); }
+    .nav-logo { display: flex; flex-direction: column; text-decoration: none; gap: 1px; }
+    .nav-logo-name { font-family: var(--ff-display); font-size: 1.05rem; font-weight: 400; color: var(--ivory); letter-spacing: 0.02em; line-height: 1; }
+    .nav-logo-sub { font-family: var(--ff-mono); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ivory); }
+    .nav-cta { border: 1px solid var(--rule) !important; padding: 8px 18px; color: var(--gold) !important; }
+    .nav-cta:hover { border-color: var(--gold) !important; background: rgba(184,150,110,0.06); }
+
+    /* ── TICKER ── */
+    .ticker { background: var(--ink-soft); border-bottom: 1px solid var(--rule); height: 36px; overflow: hidden; }
+    .ticker-track { display: flex; align-items: center; height: 100%; white-space: nowrap; animation: tickerScroll 40s linear infinite; font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); }
+    .ticker-dot { display: inline-block; width: 3px; height: 3px; background: var(--gold-dim); border-radius: 50%; margin: 0 16px; flex-shrink: 0; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--ink-soft); border-top: 1px solid var(--rule); padding: 64px 0 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
+    .footer-brand-name { font-family: var(--ff-display); font-size: 1.4rem; font-weight: 400; color: var(--ivory); margin-bottom: 4px; }
+    .footer-brand-sub { font-family: var(--ff-mono); font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; }
+    .footer-brand-desc { font-size: 0.85rem; color: var(--mist); line-height: 1.8; }
+    .footer-col h4 { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { font-size: 0.85rem; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--ivory); }
+    .footer-bottom { display: flex; justify-content: space-between; padding: 20px 0; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.54rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-bottom { flex-direction: column; gap: 8px; } }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero {
+      min-height: 52vh;
+      padding-top: 68px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 30%, rgba(184,150,110,0.09) 0%, transparent 55%),
+        linear-gradient(160deg, #0f0e0d 0%, #090909 60%, #0b0a09 100%);
+    }
+    .article-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(184,150,110,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,150,110,0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, transparent 10%, black 40%, black 70%, transparent 100%);
+    }
+    .article-hero-content { position: relative; z-index: 2; }
+    .article-kicker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s var(--ease-out) both;
+    }
+    .article-kicker .mono { color: var(--gold); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .article-kicker .dot { width: 3px; height: 3px; background: var(--rule); border-radius: 50%; }
+    .article-hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      max-width: 800px;
+      line-height: 1.12;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s 0.1s var(--ease-out) both;
+    }
+    .article-hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--mist);
+      max-width: 580px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+      animation: fadeUp 0.8s 0.2s var(--ease-out) both;
+    }
+    .article-meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      animation: fadeUp 0.8s 0.3s var(--ease-out) both;
+      flex-wrap: wrap;
+    }
+    .article-meta-bar .mono { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); }
+    .article-meta-bar span { color: var(--mist-light); }
+
+    /* ── ARTICLE LAYOUT ── */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 60px;
+      padding: 80px 0 100px;
+      align-items: start;
+    }
+
+    /* ── BODY COPY ── */
+    .article-body { min-width: 0; }
+    .article-body p {
+      font-size: 1rem;
+      color: var(--ivory-dim, #c8c4bc);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .article-body p:first-of-type::first-letter {
+      font-family: var(--ff-display);
+      font-size: 3.8rem;
+      font-weight: 300;
+      float: left;
+      line-height: 0.82;
+      margin-right: 0.08em;
+      margin-top: 0.1em;
+      color: var(--gold);
+    }
+
+    /* ── SECTION HEADS ── */
+    .section-head {
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-num {
+      font-family: var(--ff-mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+    .section-head h2 {
+      font-family: var(--ff-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ivory);
+      line-height: 1.2;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 2.5rem 0;
+      padding: 1.5rem 1.75rem;
+      border-left: 2px solid var(--gold);
+      background: rgba(184,150,110,0.04);
+    }
+    .pull-quote p {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ivory) !important;
+      line-height: 1.55;
+      margin-bottom: 0 !important;
+    }
+    .pull-quote p::first-letter { all: unset; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--ink-soft);
+      border-left: 2px solid var(--gold);
+    }
+    .callout-label {
+      font-family: var(--ff-mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .callout p {
+      font-size: 0.9rem !important;
+      color: var(--mist) !important;
+      margin-bottom: 0 !important;
+      line-height: 1.75 !important;
+    }
+    .callout p::first-letter { all: unset; }
+
+    /* ── COMPLIANCE TABLE ── */
+    .compliance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.75rem 0 2rem;
+      font-size: 0.88rem;
+    }
+    .compliance-table thead tr { background: var(--ink-soft); }
+    .compliance-table thead th {
+      font-family: var(--ff-mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 400;
+    }
+    .compliance-table tbody tr { border-bottom: 1px solid var(--rule); }
+    .compliance-table tbody tr:last-child { border-bottom: none; }
+    .compliance-table td {
+      padding: 0.8rem 1rem;
+      vertical-align: top;
+      line-height: 1.65;
+      color: var(--mist);
+    }
+    .compliance-table td:first-child {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      color: var(--ivory);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    /* ── ACTION LIST ── */
+    .action-list { list-style: none; margin: 1.25rem 0 1.75rem; }
+    .action-list li {
+      display: grid;
+      grid-template-columns: 1.25rem 1fr;
+      gap: 0 0.875rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--mist);
+      line-height: 1.75;
+    }
+    .action-list li::before { content: '▪'; color: var(--gold); font-size: 0.65rem; margin-top: 0.4rem; }
+    .action-list li strong { color: var(--ivory); }
+
+    /* ── STEP LIST ── */
+    .step-list { list-style: none; margin: 1.25rem 0 1.75rem; counter-reset: steps; }
+    .step-list li {
+      counter-increment: steps;
+      display: grid;
+      grid-template-columns: 2.25rem 1fr;
+      gap: 0 1rem;
+      margin-bottom: 1.1rem;
+      align-items: start;
+    }
+    .step-list li::before {
+      content: counter(steps);
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      background: rgba(184,150,110,0.08);
+      border: 1px solid rgba(184,150,110,0.2);
+      width: 1.75rem;
+      height: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .step-list li .step-body {
+      font-size: 0.95rem;
+      color: var(--mist);
+      line-height: 1.75;
+    }
+    .step-list li .step-body strong { color: var(--ivory); display: block; margin-bottom: 0.15rem; }
+
+    /* ── CLOSING RULE ── */
+    .article-rule { border: none; border-top: 1px solid var(--rule); margin: 3rem 0 2rem; }
+
+    /* ── SIDEBAR ── */
+    .article-sidebar { position: sticky; top: 88px; }
+    .sidebar-block {
+      border: 1px solid var(--rule);
+      background: var(--ink-mid);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .sidebar-label {
+      font-family: var(--ff-mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sidebar-toc { list-style: none; }
+    .sidebar-toc li {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(184,150,110,0.08);
+    }
+    .sidebar-toc li:last-child { border-bottom: none; }
+    .sidebar-toc a {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--mist-light);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar-toc a::before { content: '↗'; font-size: 0.55rem; color: var(--gold-dim); }
+    .sidebar-toc a:hover { color: var(--gold-light); }
+    .sidebar-detail {
+      font-family: var(--ff-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--mist);
+      line-height: 1.9;
+    }
+    .sidebar-detail strong { color: var(--gold-dim); display: block; }
+    .sidebar-share-btn {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--mist-light);
+      font-family: var(--ff-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .sidebar-share-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+
+    /* ── RELATED ── */
+    .related-section { padding: 80px 0; border-top: 1px solid var(--rule); }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-top: 40px;
+    }
+    .related-card {
+      background: var(--ink);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .related-card:hover { background: var(--ink-soft); }
+    .related-tag { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .related-title { font-family: var(--ff-display); font-size: 1.3rem; font-weight: 400; color: var(--ivory); line-height: 1.25; flex: 1; }
+    .related-read { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; color: var(--gold-dim); }
+
+    @media (max-width: 1024px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .article-sidebar { display: none; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .article-hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-mount"></div>
+
+  <!-- HERO -->
+  <section class="article-hero">
+    <div class="article-hero-bg"></div>
+    <div class="article-hero-grid"></div>
+    <div class="container article-hero-content">
+      <div class="article-kicker">
+        <span class="mono">Supply Chain</span>
+        <span class="dot"></span>
+        <span class="mono">Regulatory Compliance</span>
+        <span class="dot"></span>
+        <span class="mono">Vendor Risk</span>
+      </div>
+      <h1>NIS2 &amp; the Supply Chain <em>Mandate</em></h1>
+      <p class="article-hero-sub">The EU's Cyber Resilience Act is embedding security requirements directly into product lifecycles. What organizations must do before the clock runs out.</p>
+      <div class="article-meta-bar">
+        <span class="mono">By <span>Catrina Turner</span></span>
+        <span class="mono">April 2026</span>
+        <span class="mono">18 min read</span>
+        <span class="mono">Imminent Flair · Zero Hour Intelligence</span>
+      </div>
+    </div>
+  </section>
+
+  <div id="ticker-mount"></div>
+
+  <!-- MAIN CONTENT -->
+  <section style="border-top: 1px solid var(--rule);">
+    <div class="container">
+      <div class="article-layout">
+
+        <!-- BODY -->
+        <div class="article-body">
+
+          <p>The European Union did not write the Cyber Resilience Act as a bureaucratic exercise. It was written as a legal forcing function — designed to hold organizations accountable for the security of every product, every vendor, and every digital component they allow to touch their operations. The era of offloading liability to third parties is ending. What replaces it is a regime of documented, auditable, continuous supply chain security — and the organizations that have not yet treated this seriously are already behind.</p>
+
+          <p>NIS2, which entered into force in January 2023 and became legally binding across EU member states in October 2024, is not a privacy regulation. It is a resilience mandate. And unlike GDPR, where fines were often the final consequence, NIS2 creates personal liability for board members and executive leadership. The stakes are structural.</p>
+
+          <div class="pull-quote">
+            <p>"Under NIS2, the question is no longer whether your organization is secure. It is whether your organization can prove it — through your vendors, your contracts, and your audit trail."</p>
+          </div>
+
+          <!-- SECTION 1 -->
+          <div class="section-head">
+            <span class="section-num">01 · What NIS2 Actually Requires</span>
+            <h2>The Four Obligations That Define Your Exposure</h2>
+          </div>
+
+          <p>NIS2 applies to medium and large organizations operating in 18 critical sectors, including energy, finance, health, digital infrastructure, manufacturing, and public administration. If your organization operates in the EU — or supplies to entities that do — you are likely in scope. The directive imposes four interconnected obligations:</p>
+
+          <ol class="step-list">
+            <li><div class="step-body"><strong>Risk Management Measures</strong>Organizations must implement technical and organizational measures proportionate to the risk, including policies on access control, incident handling, cryptography, and supply chain security.</div></li>
+            <li><div class="step-body"><strong>Incident Reporting</strong>Significant incidents must be reported to national authorities within 24 hours of detection (early warning), with a full report within 72 hours. Failure to report is itself a violation.</div></li>
+            <li><div class="step-body"><strong>Business Continuity</strong>Organizations must maintain continuity plans, backup procedures, and crisis management capabilities — documented and tested.</div></li>
+            <li><div class="step-body"><strong>Supply Chain Security</strong>This is where most organizations are most exposed. NIS2 requires you to assess the security practices of your direct suppliers and service providers, and to understand and manage the risks they introduce.</div></li>
+          </ol>
+
+          <div class="callout">
+            <div class="callout-label">Executive Note</div>
+            <p>NIS2 Article 21 explicitly requires management bodies — boards and C-suites — to approve cybersecurity risk management measures and to oversee their implementation. Executive ignorance is not a defense; it is evidence of noncompliance.</p>
+          </div>
+
+          <!-- SECTION 2 -->
+          <div class="section-head">
+            <span class="section-num">02 · The Supply Chain Gap</span>
+            <h2>What Most Organizations Are Still Ignoring</h2>
+          </div>
+
+          <p>Most organizations have an asset inventory. Most have a vendor list. What almost none have is a security-validated supplier map — a documented, risk-tiered, contractually enforced view of how security obligations flow through their supply chain.</p>
+
+          <p>NIS2's supply chain requirement is explicit and non-negotiable: organizations must assess the overall quality of products and services they use from suppliers, including their security development practices, and must address cybersecurity risks across the supply chain in their risk management policies. This is not a questionnaire you send once. It is an ongoing governance function.</p>
+
+          <p>The Cyber Resilience Act (CRA), which passed in October 2024 and begins phased application through 2027, adds an additional layer: it places mandatory security requirements directly on manufacturers and sellers of products with digital elements. If your organization builds software, hardware, or connected devices — or if you deploy them — you are now operating in a world where security is a product liability question, not merely an IT question.</p>
+
+          <table class="compliance-table">
+            <thead>
+              <tr>
+                <th>Requirement</th>
+                <th>What Compliance Actually Looks Like</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Supplier Risk Assessment</td><td>Tiered vendor inventory with documented security criteria — not a generic questionnaire</td></tr>
+              <tr><td>Contractual Obligations</td><td>Security clauses with audit rights, incident notification timelines, and certification requirements</td></tr>
+              <tr><td>Ongoing Monitoring</td><td>Continuous or periodic reassessment — not point-in-time snapshot reviews</td></tr>
+              <tr><td>CRA Product Coverage</td><td>Security-by-design documentation for all products with digital elements placed on the EU market</td></tr>
+              <tr><td>Vulnerability Management</td><td>Documented SBOM, patching timelines, and coordinated disclosure processes</td></tr>
+            </tbody>
+          </table>
+
+          <!-- SECTION 3 -->
+          <div class="section-head">
+            <span class="section-num">03 · The Liability Equation</span>
+            <h2>Why This Is Now a Board-Level Matter</h2>
+          </div>
+
+          <p>NIS2 does not treat cybersecurity as an IT department matter. It treats it as a governance matter. Management bodies — which the directive defines to include boards of directors — are explicitly responsible for approving cybersecurity risk management measures and overseeing their implementation.</p>
+
+          <p>The financial penalties under NIS2 are significant: up to €10 million or 2% of global annual turnover for essential entities, whichever is higher. But the more consequential exposure is the personal liability provision. National authorities can hold individual executives accountable — including through suspension of their ability to perform managerial functions — if noncompliance is the result of gross negligence or intentional violation.</p>
+
+          <p>Board members who have not received cybersecurity training, who cannot demonstrate that they reviewed and approved the organization's risk management posture, or who cannot show that supply chain risks were escalated and addressed — those board members carry personal exposure under this framework. That is not a hypothetical. It is the text of the directive.</p>
+
+          <div class="pull-quote">
+            <p>"The board that cannot answer 'what are our top five supplier-introduced risks and how are we mitigating them?' is not governing cybersecurity. It is delegating liability."</p>
+          </div>
+
+          <!-- SECTION 4 -->
+          <div class="section-head">
+            <span class="section-num">04 · The Action Framework</span>
+            <h2>What Organizations Must Do Before the Window Closes</h2>
+          </div>
+
+          <p>The obligation is already live. October 2024 was the transposition deadline. National implementations are in effect across EU member states, and enforcement posture is tightening. For organizations still in assessment mode, the five-step framework below represents the minimum viable compliance posture — not best practice, but the floor.</p>
+
+          <ul class="action-list">
+            <li><span><strong>Scope Yourself.</strong> Establish definitively whether your organization qualifies as an essential or important entity under NIS2. Sector, size, and interdependency all factor into this. Do not assume you are out of scope because you are not EU-headquartered.</span></li>
+            <li><span><strong>Map the Supply Chain.</strong> Inventory your suppliers and tier them by risk. What data do they access? What systems do they connect to? What would happen if they were compromised?</span></li>
+            <li><span><strong>Close the Contractual Gap.</strong> Review existing supplier contracts for security obligations — most will be deficient. Add clauses requiring incident notification, right to audit, and security certification where appropriate.</span></li>
+            <li><span><strong>Build the Governance Record.</strong> Prepare board-level reporting on the NIS2 posture. Document what the board was told, when, and what decisions were made. This paper trail is your governance defense in an enforcement inquiry.</span></li>
+            <li><span><strong>Address the CRA Exposure.</strong> If your organization develops or distributes products with digital elements, begin CRA readiness work immediately. Security-by-design requirements, SBOMs, and vulnerability disclosure processes are mandatory.</span></li>
+          </ul>
+
+          <div class="callout">
+            <div class="callout-label">Timeline Pressure</div>
+            <p>The CRA's vulnerability and incident reporting obligations apply from September 2026. Product security requirements apply fully from December 2027. Organizations with long product development cycles need to begin now to avoid disrupting existing pipelines.</p>
+          </div>
+
+          <!-- SECTION 5 -->
+          <div class="section-head">
+            <span class="section-num">05 · The Strategic Opportunity</span>
+            <h2>The Upside Hidden in the Mandate</h2>
+          </div>
+
+          <p>Organizations that treat NIS2 and the CRA as compliance burdens will spend the next two years reacting. Organizations that treat them as governance modernization opportunities will emerge with something genuinely valuable: a mature, documented, defensible security posture that is also a competitive differentiator in EU procurement, enterprise sales cycles, and board credibility.</p>
+
+          <p>The organizations your customers, partners, and investors most want to work with are the ones that can demonstrate — not merely assert — security. NIS2 provides the framework. The question is whether your organization uses it as a floor or a foundation.</p>
+
+          <p>Supply chain risk is not an abstract regulatory concern. The incidents that define the threat landscape — SolarWinds, MOVEit, XZ Utils — all entered through the supply chain. Regulators did not write these requirements speculatively. They wrote them in response to documented, costly, preventable failures. The organizations that were impacted did not fail because they lacked technology. They failed because they lacked visibility and governance.</p>
+
+          <div class="pull-quote">
+            <p>"Compliance is the minimum. Resilience is the mission. NIS2 draws the line at the floor — where you build from there is a strategic decision."</p>
+          </div>
+
+          <!-- CLOSING -->
+          <div class="section-head">
+            <span class="section-num">Closing</span>
+            <h2>The Bottom Line</h2>
+          </div>
+
+          <p>NIS2 is not pending. It is in effect. The Cyber Resilience Act's enforcement windows are opening. Supply chain security is no longer a future state — it is a present obligation, measured by what you can document, demonstrate, and defend.</p>
+
+          <p>For executive leadership and board members, the question is not whether your security team is working on this. The question is whether you can answer, under oath if necessary, that you reviewed, approved, and oversee your organization's cybersecurity risk management posture — including the risks that enter through your vendors and the products you build or deploy.</p>
+
+          <p>The organizations that cannot answer that question clearly are already exposed. The window to change that is narrowing.</p>
+
+          <hr class="article-rule"/>
+
+          <div style="background:var(--ink-mid);border:1px solid var(--rule);padding:28px;">
+            <div class="callout-label">About Zero Hour Intelligence</div>
+            <p style="font-size:0.9rem;color:var(--mist);line-height:1.8;margin-bottom:0.75rem;">Zero Hour Intelligence is the executive advisory and content platform of Imminent Flair LLC. We write for C-suite leaders and board members who need to understand cybersecurity risk without the noise — clearly, precisely, and with strategic context.</p>
+            <a href="mailto:catrina@imminentflair.com" style="font-family:var(--ff-mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.1em;">catrina@imminentflair.com</a>
+            <span style="color:var(--rule);margin:0 10px;">·</span>
+            <a href="https://imminentflair.com" style="font-family:var(--ff-mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.1em;">imminentflair.com</a>
+          </div>
+
+        </div><!-- /article-body -->
+
+        <!-- SIDEBAR -->
+        <div class="article-sidebar">
+          <div class="sidebar-block">
+            <div class="sidebar-label">Contents</div>
+            <ul class="sidebar-toc">
+              <li><a href="#s1">The Four Obligations</a></li>
+              <li><a href="#s2">The Supply Chain Gap</a></li>
+              <li><a href="#s3">The Liability Equation</a></li>
+              <li><a href="#s4">Action Framework</a></li>
+              <li><a href="#s5">The Strategic Opportunity</a></li>
+              <li><a href="#s6">The Bottom Line</a></li>
+            </ul>
+          </div>
+          <div class="sidebar-block">
+            <div class="sidebar-label">Advisory Details</div>
+            <div class="sidebar-detail">
+              <strong>Published</strong> April 2026
+              <strong>Category</strong> Supply Chain · EU Compliance
+              <strong>Audience</strong> C-Suite · Board · Legal
+              <strong>Regulation</strong> NIS2 · CRA · GDPR
+              <strong>Read Time</strong> 18 minutes
+            </div>
+          </div>
+          <div class="sidebar-block">
+            <div class="sidebar-label">Share</div>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://zerohourintelligence.imminentflair.com/articles/nis2-supply-chain-mandate.html" target="_blank" rel="noopener" class="sidebar-share-btn">Share on LinkedIn →</a>
+            <a href="mailto:?subject=NIS2 %26 the Supply Chain Mandate&body=https://zerohourintelligence.imminentflair.com/articles/nis2-supply-chain-mandate.html" class="sidebar-share-btn">Share via Email →</a>
+          </div>
+        </div>
+
+      </div><!-- /article-layout -->
+    </div>
+  </section>
+
+  <!-- RELATED ARTICLES -->
+  <section class="related-section">
+    <div class="container">
+      <div class="section-label reveal"><span class="mono">Related Analysis</span></div>
+      <div class="related-grid">
+        <a href="/articles/fiduciary-exposure.html" class="related-card reveal">
+          <div class="related-tag">Board Governance</div>
+          <div class="related-title">Fiduciary <em>Exposure</em></div>
+          <div class="related-read">13 min →</div>
+        </a>
+        <a href="/articles/harvest-now-decrypt-later.html" class="related-card reveal">
+          <div class="related-tag">Quantum Risk</div>
+          <div class="related-title">Harvest Now, Decrypt <em>Later</em></div>
+          <div class="related-read">14 min →</div>
+        </a>
+        <a href="/articles/infrastructure-illusion.html" class="related-card reveal">
+          <div class="related-tag">Infrastructure Security</div>
+          <div class="related-title">The Infrastructure <em>Illusion</em></div>
+          <div class="related-read">15 min →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-mount"></div>
+
+  <script>
+    function getNavHTML(activePage) {
+      const pages = [
+        { href: '/articles/', label: 'Analysis' },
+        { href: '/topics/',   label: 'Topics'   },
+        { href: '/about/',    label: 'About'    },
+      ];
+      const links = pages.map(p =>
+        `<a href="${p.href}" class="${activePage === p.label ? 'active' : ''}">${p.label}</a>`
+      ).join('');
+      return `<nav class="nav" id="site-nav">
+        <a href="/" class="nav-logo">
+          <span class="nav-logo-name">Imminent Flair</span>
+          <span class="nav-logo-sub">Cybersecurity Intelligence</span>
+        </a>
+        <div class="nav-links">${links}<a href="/newsletter/" class="nav-cta">Subscribe</a></div>
+      </nav>`;
+    }
+
+    function getTickerHTML() {
+      const items = [
+        'Zero Trust Architecture','Post-Quantum Cryptography','AI-Native Threat Detection',
+        'Insider Risk Intelligence','Executive Cyber Governance','Nation-State Adversaries',
+        'Identity-First Security','Cyber Resilience by Design','Quantum Migration Strategy',
+        'Board-Level Risk Communication','NIST PQC Standards','Crypto Agility Frameworks',
+        'NIS2 Supply Chain Mandate','EU Cyber Resilience Act','Third-Party Vendor Risk',
+      ];
+      const markup = items.map(t => `<span class="ticker-dot"></span>${t}`).join(' ');
+      return `<div class="ticker"><div class="ticker-track">${markup} ${markup}</div></div>`;
+    }
+
+    function getFooterHTML() {
+      return `<footer class="footer">
+        <div class="container footer-grid">
+          <div>
+            <div class="footer-brand-name">Imminent Flair</div>
+            <div class="footer-brand-sub">Cybersecurity Intelligence</div>
+            <p class="footer-brand-desc">Strategic cybersecurity intelligence for C-suite leaders and boards. Translating technical risk into executive clarity.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Analysis</h4>
+            <ul>
+              <li><a href="/articles/nis2-supply-chain-mandate.html">NIS2 &amp; the Supply Chain Mandate</a></li>
+              <li><a href="/articles/infrastructure-illusion.html">The Infrastructure Illusion</a></li>
+              <li><a href="/articles/architecture-of-failure.html">The Architecture of Failure</a></li>
+              <li><a href="/articles/">Quantum Risk Series</a></li>
+              <li><a href="/articles/">Board Governance</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Topics</h4>
+            <ul>
+              <li><a href="/topics/#zero-trust">Zero Trust</a></li>
+              <li><a href="/topics/#quantum">Post-Quantum</a></li>
+              <li><a href="/topics/#insider">Insider Risk</a></li>
+              <li><a href="/topics/#governance">Governance</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <ul>
+              <li><a href="https://linkedin.com/in/" target="_blank">LinkedIn</a></li>
+              <li><a href="https://orcid.org/" target="_blank">ORCID Research</a></li>
+              <li><a href="/about/">About Catrina</a></li>
+              <li><a href="/newsletter/">Subscribe</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="container footer-bottom">
+          <span>© 2026 Imminent Flair · Catrina Turner</span>
+          <span>Cybersecurity Intelligence · Strategic Analysis</span>
+        </div>
+      </footer>`;
+    }
+
+    function initReveal() {
+      const els = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const delay = e.target.dataset.delay || 0;
+            setTimeout(() => e.target.classList.add('visible'), delay);
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+      els.forEach((el, i) => {
+        if (!el.dataset.delay) el.dataset.delay = (i % 5) * 70;
+        obs.observe(el);
+      });
+    }
+
+    function initNav() {
+      const nav = document.getElementById('site-nav');
+      if (!nav) return;
+      window.addEventListener('scroll', () => {
+        nav.style.borderBottomColor = window.scrollY > 40
+          ? 'rgba(184,150,110,0.35)'
+          : 'rgba(184,150,110,0.18)';
+      });
+    }
+
+    document.getElementById('nav-mount').innerHTML = getNavHTML('Analysis');
+    document.getElementById('ticker-mount').innerHTML = getTickerHTML();
+    document.getElementById('footer-mount').innerHTML = getFooterHTML();
+    document.addEventListener('DOMContentLoaded', () => { initReveal(); initNav(); });
+  </script>
+
+</body>
+</html>
