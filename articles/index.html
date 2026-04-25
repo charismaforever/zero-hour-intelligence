@@ -1,72 +1,310 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <meta name="description" content="Imminent Flair — Strategic cybersecurity intelligence by Catrina Turner. Translating technical risk into executive clarity for C-suite and board-level leaders."/> <title>Imminent Flair · Cybersecurity Intelligence</title> <link rel="stylesheet" href="/css/global.css"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet"/> <style>
-/* ── CSS VARIABLES + GLOBAL RESET (inlined for standalone rendering) ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --ink: #0a0a09; --ink-mid: #111110; --ink-soft: #1a1a18;
-  --ivory: #f0ede6; --ivory-dim: #c8c4bc;
-  --mist: #8a8680; --mist-light: #a8a49e;
-  --gold: #b8966e; --gold-light: #d4aa84; --gold-dim: #7a6448;
-  --rule: rgba(184,150,110,0.18);
-  --ff-display: 'Cormorant Garamond', Georgia, serif;
-  --ff-body: 'Inter', system-ui, sans-serif;
-  --ff-mono: 'DM Mono', 'Courier New', monospace;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-}
-html { font-size: 16px; scroll-behavior: smooth; }
-body { background: var(--ink); color: var(--ivory); font-family: var(--ff-body); font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-h1, h2, h3, h4 { font-family: var(--ff-display); font-weight: 300; }
-em { font-style: italic; }
-a { color: var(--gold); }
-img { max-width: 100%; display: block; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-.mono { font-family: var(--ff-mono); }
-.section-label { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
-.section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
-.btn { display: inline-flex; align-items: center; padding: 12px 28px; font-family: var(--ff-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; cursor: pointer; border: none; }
-.btn-solid { background: var(--gold); color: var(--ink); }
-.btn-solid:hover { background: var(--gold-light); }
-.btn-ghost { border: 1px solid var(--rule); color: var(--mist-light); background: transparent; }
-.btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
-.btn-outline { border: 1px solid var(--rule); color: var(--mist-light); background: transparent; }
-.btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-/* ── NAV ── */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(10,10,9,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(184,150,110,0.18); }
-.nav-logo { display: flex; flex-direction: column; text-decoration: none; gap: 1px; }
-.nav-logo-name { font-family: var(--ff-display); font-size: 1.05rem; font-weight: 400; color: var(--ivory); letter-spacing: 0.02em; line-height: 1; }
-.nav-logo-sub { font-family: var(--ff-mono); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); }
-.nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-links a { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.2s; }
-.nav-links a:hover, .nav-links a.active { color: var(--ivory); }
-.nav-cta { border: 1px solid var(--rule) !important; padding: 8px 18px; color: var(--gold) !important; }
-.nav-cta:hover { border-color: var(--gold) !important; background: rgba(184,150,110,0.06); }
-/* ── TICKER ── */
-.ticker { background: var(--ink-soft); border-bottom: 1px solid var(--rule); height: 36px; overflow: hidden; }
-.ticker-track { display: inline-block; white-space: nowrap; animation: tickerScroll 40s linear infinite; line-height: 36px; font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); }
-.ticker-item { display: inline-block; vertical-align: middle; }
-.ticker-dot { display: inline-block; vertical-align: middle; width: 3px; height: 3px; background: var(--gold-dim); border-radius: 50%; margin: 0 18px; }
-@keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-/* ── FOOTER ── */
-.footer { background: var(--ink-soft); border-top: 1px solid var(--rule); padding: 64px 0 0; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
-.footer-brand-name { font-family: var(--ff-display); font-size: 1.4rem; font-weight: 400; color: var(--ivory); margin-bottom: 4px; }
-.footer-brand-sub { font-family: var(--ff-mono); font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; }
-.footer-brand-desc { font-size: 0.85rem; color: var(--mist); line-height: 1.8; }
-.footer-col h4 { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 10px; }
-.footer-col a { font-size: 0.85rem; color: var(--mist); text-decoration: none; transition: color 0.2s; }
-.footer-col a:hover { color: var(--ivory); }
-.footer-bottom { display: flex; justify-content: space-between; padding: 20px 0; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.54rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); }
-/* ── PAGE FONT IMPORT ── */ /* ── HERO ── */ .hero { min-height: 100vh; padding-top: 68px; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 88px; position: relative; overflow: hidden; } .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 70% at 75% 25%, rgba(184,150,110,0.08) 0%, transparent 55%), radial-gradient(ellipse 40% 60% at 5% 85%, rgba(184,150,110,0.04) 0%, transparent 50%), linear-gradient(160deg, #0f0e0d 0%, #090909 55%, #0b0a09 100%); } .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,150,110,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(184,150,110,0.035) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(to bottom, transparent 10%, black 35%, black 65%, transparent 100%); } .hero-line { position: absolute; top: 0; right: 25%; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, rgba(184,150,110,0.12) 30%, rgba(184,150,110,0.12) 70%, transparent); } .hero-content { position: relative; z-index: 2; } .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; animation: fadeUp 0.9s var(--ease-out) both; } .hero-eyebrow .mono { color: var(--gold); } .hero-eyebrow::after { content: ''; width: 100px; height: 1px; background: var(--rule); } .hero h1 { font-size: clamp(3.4rem, 7.5vw, 7rem); font-weight: 300; letter-spacing: -0.02em; margin-bottom: 32px; max-width: 900px; animation: fadeUp 0.9s 0.1s var(--ease-out) both; } .hero-desc { font-size: 1.1rem; font-weight: 300; color: var(--mist); max-width: 520px; line-height: 1.8; margin-bottom: 56px; animation: fadeUp 0.9s 0.2s var(--ease-out) both; } .hero-actions { display: flex; align-items: center; gap: 36px; animation: fadeUp 0.9s 0.3s var(--ease-out) both; } .hero-stat-row { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 22%; display: flex; flex-direction: column; gap: 2px; animation: fadeUp 0.9s 0.4s var(--ease-out) both; } .hero-stat { background: rgba(10,10,10,0.75); backdrop-filter: blur(8px); border: 1px solid var(--rule); border-right: none; padding: 20px 28px; } .hero-stat-value { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 300; color: var(--gold-light); line-height: 1; margin-bottom: 6px; } .hero-stat-label { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); line-height: 1.5; } /* ── FEATURED ── */ .featured { background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 100px 0; } .featured-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } .featured-visual { position: relative; aspect-ratio: 4/3; background: var(--ink-soft); overflow: hidden; } .featured-visual-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(184,150,110,0.1) 0%, transparent 70%); } .featured-visual-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 40px; font-family: var(--ff-display); font-size: clamp(2rem,4vw,3.8rem); font-weight: 300; font-style: italic; color: rgba(184,150,110,0.28); text-align: center; line-height: 1.15; } .featured-frame { position: absolute; inset: 0; border: 1px solid var(--rule); pointer-events: none; } .featured-corner { position: absolute; width: 18px; height: 18px; border-color: var(--gold); border-style: solid; border-width: 0; } .fc-tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; } .fc-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; } .fc-bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; } .fc-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; } .featured-label { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; } .featured-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); } .featured-title { font-size: clamp(1.6rem,2.8vw,2.6rem); margin-bottom: 20px; } .featured-excerpt { font-size: 0.95rem; color: var(--mist); line-height: 1.85; margin-bottom: 28px; } .featured-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); } .featured-meta span { color: var(--mist-light); } /* ── ARTICLES GRID ── */ .articles-section { padding: 100px 0; border-top: 1px solid var(--rule); } .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); } .article-card { background: var(--ink); padding: 40px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; transition: background 0.3s; } .article-card:hover { background: var(--ink-soft); } .article-card.coming-soon { opacity: 0.45; pointer-events: none; } .card-tag { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); } .card-title { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 400; color: var(--ivory); line-height: 1.2; flex: 1; } .card-excerpt { font-size: 0.88rem; color: var(--mist); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; } .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); } .card-read { color: var(--mist-light); } a.article-card { text-decoration: none; color: inherit; } .card-new { display: inline-block; margin-left: 8px; font-family: var(--ff-mono); font-size: 0.48rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); background: var(--gold); padding: 2px 7px; vertical-align: middle; } /* ── TOPICS PREVIEW ── */ .topics-section { background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 100px 0; } .topics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); } .topic-card { background: var(--ink-mid); padding: 40px 32px; display: flex; flex-direction: column; gap: 20px; text-decoration: none; transition: background 0.3s; } .topic-card:hover { background: var(--ink-soft); } .topic-num { font-family: var(--ff-display); font-size: 2.8rem; font-weight: 300; color: rgba(184,150,110,0.18); line-height: 1; } .topic-name { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 400; color: var(--ivory); } .topic-desc { font-size: 0.88rem; color: var(--mist); line-height: 1.75; flex: 1; } .topic-link { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); transition: color 0.2s; } .topic-card:hover .topic-link { color: var(--gold-light); } /* ── AUTHOR STRIP ── */ .author-strip { border-top: 1px solid var(--rule); padding: 80px 0; } .author-strip-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 48px; } .author-monogram { width: 88px; height: 88px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; background: var(--ink-soft); flex-shrink: 0; } .author-monogram span { font-family: var(--ff-display); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold-dim); } .author-info {} .author-name { font-family: var(--ff-display); font-size: 1.8rem; font-weight: 400; color: var(--ivory); margin-bottom: 8px; } .author-bio { font-size: 0.95rem; color: var(--mist); line-height: 1.8; max-width: 560px; } .author-rule { width: 1px; height: 80px; background: var(--rule); } /* ── NEWSLETTER STRIP ── */ .nl-strip { background: var(--ink-mid); border-top: 1px solid var(--rule); padding: 80px 0; position: relative; overflow: hidden; } .nl-strip-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 50% 120% at 50% 50%, rgba(184,150,110,0.05) 0%, transparent 70%); } .nl-strip-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 60px; } .nl-strip-text {} .nl-strip-eyebrow { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; } .nl-strip-title { font-family: var(--ff-display); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 300; color: var(--ivory); } .nl-form { display: flex; min-width: 400px; border: 1px solid var(--rule); } .nl-form input { flex: 1; background: transparent; border: none; outline: none; padding: 14px 20px; font-family: var(--ff-body); font-size: 0.9rem; color: var(--ivory); font-weight: 300; } .nl-form input::placeholder { color: var(--gold-dim); } .nl-form button { background: var(--gold); border: none; padding: 14px 24px; font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 400; transition: background 0.25s; white-space: nowrap; } .nl-form button:hover { background: var(--gold-light); } @media (max-width: 1024px) { .hero-stat-row { display: none; } .featured-layout { grid-template-columns: 1fr; gap: 48px; } .articles-grid { grid-template-columns: 1fr 1fr; } .topics-grid { grid-template-columns: 1fr 1fr; } .nl-strip-inner { flex-direction: column; align-items: flex-start; } .nl-form { min-width: 100%; width: 100%; } } @media (max-width: 768px) { .hero h1 { font-size: 2.6rem; } .articles-grid { grid-template-columns: 1fr; } .topics-grid { grid-template-columns: 1fr; } .author-strip-inner { grid-template-columns: 1fr; text-align: center; } .author-rule { display: none; } .author-monogram { margin: 0 auto; } } </style> </head> <body> <!-- NAV --> <div id="nav-mount"></div> <!-- HERO --> <section class="hero"> <div class="hero-bg"></div> <div class="hero-grid"></div> <div class="hero-line"></div> <div class="container hero-content"> <div class="hero-eyebrow"> <span class="mono">Strategic Intelligence · Executive Briefings · April 2026</span> </div> <h1>Where <em>Cyber Risk</em><br>Meets the Boardroom</h1> <p class="hero-desc">Intelligence for leaders shaping digital civilization — translated from technical threat to executive strategy, without losing the signal.</p> <div class="hero-actions"> <a href="/articles/" class="btn btn-solid">Read the Analysis</a> <a href="/about/" class="btn btn-ghost">About Catrina</a> </div> </div> <div class="hero-stat-row"> <div class="hero-stat"> <div class="hero-stat-value">$10.5T</div> <div class="hero-stat-label">Annual cost of cybercrime by 2025</div> </div> <div class="hero-stat"> <div class="hero-stat-value">4.8M</div> <div class="hero-stat-label">Global cybersecurity workforce gap</div> </div> <div class="hero-stat"> <div class="hero-stat-value">82:1</div> <div class="hero-stat-label">AI agents to human workers in enterprise</div> </div> </div> </section> <!-- TICKER --> <div id="ticker-mount"></div> <!-- FEATURED — updated to NIS2 article --> <section class="featured"> <div class="container"> <div class="section-label reveal"><span class="mono">Featured Analysis</span></div> <div class="featured-layout"> <div class="featured-visual reveal"> <div class="featured-visual-bg"></div> <div class="featured-visual-text">Supply Chain<br><em>Mandate</em></div> <div class="featured-frame"> <div class="featured-corner fc-tl"></div> <div class="featured-corner fc-tr"></div> <div class="featured-corner fc-bl"></div> <div class="featured-corner fc-br"></div> </div> </div> <div class="featured-content reveal"> <div class="featured-label">Regulatory Compliance · April 2026</div> <h2 class="featured-title">NIS2 &amp; the Supply Chain <em>Mandate</em></h2> <p class="featured-excerpt">The EU's Cyber Resilience Act is embedding security requirements directly into product lifecycles. NIS2 is in effect, the CRA enforcement windows are opening, and personal board liability is now on the table. What organizations must do before the clock runs out — and why compliance is only the floor.</p> <div class="featured-meta"> <span>18 min read</span>·<span>Catrina Turner</span>·<span>Supply Chain · EU Compliance · Board Governance</span> </div> <a href="/articles/nis2-supply-chain-mandate.html" class="btn btn-ghost">Read Full Analysis</a> </div> </div> </div> </section> <!-- ARTICLES --> <section class="articles-section"> <div class="container"> <div class="section-label reveal"><span class="mono">Intelligence Library</span></div> <div class="articles-grid"> <!-- NIS2 — was coming-soon, now live --> <a href="/articles/nis2-supply-chain-mandate.html" class="article-card reveal" style="text-decoration:none;color:inherit;"> <div class="card-tag">EU Compliance <span class="card-new">New</span></div> <div class="card-title">NIS2 &amp; the Supply Chain <em>Mandate</em></div> <div class="card-excerpt">The Cyber Resilience Act is embedding security into product lifecycles. What organizations must do — and the personal board liability at stake.</div> <div class="card-footer"><span>April 2026</span><span class="card-read">18 min →</span></div> </a> <a href="/articles/architecture-of-failure.html" class="article-card reveal"> <div class="card-tag">Strategic Analysis</div> <div class="card-title">The Architecture of <em>Failure</em></div> <div class="card-excerpt">The perimeter model has collapsed. Zero Trust, post-quantum cryptography, and AI-native operations are rewriting the rules of digital defense.</div> <div class="card-footer"><span>March 2026</span><span class="card-read">12 min →</span></div> </a> <a href="/articles/harvest-now-decrypt-later.html" class="article-card reveal" style="text-decoration:none;color:inherit;"> <div class="card-tag">Quantum Risk</div> <div class="card-title">Harvest Now, Decrypt <em>Later</em></div> <div class="card-excerpt">Nation-state actors are collecting encrypted data today with one intention — decrypting it within a three-to-five year horizon.</div> <div class="card-footer"><span>March 2026</span><span class="card-read">14 min →</span></div> </a> <a href="/articles/enemy-inside-the-walls.html" class="article-card reveal" style="text-decoration:none;color:inherit;"> <div class="card-tag">Insider Risk</div> <div class="card-title">The Enemy Inside the <em>Walls</em></div> <div class="card-excerpt">How organizations are rethinking insider threat programs — from punitive detection to behavioral analytics that identify anomaly before action.</div> <div class="card-footer"><span>March 2026</span><span class="card-read">14 min →</span></div> </a> <a href="/articles/ceo-doppelganger.html" class="article-card reveal" style="text-decoration:none;color:inherit;"> <div class="card-tag">AI &amp; Security</div> <div class="card-title">The CEO <em>Doppelgänger</em></div> <div class="card-excerpt">Your executives' voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity — and draining corporate accounts at scale.</div> <div class="card-footer"><span>March 2026</span><span class="card-read">10 min →</span></div> </a> <a href="/articles/fiduciary-exposure.html" class="article-card reveal" style="text-decoration:none;color:inherit;"> <div class="card-tag">Board Governance</div> <div class="card-title">Fiduciary <em>Exposure</em></div> <div class="card-excerpt">Cybersecurity has become a matter of executive accountability. What boards must understand about legal and strategic obligations in the post-breach era.</div> <div class="card-footer"><span>April 2026</span><span class="card-read">13 min →</span></div> </a> </div> <div style="margin-top:40px; text-align:center;"> <a href="/articles/" class="btn btn-outline">View All Analysis →</a> </div> </div> </section> <!-- TOPICS --> <section class="topics-section"> <div class="container"> <div class="section-label reveal"><span class="mono">Intelligence Pillars</span></div> <div class="topics-grid"> <a href="/topics/#quantum" class="topic-card reveal"> <div class="topic-num">01</div> <div class="topic-name">Quantum <em>Risk</em></div> <div class="topic-desc">Post-quantum cryptography, NIST FIPS standards, crypto agility, and the harvest-now-decrypt-later threat landscape.</div> <div class="topic-link">Explore →</div> </a> <a href="/topics/#ai" class="topic-card reveal"> <div class="topic-num">02</div> <div class="topic-name">AI-Native <em>Defense</em></div> <div class="topic-desc">Autonomous threat detection, machine-speed response, and the adversarial use of generative AI at enterprise scale.</div> <div class="topic-link">Explore →</div> </a> <a href="/topics/#governance" class="topic-card reveal"> <div class="topic-num">03</div> <div class="topic-name">Executive <em>Governance</em></div> <div class="topic-desc">Board-level risk communication, fiduciary obligations, and cybersecurity as a strategic executive imperative.</div> <div class="topic-link">Explore →</div> </a> <a href="/topics/#insider" class="topic-card reveal"> <div class="topic-num">04</div> <div class="topic-name">Insider <em>Intelligence</em></div> <div class="topic-desc">Behavioral analytics, privileged access governance, and the psychology of insider risk in modern enterprise.</div> <div class="topic-link">Explore →</div> </a> </div> </div> </section> <!-- AUTHOR --> <section class="author-strip"> <div class="container author-strip-inner reveal"> <div class="author-monogram"><span>CT</span></div> <div class="author-info"> <div class="author-name">Catrina <em>Turner</em></div> <p class="author-bio">Principal of Imminent Flair. Senior cybersecurity professional and researcher at the intersection of security, quantum computing, and artificial intelligence. Advisor to C-suite leaders and boards navigating existential digital risk.</p> </div> <div class="author-rule"></div> <a href="/about/" class="btn btn-ghost" style="flex-shrink:0;">Full Profile</a> </div> </section> <!-- NEWSLETTER --> <section class="nl-strip"> <div class="nl-strip-bg"></div> <div class="container nl-strip-inner reveal"> <div class="nl-strip-text"> <div class="nl-strip-eyebrow">Intelligence Briefing</div> <div class="nl-strip-title">Stay ahead of the <em>threat horizon</em></div> </div> <form class="nl-form" onsubmit="return false;"> <input type="email" placeholder="your@organization.com"/> <button type="submit" onclick="this.textContent='Subscribed ✓'; this.style.background='#4a7c59'">Subscribe</button> </form> </div> </section> <!-- FOOTER --> <div id="footer-mount"></div> <script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="The Zero Hour Intelligence library. Strategic cybersecurity analysis for C-suite leaders and boards — quantum risk, AI threats, governance, and insider risk."/>
+  <title>Intelligence Library | Zero Hour Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0a0a09; --ink-mid: #111110; --ink-soft: #1a1a18;
+      --ivory: #f0ede6; --ivory-dim: #c8c4bc;
+      --mist: #8a8680; --mist-light: #a8a49e;
+      --gold: #b8966e; --gold-light: #d4aa84; --gold-dim: #7a6448;
+      --rule: rgba(184,150,110,0.18);
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body: 'Inter', system-ui, sans-serif;
+      --ff-mono: 'DM Mono', 'Courier New', monospace;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--ink); color: var(--ivory); font-family: var(--ff-body); font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: var(--ff-display); font-weight: 300; }
+    em { font-style: italic; }
+    a { color: var(--gold); text-decoration: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .mono { font-family: var(--ff-mono); }
+    .btn { display: inline-flex; align-items: center; padding: 12px 28px; font-family: var(--ff-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
+    .btn-ghost { border: 1px solid var(--rule); color: var(--mist-light); background: transparent; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(10,10,9,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(184,150,110,0.18); }
+    .nav-logo { display: flex; flex-direction: column; text-decoration: none; gap: 1px; }
+    .nav-logo-name { font-family: var(--ff-display); font-size: 1.05rem; font-weight: 400; color: var(--ivory); line-height: 1; }
+    .nav-logo-sub { font-family: var(--ff-mono); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ivory); }
+    .nav-cta { border: 1px solid var(--rule) !important; padding: 8px 18px; color: var(--gold) !important; }
+    .nav-cta:hover { border-color: var(--gold) !important; }
+
+    /* TICKER */
+    .ticker { background: var(--ink-soft); border-bottom: 1px solid var(--rule); height: 36px; overflow: hidden; }
+    .ticker-track { display: inline-block; white-space: nowrap; animation: tickerScroll 40s linear infinite; line-height: 36px; font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); }
+    .ticker-item { display: inline-block; vertical-align: middle; }
+    .ticker-dot { display: inline-block; vertical-align: middle; width: 3px; height: 3px; background: var(--gold-dim); border-radius: 50%; margin: 0 18px; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* FOOTER */
+    .footer { background: var(--ink-soft); border-top: 1px solid var(--rule); padding: 64px 0 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
+    .footer-brand-name { font-family: var(--ff-display); font-size: 1.4rem; font-weight: 400; color: var(--ivory); margin-bottom: 4px; }
+    .footer-brand-sub { font-family: var(--ff-mono); font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; }
+    .footer-brand-desc { font-size: 0.85rem; color: var(--mist); line-height: 1.8; }
+    .footer-col h4 { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { font-size: 0.85rem; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--ivory); }
+    .footer-bottom { display: flex; justify-content: space-between; padding: 20px 0; border-top: 1px solid var(--rule); font-family: var(--ff-mono); font-size: 0.54rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 140px 0 80px;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 90% 50%, rgba(184,150,110,0.06) 0%, transparent 60%);
+    }
+    .page-header-content { position: relative; z-index: 1; }
+    .page-header-eyebrow {
+      font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
+      animation: fadeUp 0.8s var(--ease-out) both;
+    }
+    .page-header-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    .page-header h1 {
+      font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 300;
+      letter-spacing: -0.02em; line-height: 1.08; margin-bottom: 24px;
+      animation: fadeUp 0.8s 0.1s var(--ease-out) both;
+    }
+    .page-header-desc {
+      font-size: 1rem; color: var(--mist); line-height: 1.8;
+      max-width: 560px; font-weight: 300;
+      animation: fadeUp 0.8s 0.2s var(--ease-out) both;
+    }
+    .page-header-count {
+      position: absolute; right: 40px; bottom: 40px;
+      font-family: var(--ff-display); font-size: 5rem; font-weight: 300;
+      color: rgba(184,150,110,0.07); line-height: 1; letter-spacing: -0.03em;
+      animation: fadeUp 0.8s 0.3s var(--ease-out) both;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+      background: var(--ink-mid);
+      position: sticky; top: 68px; z-index: 50;
+    }
+    .filter-inner { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .filter-label { font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); margin-right: 8px; }
+    .filter-btn {
+      font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 7px 16px;
+      border: 1px solid var(--rule); background: transparent;
+      color: var(--mist); cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold-light); background: rgba(184,150,110,0.06); }
+    .filter-btn.active { background: rgba(184,150,110,0.1); }
+
+    /* ── ARTICLE GRID ── */
+    .library-section { padding: 80px 0 100px; }
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .lib-card {
+      background: var(--ink);
+      padding: 44px 40px;
+      display: flex; flex-direction: column; gap: 16px;
+      text-decoration: none; transition: background 0.3s;
+      position: relative;
+    }
+    .lib-card:hover { background: var(--ink-soft); }
+    .lib-card.featured-card { grid-column: span 2; }
+    .lib-card-num {
+      font-family: var(--ff-display); font-size: 3.5rem; font-weight: 300;
+      color: rgba(184,150,110,0.1); line-height: 1; position: absolute;
+      top: 28px; right: 32px; letter-spacing: -0.03em;
+    }
+    .lib-card-tag {
+      font-family: var(--ff-mono); font-size: 0.54rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .lib-card-new {
+      display: inline-block; margin-left: 8px;
+      font-family: var(--ff-mono); font-size: 0.46rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ink);
+      background: var(--gold); padding: 2px 7px; vertical-align: middle;
+    }
+    .lib-card-title {
+      font-family: var(--ff-display); font-size: 1.55rem; font-weight: 400;
+      color: var(--ivory); line-height: 1.2; flex: 1;
+    }
+    .lib-card.featured-card .lib-card-title { font-size: 2rem; }
+    .lib-card-excerpt {
+      font-size: 0.88rem; color: var(--mist); line-height: 1.75;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .lib-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 16px; border-top: 1px solid var(--rule);
+      font-family: var(--ff-mono); font-size: 0.54rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold-dim);
+    }
+    .lib-card-read { color: var(--mist-light); }
+
+    /* ── SUBSCRIBE STRIP ── */
+    .sub-strip {
+      background: var(--ink-mid); border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule); padding: 72px 0;
+    }
+    .sub-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .sub-eyebrow { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .sub-title { font-family: var(--ff-display); font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 300; color: var(--ivory); margin-bottom: 16px; }
+    .sub-desc { font-size: 0.9rem; color: var(--mist); line-height: 1.8; }
+    .sub-form { display: flex; border: 1px solid var(--rule); }
+    .sub-form input { flex: 1; background: transparent; border: none; outline: none; padding: 16px 20px; font-family: var(--ff-body); font-size: 0.9rem; color: var(--ivory); }
+    .sub-form input::placeholder { color: var(--gold-dim); }
+    .sub-form button { background: var(--gold); border: none; padding: 16px 28px; font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); cursor: pointer; transition: background 0.25s; white-space: nowrap; }
+    .sub-form button:hover { background: var(--gold-light); }
+
+    @media (max-width: 1024px) { .library-grid { grid-template-columns: 1fr 1fr; } .lib-card.featured-card { grid-column: span 1; } .sub-inner { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 640px) { .library-grid { grid-template-columns: 1fr; } .container { padding: 0 20px; } }
+  </style>
+</head>
+<body>
+
+<div id="nav-mount"></div>
+<div id="ticker-mount"></div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="container page-header-content">
+    <div class="page-header-eyebrow">Intelligence Library</div>
+    <h1>The <em>Analysis</em></h1>
+    <p class="page-header-desc">Cybersecurity intelligence written for leaders who make decisions, not just those who implement them. Each piece is a briefing, not a blog post.</p>
+    <div class="page-header-count">07</div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="container filter-inner">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCards('eu-compliance', this)">EU Compliance</button>
+    <button class="filter-btn" onclick="filterCards('quantum-risk', this)">Quantum Risk</button>
+    <button class="filter-btn" onclick="filterCards('strategic-analysis', this)">Strategic Analysis</button>
+    <button class="filter-btn" onclick="filterCards('board-governance', this)">Board Governance</button>
+    <button class="filter-btn" onclick="filterCards('ai-security', this)">AI &amp; Security</button>
+    <button class="filter-btn" onclick="filterCards('insider-risk', this)">Insider Risk</button>
+    <button class="filter-btn" onclick="filterCards('infrastructure', this)">Infrastructure</button>
+  </div>
+</div>
+
+<!-- LIBRARY GRID -->
+<section class="library-section">
+  <div class="container">
+    <div class="library-grid" id="lib-grid">
+
+      <a href="/articles/nis2-supply-chain-mandate.html" class="lib-card featured-card reveal" data-category="eu-compliance">
+        <div class="lib-card-num">01</div>
+        <div class="lib-card-tag">EU Compliance <span class="lib-card-new">New</span></div>
+        <div class="lib-card-title">NIS2 &amp; the Supply Chain <em>Mandate</em></div>
+        <div class="lib-card-excerpt">The EU's Cyber Resilience Act is embedding security requirements directly into product lifecycles. NIS2 is in effect, CRA enforcement windows are opening, and personal board liability is now on the table. What organizations must do before the clock runs out.</div>
+        <div class="lib-card-footer"><span>April 2026</span><span class="lib-card-read">18 min →</span></div>
+      </a>
+
+      <a href="/articles/fiduciary-exposure.html" class="lib-card reveal" data-category="board-governance">
+        <div class="lib-card-num">02</div>
+        <div class="lib-card-tag">Board Governance</div>
+        <div class="lib-card-title">Fiduciary <em>Exposure</em></div>
+        <div class="lib-card-excerpt">Cybersecurity has become a matter of executive accountability. What boards must understand about legal and strategic obligations in the post-breach era.</div>
+        <div class="lib-card-footer"><span>April 2026</span><span class="lib-card-read">13 min →</span></div>
+      </a>
+
+      <a href="/articles/infrastructure-illusion.html" class="lib-card reveal" data-category="infrastructure">
+        <div class="lib-card-num">03</div>
+        <div class="lib-card-tag">Infrastructure Security</div>
+        <div class="lib-card-title">The Infrastructure <em>Illusion</em></div>
+        <div class="lib-card-excerpt">What managed platforms don't tell you about your own data — and why infrastructure ownership is the prerequisite for quantum readiness.</div>
+        <div class="lib-card-footer"><span>April 2026</span><span class="lib-card-read">15 min →</span></div>
+      </a>
+
+      <a href="/articles/harvest-now-decrypt-later.html" class="lib-card reveal" data-category="quantum-risk">
+        <div class="lib-card-num">04</div>
+        <div class="lib-card-tag">Quantum Risk</div>
+        <div class="lib-card-title">Harvest Now, Decrypt <em>Later</em></div>
+        <div class="lib-card-excerpt">Nation-state actors are collecting encrypted data today with one intention — decrypting it within a three-to-five year horizon. The window to act is now.</div>
+        <div class="lib-card-footer"><span>March 2026</span><span class="lib-card-read">14 min →</span></div>
+      </a>
+
+      <a href="/articles/architecture-of-failure.html" class="lib-card reveal" data-category="strategic-analysis">
+        <div class="lib-card-num">05</div>
+        <div class="lib-card-tag">Strategic Analysis</div>
+        <div class="lib-card-title">The Architecture of <em>Failure</em></div>
+        <div class="lib-card-excerpt">The perimeter model has collapsed. Zero Trust, post-quantum cryptography, and AI-native operations are rewriting the rules of digital defense.</div>
+        <div class="lib-card-footer"><span>March 2026</span><span class="lib-card-read">12 min →</span></div>
+      </a>
+
+      <a href="/articles/enemy-inside-the-walls.html" class="lib-card reveal" data-category="insider-risk">
+        <div class="lib-card-num">06</div>
+        <div class="lib-card-tag">Insider Risk</div>
+        <div class="lib-card-title">The Enemy Inside the <em>Walls</em></div>
+        <div class="lib-card-excerpt">How organizations are rethinking insider threat programs — from punitive detection to behavioral analytics that identify anomaly before action.</div>
+        <div class="lib-card-footer"><span>March 2026</span><span class="lib-card-read">14 min →</span></div>
+      </a>
+
+      <a href="/articles/ceo-doppelganger.html" class="lib-card reveal" data-category="ai-security">
+        <div class="lib-card-num">07</div>
+        <div class="lib-card-tag">AI &amp; Security</div>
+        <div class="lib-card-title">The CEO <em>Doppelgänger</em></div>
+        <div class="lib-card-excerpt">Your executives' voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity at scale.</div>
+        <div class="lib-card-footer"><span>March 2026</span><span class="lib-card-read">10 min →</span></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIBE STRIP -->
+<section class="sub-strip">
+  <div class="container sub-inner">
+    <div>
+      <div class="sub-eyebrow">Intelligence Briefing</div>
+      <div class="sub-title">New analysis, when it <em>matters</em></div>
+      <p class="sub-desc">No cadence for the sake of cadence. New briefings publish when the threat landscape demands it. Subscribe and be the first to know.</p>
+    </div>
+    <form class="sub-form" onsubmit="return false;">
+      <input type="email" placeholder="your@organization.com"/>
+      <button type="submit" onclick="this.textContent='Subscribed ✓'; this.style.background='#4a7c59'">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<div id="footer-mount"></div>
+
+<script>
 function getNavHTML(activePage) {
-  const pages = [
-    { href: '/articles/', label: 'Analysis' },
-    { href: '/topics/',   label: 'Topics'   },
-    { href: '/about/',    label: 'About'    },
-  ];
+  const pages = [{ href: '/articles/', label: 'Analysis' }, { href: '/topics/', label: 'Topics' }, { href: '/about/', label: 'About' }];
   const links = pages.map(p => `<a href="${p.href}" class="${activePage === p.label ? 'active' : ''}">${p.label}</a>`).join('');
   return `<nav class="nav" id="site-nav"><a href="/" class="nav-logo"><span class="nav-logo-name">Imminent Flair</span><span class="nav-logo-sub">Cybersecurity Intelligence</span></a><div class="nav-links">${links}<a href="/newsletter/" class="nav-cta">Subscribe</a></div></nav>`;
 }
@@ -76,20 +314,30 @@ function getTickerHTML() {
   return `<div class="ticker"><div class="ticker-track">${markup}${markup}</div></div>`;
 }
 function getFooterHTML() {
-  return `<footer class="footer"><div class="container footer-grid"><div><div class="footer-brand-name">Imminent Flair</div><div class="footer-brand-sub">Cybersecurity Intelligence</div><p class="footer-brand-desc">Strategic cybersecurity intelligence for C-suite leaders and boards. Translating technical risk into executive clarity.</p></div><div class="footer-col"><h4>Analysis</h4><ul><li><a href="/articles/nis2-supply-chain-mandate.html">NIS2 &amp; the Supply Chain Mandate</a></li><li><a href="/articles/infrastructure-illusion.html">The Infrastructure Illusion</a></li><li><a href="/articles/architecture-of-failure.html">The Architecture of Failure</a></li><li><a href="/articles/">Quantum Risk Series</a></li><li><a href="/articles/">Board Governance</a></li></ul></div><div class="footer-col"><h4>Topics</h4><ul><li><a href="/topics/#zero-trust">Zero Trust</a></li><li><a href="/topics/#quantum">Post-Quantum</a></li><li><a href="/topics/#insider">Insider Risk</a></li><li><a href="/topics/#governance">Governance</a></li></ul></div><div class="footer-col"><h4>Connect</h4><ul><li><a href="https://linkedin.com/in/" target="_blank">LinkedIn</a></li><li><a href="https://orcid.org/" target="_blank">ORCID Research</a></li><li><a href="/about/">About Catrina</a></li><li><a href="/newsletter/">Subscribe</a></li></ul></div></div><div class="container footer-bottom"><span>© 2026 Imminent Flair · Catrina Turner</span><span>Cybersecurity Intelligence · Strategic Analysis</span></div></footer>`;
+  return `<footer class="footer"><div class="container footer-grid"><div><div class="footer-brand-name">Imminent Flair</div><div class="footer-brand-sub">Cybersecurity Intelligence</div><p class="footer-brand-desc">Strategic cybersecurity intelligence for C-suite leaders and boards.</p></div><div class="footer-col"><h4>Analysis</h4><ul><li><a href="/articles/nis2-supply-chain-mandate.html">NIS2 &amp; the Supply Chain Mandate</a></li><li><a href="/articles/infrastructure-illusion.html">The Infrastructure Illusion</a></li><li><a href="/articles/architecture-of-failure.html">The Architecture of Failure</a></li><li><a href="/articles/harvest-now-decrypt-later.html">Harvest Now, Decrypt Later</a></li></ul></div><div class="footer-col"><h4>Topics</h4><ul><li><a href="/topics/#zero-trust">Zero Trust</a></li><li><a href="/topics/#quantum">Post-Quantum</a></li><li><a href="/topics/#insider">Insider Risk</a></li><li><a href="/topics/#governance">Governance</a></li></ul></div><div class="footer-col"><h4>Connect</h4><ul><li><a href="https://linkedin.com/in/" target="_blank">LinkedIn</a></li><li><a href="/about/">About Catrina</a></li><li><a href="/newsletter/">Subscribe</a></li></ul></div></div><div class="container footer-bottom"><span>© 2026 Imminent Flair · Catrina Turner</span><span>Cybersecurity Intelligence · Strategic Analysis</span></div></footer>`;
+}
+function filterCards(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.lib-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.category === cat;
+    card.style.display = show ? 'flex' : 'none';
+  });
 }
 function initReveal() {
   const els = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { const delay = e.target.dataset.delay || 0; setTimeout(() => e.target.classList.add('visible'), delay); obs.unobserve(e.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-  els.forEach((el, i) => { if (!el.dataset.delay) el.dataset.delay = (i % 5) * 70; obs.observe(el); });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), e.target.dataset.delay || 0); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+  els.forEach((el, i) => { el.dataset.delay = (i % 4) * 80; obs.observe(el); });
 }
 function initNav() {
   const nav = document.getElementById('site-nav');
   if (!nav) return;
   window.addEventListener('scroll', () => { nav.style.borderBottomColor = window.scrollY > 40 ? 'rgba(184,150,110,0.35)' : 'rgba(184,150,110,0.18)'; });
 }
-document.getElementById('nav-mount').innerHTML = getNavHTML('');
+document.getElementById('nav-mount').innerHTML = getNavHTML('Analysis');
 document.getElementById('ticker-mount').innerHTML = getTickerHTML();
 document.getElementById('footer-mount').innerHTML = getFooterHTML();
 document.addEventListener('DOMContentLoaded', () => { initReveal(); initNav(); });
-</script> </body> </html>
+</script>
+</body>
+</html>
