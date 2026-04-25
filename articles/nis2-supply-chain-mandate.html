@@ -65,8 +65,9 @@
 
     /* ── TICKER ── */
     .ticker { background: var(--ink-soft); border-bottom: 1px solid var(--rule); height: 36px; overflow: hidden; }
-    .ticker-track { display: flex; align-items: center; height: 100%; white-space: nowrap; animation: tickerScroll 40s linear infinite; font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); }
-    .ticker-dot { display: inline-block; width: 3px; height: 3px; background: var(--gold-dim); border-radius: 50%; margin: 0 16px; flex-shrink: 0; }
+    .ticker-track { display: inline-block; white-space: nowrap; animation: tickerScroll 40s linear infinite; line-height: 36px; font-family: var(--ff-mono); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); }
+    .ticker-item { display: inline-block; vertical-align: middle; }
+    .ticker-dot { display: inline-block; vertical-align: middle; width: 3px; height: 3px; background: var(--gold-dim); border-radius: 50%; margin: 0 18px; }
     @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     /* ── FOOTER ── */
@@ -679,8 +680,8 @@
         'Board-Level Risk Communication','NIST PQC Standards','Crypto Agility Frameworks',
         'NIS2 Supply Chain Mandate','EU Cyber Resilience Act','Third-Party Vendor Risk',
       ];
-      const markup = items.map(t => `<span class="ticker-dot"></span>${t}`).join(' ');
-      return `<div class="ticker"><div class="ticker-track">${markup} ${markup}</div></div>`;
+      const markup = items.map(t => `<span class="ticker-dot"></span><span class="ticker-item">${t}</span>`).join('');
+      return `<div class="ticker"><div class="ticker-track">${markup}${markup}</div></div>`;
     }
 
     function getFooterHTML() {
