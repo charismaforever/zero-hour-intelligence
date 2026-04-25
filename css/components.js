@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════
    IMMINENT FLAIR — Shared Components
    nav, footer, ticker injected via JS
-   ═══════════════════════════════════════════ */
+═══════════════════════════════════════════ */
 
 function getNavHTML(activePage) {
   const pages = [
     { href: '/articles/', label: 'Analysis' },
-    { href: '/topics/', label: 'Topics' },
-    { href: '/about/', label: 'About' },
+    { href: '/topics/',   label: 'Topics'   },
+    { href: '/about/',    label: 'About'    },
   ];
   const links = pages.map(p =>
     `<a href="${p.href}" class="${activePage === p.label ? 'active' : ''}">${p.label}</a>`
@@ -27,14 +27,24 @@ function getNavHTML(activePage) {
 
 function getTickerHTML() {
   const items = [
-    'Zero Trust Architecture','Post-Quantum Cryptography','AI-Native Threat Detection',
-    'Insider Risk Intelligence','Executive Cyber Governance','Nation-State Adversaries',
-    'Identity-First Security','Cyber Resilience by Design','Quantum Migration Strategy',
-    'Board-Level Risk Communication','NIST PQC Standards','Crypto Agility Frameworks'
+    'Zero Trust Architecture',
+    'Post-Quantum Cryptography',
+    'AI-Native Threat Detection',
+    'Insider Risk Intelligence',
+    'Executive Cyber Governance',
+    'Nation-State Adversaries',
+    'Identity-First Security',
+    'Cyber Resilience by Design',
+    'Quantum Migration Strategy',
+    'Board-Level Risk Communication',
+    'NIST PQC Standards',
+    'Crypto Agility Frameworks',
+    'NIS2 Supply Chain Mandate',
+    'EU Cyber Resilience Act',
+    'Third-Party Vendor Risk',
   ];
-  const markup = items.map(t => `<span class="ticker-dot"></span>${t}`).join(' ');
-  const doubled = markup + ' ' + markup;
-  return `<div class="ticker"><div class="ticker-track">${doubled}</div></div>`;
+  const markup = items.map(t => `<span class="ticker-dot"></span><span class="ticker-item">${t}</span>`).join('');
+  return `<div class="ticker"><div class="ticker-track">${markup}${markup}</div></div>`;
 }
 
 function getFooterHTML() {
@@ -49,9 +59,10 @@ function getFooterHTML() {
       <div class="footer-col">
         <h4>Analysis</h4>
         <ul>
+          <li><a href="/articles/nis2-supply-chain-mandate.html">NIS2 &amp; the Supply Chain Mandate</a></li>
+          <li><a href="/articles/infrastructure-illusion.html">The Infrastructure Illusion</a></li>
           <li><a href="/articles/architecture-of-failure.html">The Architecture of Failure</a></li>
           <li><a href="/articles/">Quantum Risk Series</a></li>
-          <li><a href="/articles/">AI &amp; Security</a></li>
           <li><a href="/articles/">Board Governance</a></li>
         </ul>
       </div>
@@ -103,7 +114,8 @@ function initNav() {
   if (!nav) return;
   window.addEventListener('scroll', () => {
     nav.style.borderBottomColor = window.scrollY > 40
-      ? 'rgba(184,150,110,0.35)' : 'rgba(184,150,110,0.18)';
+      ? 'rgba(184,150,110,0.35)'
+      : 'rgba(184,150,110,0.18)';
   });
 }
 
