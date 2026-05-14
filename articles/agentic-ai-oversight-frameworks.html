@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Governing the Unscripted Machine — Zero Hour Intelligence</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap');
+
+  :root {
+    --ink: #0d0d0d;
+    --bone: #f5f0e8;
+    --amber: #c8860a;
+    --amber-dim: #a06a05;
+    --steel: #2a2e35;
+    --mid: #6b6b6b;
+    --rule: #d4c9b0;
+    --red-alert: #b83232;
+    --code-bg: #1a1d22;
+    --code-fg: #e8dfc8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bone);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--amber);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .masthead-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  .masthead-nav {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 5rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(200,134,10,0.06) 59px,
+        rgba(200,134,10,0.06) 60px
+      );
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .category-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-hed {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--bone);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-hed em {
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .hero-dek {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #b8b0a0;
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #666;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .byline span { color: #999; }
+
+  /* ── BODY ── */
+  .article-body {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  /* Drop cap */
+  .article-body > p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 0.8;
+    float: left;
+    margin: 0.05em 0.12em -0.05em 0;
+    color: var(--amber);
+  }
+
+  p { margin-bottom: 1.5rem; }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 3.5rem 0 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 3px solid var(--amber);
+    margin: 3rem 0;
+    padding: 1.5rem 0 1.5rem 2rem;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--steel);
+    margin-bottom: 0;
+  }
+
+  /* Alert box */
+  .alert-box {
+    background: #fff9f0;
+    border: 1px solid #e8c87a;
+    border-left: 4px solid var(--amber);
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .alert-box .alert-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .alert-box p { margin-bottom: 0; font-size: 0.95rem; color: var(--steel); }
+
+  /* Framework card */
+  .framework-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .framework-card {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .framework-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--amber);
+  }
+
+  .framework-card .fc-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .framework-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #f0e8d8;
+    margin-bottom: 0.75rem;
+  }
+
+  .framework-card p {
+    font-size: 0.9rem;
+    color: #a09080;
+    margin-bottom: 0;
+    line-height: 1.65;
+  }
+
+  /* Threat matrix */
+  .matrix {
+    background: var(--code-bg);
+    border: 1px solid #2d3139;
+    padding: 2rem;
+    margin: 2.5rem 0;
+    overflow-x: auto;
+  }
+
+  .matrix-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--code-fg);
+  }
+
+  th {
+    text-align: left;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--amber);
+    color: var(--amber);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #2d3139;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .risk-high { color: #e87070; }
+  .risk-med { color: #e8c870; }
+  .risk-low { color: #70c87a; }
+
+  /* Section rule */
+  .section-rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 3rem 0;
+  }
+
+  /* Footnote */
+  .footnote {
+    font-size: 0.8rem;
+    color: var(--mid);
+    font-style: italic;
+    border-top: 1px solid var(--rule);
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Tags */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    border: 1px solid var(--rule);
+    padding: 0.2rem 0.6rem;
+  }
+
+  strong { font-weight: 600; color: var(--ink); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3.5rem 1.25rem 2.5rem; }
+    .article-body { padding: 3rem 1.25rem 4rem; }
+    .byline { flex-direction: column; gap: 0.4rem; }
+    td, th { padding: 0.5rem 0.6rem; font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-brand">Zero Hour Intelligence</div>
+  <div class="masthead-nav">AI Governance · Enterprise Risk · Automation Security</div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="category-tag">AI Governance</div>
+    <h1 class="hero-hed">Governing the<br><em>Unscripted</em> Machine</h1>
+    <p class="hero-dek">Agentic AI systems no longer wait for instructions. They plan, act, and chain decisions across tools and environments. The governance frameworks built for deterministic software are structurally insufficient. Here is what effective oversight actually requires.</p>
+    <div class="byline">
+      <span>Catrina Turner</span>
+      <span>·</span>
+      <span>Zero Hour Intelligence</span>
+      <span>·</span>
+      <span>May 2026</span>
+    </div>
+  </div>
+</section>
+
+<article class="article-body">
+
+  <p>The enterprise AI conversation has changed. Two years ago, board-level anxiety centered on large language models generating inaccurate outputs or exposing sensitive data through poorly scoped prompts. Those risks remain. But the attack surface has expanded dramatically — not because the models became more dangerous, but because the architectures surrounding them did. Agentic AI, defined broadly as AI that operates with multi-step autonomy, tool-use capabilities, and environmental persistence, now executes tasks that were previously human-gated by necessity. Browsing the web. Writing and running code. Querying databases. Sending communications. Chaining decisions across dozens of sequential steps without a human in the loop between them.</p>
+
+  <p>This is not a future scenario. It is the current operational reality at firms deploying systems built on frameworks like LangChain, AutoGen, CrewAI, and direct API orchestration layers. The question facing CISOs, legal counsel, and technology executives is not whether to govern these systems but whether the governance apparatus they currently have is even capable of reaching them.</p>
+
+  <p>In most organizations, the answer is no.</p>
+
+  <div class="pull-quote">
+    <p>"The moment an AI system can act — not just advise — the governance model for advisory systems becomes structurally irrelevant."</p>
+  </div>
+
+  <h2>Why Existing Frameworks Fall Short</h2>
+
+  <p>The dominant AI governance frameworks circulating in enterprise risk departments — NIST AI RMF, ISO/IEC 42001, the EU AI Act's tiered risk classification — were designed around a model of AI that is fundamentally reactive. A human submits a query. The model produces a response. A human evaluates and acts. Governance in this paradigm focuses on output quality, bias monitoring, explainability, and data lineage. These are valid concerns. They are also insufficient for autonomous systems.</p>
+
+  <p>Agentic architectures break the human-in-the-loop assumption at every joint. An agent given a business objective does not pause for approval at each subtask. It determines its own action sequence, selects tools from whatever it has been granted access to, interprets intermediate results, and recalibrates its plan accordingly. This produces three governance gaps that traditional frameworks do not address:</p>
+
+  <p><strong>The intent-action gap.</strong> There is often no human-legible trace between the high-level objective assigned to an agent and the specific actions it takes to fulfill it. Governance systems built on intent-monitoring cannot operate when intent is expressed as a goal, not a sequence.</p>
+
+  <p><strong>The permission accumulation problem.</strong> Agents that operate across tools and APIs will, over time, be granted access to more resources than any single human operator would have — because convenience demands it. This silent privilege escalation is invisible to most identity and access management reviews.</p>
+
+  <p><strong>The compounding error problem.</strong> In multi-agent pipelines, a flawed decision at step two does not produce an obvious error at step three. It produces a subtly corrupted context that shapes every subsequent decision. The system fails gracefully enough that no alarm triggers, but catastrophically enough that the eventual outcome is wrong or harmful.</p>
+
+  <div class="alert-box">
+    <div class="alert-label">Risk Consideration</div>
+    <p>The EU AI Act's "high-risk" classification triggers at the point of decision impact — employment, credit, critical infrastructure. Agentic systems operating as workflow intermediaries may perform high-risk functions without being classified as high-risk systems, because they are not the final decision point. This regulatory gap requires active legal analysis, not passive compliance assumption.</p>
+  </div>
+
+  <h2>Five Frameworks Boards Should Understand</h2>
+
+  <p>No single governance framework currently addresses agentic AI comprehensively. Effective oversight requires layering complementary approaches, each targeting a different failure mode. The following five represent the current state of the art — two are institutional, three are architectural.</p>
+
+  <div class="framework-grid">
+
+    <div class="framework-card">
+      <div class="fc-number">Framework 01 — Institutional</div>
+      <h4>Minimal Footprint Principle</h4>
+      <p>Derived from NIST SP 800-207 Zero Trust Architecture and increasingly cited in enterprise AI policy. The principle holds that any autonomous system should request only the permissions it immediately requires, avoid storing sensitive state beyond the duration of a task, prefer reversible actions over irreversible ones, and defer to human judgment when task scope is ambiguous. This is not a technical control — it is a design philosophy that must be enforced through agent architecture standards and developer training. Organizations that adopt it reduce blast radius when agents behave unexpectedly, which they will.</p>
+    </div>
+
+    <div class="framework-card">
+      <div class="fc-number">Framework 02 — Architectural</div>
+      <h4>Human-in-the-Loop Tiering</h4>
+      <p>Not all agentic actions carry equal consequence. Effective governance distinguishes between actions that are read-only, reversible-write, and irreversible-write — and gates human approval requirements accordingly. An agent reading a CRM record requires no approval. An agent drafting an email for review is a soft gate. An agent sending that email autonomously, updating a customer record, or executing a financial transaction requires a hard gate — synchronous human confirmation before execution. Building this tiering into the orchestration layer, not the model itself, is the implementation-stable approach.</p>
+    </div>
+
+    <div class="framework-card">
+      <div class="fc-number">Framework 03 — Architectural</div>
+      <h4>Agent Identity and Audit Trails</h4>
+      <p>Every agent in a production system should have a persistent, non-transferable identity that appears in access logs the same way a human user identity does. This sounds obvious. In practice, most deployed agentic systems operate under shared service accounts or inherited API keys with no agent-specific attribution. Forensic reconstruction of what an agent did, when, and why becomes impossible after an incident. Agent identity frameworks must cover naming conventions, scoped credential issuance, action logging with semantic context, and retention policies that satisfy both security operations and legal discovery requirements.</p>
+    </div>
+
+    <div class="framework-card">
+      <div class="fc-number">Framework 04 — Institutional</div>
+      <h4>Prompt Injection and Adversarial Input Controls</h4>
+      <p>Agentic systems that interact with external environments — web pages, documents, email, third-party APIs — are systematically vulnerable to prompt injection: malicious instructions embedded in environmental content that redirect agent behavior. This is not a theoretical concern. Demonstrated attacks have caused agents to exfiltrate data, change user settings, and initiate unauthorized actions by hiding instructions in documents the agent was asked to summarize. Defense requires input sanitization layers, sandboxed tool execution environments, and behavioral anomaly detection that flags deviation from expected action sequences. Standard application security reviews do not check for this.</p>
+    </div>
+
+    <div class="framework-card">
+      <div class="fc-number">Framework 05 — Architectural</div>
+      <h4>Multi-Agent Trust Hierarchies</h4>
+      <p>When agents orchestrate other agents — a now-common pattern in enterprise automation — the trust model becomes recursive. An orchestrator agent should not grant a sub-agent permissions the orchestrator itself does not have. Sub-agents should verify the legitimacy of orchestrator instructions rather than executing them on implicit trust. This is structurally identical to the principle of least privilege in identity management, applied to agent-to-agent communication. Organizations deploying multi-agent systems without explicit trust hierarchy design are operating with an unreviewed security architecture, regardless of what individual agents do in isolation.</p>
+    </div>
+
+  </div>
+
+  <h2>The Board-Level Risk Register</h2>
+
+  <p>The governance gap between what agentic systems can do and what organizational oversight currently covers is not abstract. The following matrix maps the material risk categories boards should be tracking, their current classification in most enterprise risk registers, and the actual exposure posture.</p>
+
+  <div class="matrix">
+    <div class="matrix-label">Agentic AI — Material Risk Assessment Matrix</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Risk Category</th>
+          <th>Common Register Classification</th>
+          <th>Actual Exposure</th>
+          <th>Severity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Unauthorized data exfiltration via prompt injection</td>
+          <td>Application security / SAST coverage</td>
+          <td>Not addressed by static analysis; requires runtime behavioral controls</td>
+          <td class="risk-high">HIGH</td>
+        </tr>
+        <tr>
+          <td>Agent privilege accumulation over time</td>
+          <td>IAM review cycle (quarterly/annual)</td>
+          <td>Agent permissions drift between review cycles; no automated revocation trigger</td>
+          <td class="risk-high">HIGH</td>
+        </tr>
+        <tr>
+          <td>Irreversible autonomous action (send, delete, transact)</td>
+          <td>Change management controls</td>
+          <td>Agentic actions typically bypass change management; no human gate at execution</td>
+          <td class="risk-high">HIGH</td>
+        </tr>
+        <tr>
+          <td>Regulatory non-compliance in automated decisions</td>
+          <td>AI/ML governance policy</td>
+          <td>Policies written for deterministic models; do not address goal-directed agents</td>
+          <td class="risk-med">MEDIUM–HIGH</td>
+        </tr>
+        <tr>
+          <td>Multi-agent trust chain exploitation</td>
+          <td>Not classified</td>
+          <td>Architecturally unaddressed in the majority of enterprise deployments</td>
+          <td class="risk-high">HIGH</td>
+        </tr>
+        <tr>
+          <td>Compounding errors in long-horizon tasks</td>
+          <td>QA / model evaluation</td>
+          <td>Evaluation frameworks test isolated outputs, not cumulative decision chains</td>
+          <td class="risk-med">MEDIUM</td>
+        </tr>
+        <tr>
+          <td>Vendor agent systems with opaque architectures</td>
+          <td>Third-party risk management</td>
+          <td>TPRM questionnaires do not include agentic capability disclosure requirements</td>
+          <td class="risk-med">MEDIUM–HIGH</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>What Effective Implementation Requires</h2>
+
+  <h3>At the Architecture Layer</h3>
+
+  <p>Every agentic deployment should be preceded by a structured autonomy scoping document that defines, explicitly, what actions the system is permitted to take without human confirmation, under what conditions that scope expands, and who holds the authority to approve scope changes. This document is not a policy artifact — it is an engineering requirement that directly informs tool permissioning, API scope configuration, and the design of confirmation gates in the orchestration layer.</p>
+
+  <p>Sandboxed execution environments should be default for any agent that interacts with external data sources. The sandbox does not prevent an agent from reading external content — it prevents that content from directly modifying the agent's execution context. This single architectural choice eliminates the majority of prompt injection attack vectors currently exploitable in production deployments.</p>
+
+  <h3>At the Operations Layer</h3>
+
+  <p>Security operations centers must extend their monitoring mandate to include agent behavioral telemetry. What this means in practice: action logs for all agents, baseline behavioral profiles established during controlled testing, and deviation thresholds that trigger human review. This is not different in principle from behavioral analytics already deployed for insider threat detection — the tooling analogy is intentional, because an agent operating outside its intended parameters is functionally equivalent to a compromised insider account.</p>
+
+  <p>Red team exercises should include agentic systems explicitly. Prompt injection drills, adversarial goal specification, and permission boundary testing are the agentic equivalents of phishing simulations and penetration tests. Organizations that conduct these exercises regularly will develop the institutional muscle memory to detect and respond to novel agent failures faster than those that do not.</p>
+
+  <h3>At the Governance Layer</h3>
+
+  <p>AI governance committees — where they exist — should have explicit jurisdiction over agentic deployments, with a defined approval pathway that includes security review, legal analysis for regulatory classification, and executive sign-off on irreversible action authorization. This is not bureaucratic overhead. It is the minimum organizational structure required to maintain accountability for systems that can act on behalf of the organization at machine speed.</p>
+
+  <p>Third-party risk management programs must be updated to require agentic capability disclosure from vendors. The question "does this system include AI agents that act autonomously in our environment?" should appear in every technology vendor assessment. Procurement teams currently lack the vocabulary to ask it.</p>
+
+  <div class="pull-quote">
+    <p>"Accountability does not transfer to the machine. It remains with the organization that deployed it — regardless of what the vendor contract says."</p>
+  </div>
+
+  <h2>The Strategic Position</h2>
+
+  <p>Agentic AI will not slow down pending better governance frameworks. The competitive pressure to automate, accelerate, and reduce human labor costs in workflow execution is too significant. Organizations that respond to this reality with a moratorium on agentic deployment will fall behind those that deploy with discipline. The correct strategic posture is not caution as resistance — it is caution as competitive advantage.</p>
+
+  <p>The firms that govern these systems effectively will be able to deploy more of them, faster, with greater organizational confidence, because they will have established the trust architecture that allows expansion without uncontrolled risk accumulation. Those that skip governance in favor of speed will eventually face the incident that forces a reckoning — and reckoning under pressure, with regulators and counsel and the press watching, is a far more expensive way to build a governance framework than building one in advance.</p>
+
+  <p>The question for every board is not whether agentic AI creates governance obligations. It does. The question is whether the organization will meet those obligations before or after the first significant failure.</p>
+
+  <hr class="section-rule">
+
+  <p><em>Catrina Turner is Principal and CEO of Imminent Flair LLC, a cybersecurity consulting firm advising on enterprise AI risk, Zero Trust architecture, and post-quantum security strategy. Zero Hour Intelligence is the firm's threat intelligence and policy publication.</em></p>
+
+  <div class="tag-row">
+    <span class="tag">Agentic AI</span>
+    <span class="tag">AI Governance</span>
+    <span class="tag">Enterprise Risk</span>
+    <span class="tag">Zero Trust</span>
+    <span class="tag">Automation Security</span>
+    <span class="tag">Board Advisory</span>
+    <span class="tag">NIST AI RMF</span>
+    <span class="tag">Multi-Agent Systems</span>
+  </div>
+
+  <p class="footnote">© 2026 Imminent Flair LLC / Zero Hour Intelligence. All rights reserved. This article is intended for informational purposes. Nothing herein constitutes legal or regulatory compliance advice. Organizations should engage qualified legal counsel for jurisdiction-specific AI compliance obligations.</p>
+
+</article>
+
+</body>
+</html>
