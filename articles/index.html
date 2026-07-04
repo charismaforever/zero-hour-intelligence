@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Intelligence Briefs — Zero Hour Intelligence</title>
-<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/FlairLogo_dazdkr.png">
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/data-map-globe_zhi_1_eoqvha.jpg">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
 
@@ -288,34 +288,56 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
 <!-- FEATURED -->
 <section class="featured-section">
   <div class="section-label">Latest Brief</div>
-  <a class="featured-card" href="oauth-shadow-access.html">
+  <a class="featured-card" href="shared-gpu-kernel-isolation.html">
     <div class="featured-canvas-wrap">
       <canvas id="featuredCanvas"></canvas>
       <div class="featured-canvas-overlay"></div>
     </div>
     <div class="featured-content">
-      <div class="article-category">Identity Risk · SaaS Sprawl</div>
-      <h2 class="featured-hed">The <em>OAuth Shadow</em></h2>
-      <p class="featured-dek">Every third-party app your employees ever approved still holds standing access to corporate data — long after anyone remembers granting it. No firewall log shows it, no MFA policy governs it, and almost no board has ever asked about it.</p>
+      <div class="article-category">AI Infrastructure · Hardware Security</div>
+      <h2 class="featured-hed">The Isolation That <em>Isn't</em></h2>
+      <p class="featured-dek">Every major AI inference platform rests on one assumption: that a container boundary is enough to separate your workload from a stranger's on the same physical GPU. It isn't — and the failure mode doesn't require anyone to attack anything.</p>
       <div class="article-meta">
         <span>Catrina Turner</span>
         <span>·</span>
         <span>Jul 2026</span>
         <span>·</span>
-        <span>14 min read</span>
+        <span>11 min read</span>
       </div>
       <span class="read-btn">Read Brief</span>
     </div>
   </a>
 </section>
 
-<!-- GRID — 6 cards -->
+<!-- GRID — 9 cards -->
 <section class="grid-section">
   <div class="section-label">Recent Briefs</div>
   <div class="articles-grid">
 
-    <a class="article-card" href="agentic-ai-native-vulnerability-discovery.html">
+    <a class="article-card" href="shared-gpu-kernel-isolation.html">
       <div class="card-number">001</div>
+      <div class="card-cat">AI Infrastructure · Hardware Security</div>
+      <h3 class="card-hed">The Isolation That Isn't</h3>
+      <p class="card-dek">Every major AI inference platform assumes a container boundary is enough to isolate tenants on shared GPUs. It isn't, and the failure mode requires no attacker at all — just leftover memory and a driver nobody audits.</p>
+      <div class="card-footer">
+        <span>Jul 2026 · 11 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="oauth-shadow-access.html">
+      <div class="card-number">002</div>
+      <div class="card-cat">Identity Risk · SaaS Sprawl</div>
+      <h3 class="card-hed">The OAuth Shadow</h3>
+      <p class="card-dek">Every third-party app your employees ever approved still holds standing access to corporate data — long after anyone remembers granting it. No firewall log shows it, no MFA policy governs it.</p>
+      <div class="card-footer">
+        <span>Jul 2026 · 14 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="agentic-ai-native-vulnerability-discovery.html">
+      <div class="card-number">003</div>
       <div class="card-cat">AI Security · Threat Research</div>
       <h3 class="card-hed">The Hunter Becomes the Weapon</h3>
       <p class="card-dek">Agentic AI systems built to find vulnerabilities are now being turned against the infrastructure they were meant to defend. Native vulnerability discovery at machine speed is reshaping the threat landscape — permanently.</p>
@@ -326,7 +348,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
     </a>
 
     <a class="article-card" href="agentic-ai-oversight-frameworks.html">
-      <div class="card-number">002</div>
+      <div class="card-number">004</div>
       <div class="card-cat">AI Governance · Enterprise Risk</div>
       <h3 class="card-hed">Governing the Unscripted Machine</h3>
       <p class="card-dek">Agentic AI systems no longer wait for instructions. The governance frameworks built for deterministic software are structurally insufficient. Here is what effective oversight actually requires.</p>
@@ -337,7 +359,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
     </a>
 
     <a class="article-card" href="zhi-vendor-threat-article.html">
-      <div class="card-number">003</div>
+      <div class="card-number">005</div>
       <div class="card-cat">Supply Chain Risk</div>
       <h3 class="card-hed">The Vendor You Trust May Be the Threat You Never Saw Coming</h3>
       <p class="card-dek">Third-party vendor risk has quietly become the dominant attack vector for enterprise breaches. Boards that ignore it are operating with a critical blind spot.</p>
@@ -348,7 +370,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
     </a>
 
     <a class="article-card" href="harvest-now-decrypt-later.html">
-      <div class="card-number">004</div>
+      <div class="card-number">006</div>
       <div class="card-cat">Post-Quantum Security</div>
       <h3 class="card-hed">Harvest Now, Decrypt Later: The Silent Threat to Long-Term Data</h3>
       <p class="card-dek">Nation-state actors are collecting encrypted data today to decrypt it once quantum computing matures. The migration window is shorter than most procurement cycles.</p>
@@ -359,7 +381,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
     </a>
 
     <a class="article-card" href="ceo-doppelganger.html">
-      <div class="card-number">005</div>
+      <div class="card-number">007</div>
       <div class="card-cat">Deepfake Threat Intelligence</div>
       <h3 class="card-hed">The CEO Doppelgänger: Executive Identity Spoofing at Scale</h3>
       <p class="card-dek">Real-time voice cloning and synthetic video now operate below the detection threshold of current enterprise security awareness programs.</p>
@@ -370,7 +392,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
     </a>
 
     <a class="article-card" href="architecture-of-failure.html">
-      <div class="card-number">006</div>
+      <div class="card-number">008</div>
       <div class="card-cat">Zero Trust Architecture</div>
       <h3 class="card-hed">The Architecture of Failure: Why Zero Trust Breaks at the Identity Layer</h3>
       <p class="card-dek">The architectural principle is sound. Execution consistently breaks at the same three points — and adversaries know exactly where to look.</p>
@@ -381,23 +403,12 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
     </a>
 
     <a class="article-card" href="infrastructure-illusion.html">
-      <div class="card-number">007</div>
+      <div class="card-number">009</div>
       <div class="card-cat">Critical Infrastructure</div>
       <h3 class="card-hed">The Infrastructure Illusion: Why Resilience Plans Fail Under Real Pressure</h3>
       <p class="card-dek">Most business continuity plans are designed for auditors, not adversaries. The gap between documented resilience and operational reality is where threats live.</p>
       <div class="card-footer">
         <span>Feb 2026 · 8 min</span>
-        <span class="threat-badge threat-high">HIGH PRIORITY</span>
-      </div>
-    </a>
-
-    <a class="article-card" href="you-are-the-algorithm.html">
-      <div class="card-number">008</div>
-      <div class="card-cat">AI Governance · LLM Risk</div>
-      <h3 class="card-hed">You Are the Algorithm: How Human Bias Becomes Machine Behavior</h3>
-      <p class="card-dek">LLMs do not arrive with bias. We inject it through training, reinforce it through interaction, and then watch it scale across every automated decision in the enterprise.</p>
-      <div class="card-footer">
-        <span>Jun 2026 · 9 min</span>
         <span class="threat-badge threat-high">HIGH PRIORITY</span>
       </div>
     </a>
@@ -412,7 +423,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
       <div class="section-label" style="padding: 1.5rem 0 0;">Archive</div>
 
       <a class="list-item" href="you-are-the-algorithm.html">
-        <div class="li-num">08</div>
+        <div class="li-num">10</div>
         <div>
           <div class="li-cat">AI Governance · LLM Risk</div>
           <div class="li-hed">You Are the Algorithm: How Human Bias Becomes Machine Behavior</div>
@@ -427,7 +438,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
       </a>
 
       <a class="list-item" href="nis2-supply-chain-mandate.html">
-        <div class="li-num">09</div>
+        <div class="li-num">11</div>
         <div>
           <div class="li-cat">Regulatory Compliance</div>
           <div class="li-hed">NIS2 and the Supply Chain Mandate: What European Compliance Means for US Firms</div>
@@ -442,7 +453,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
       </a>
 
       <a class="list-item" href="governance-autonomous-engineering.html">
-        <div class="li-num">10</div>
+        <div class="li-num">12</div>
         <div>
           <div class="li-cat">AI Governance</div>
           <div class="li-hed">Governing Autonomous Engineering: When Code Writes and Deploys Itself</div>
@@ -457,7 +468,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
       </a>
 
       <a class="list-item" href="enemy-inside-the-walls.html">
-        <div class="li-num">11</div>
+        <div class="li-num">13</div>
         <div>
           <div class="li-cat">Insider Threat</div>
           <div class="li-hed">The Enemy Inside the Walls: Insider Threat in the Age of AI-Augmented Work</div>
@@ -472,7 +483,7 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
       </a>
 
       <a class="list-item" href="fiduciary-exposure.html">
-        <div class="li-num">12</div>
+        <div class="li-num">14</div>
         <div>
           <div class="li-cat">Board Advisory</div>
           <div class="li-hed">Fiduciary Exposure: The Board's Legal Liability for Cybersecurity Failures</div>
@@ -492,8 +503,20 @@ footer { background: var(--deep); border-top: 1px solid var(--border); padding: 
   <aside class="sidebar">
     <div class="sidebar-title">Focus Areas</div>
 
+    <a class="sidebar-item" href="shared-gpu-kernel-isolation.html" style="text-decoration:none;">
+      <div class="si-cat">New · July 2026</div>
+      <div class="si-title">Shared-GPU Kernel Isolation Risk</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="oauth-shadow-access.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Identity Risk & SaaS Sprawl</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
     <a class="sidebar-item" href="you-are-the-algorithm.html" style="text-decoration:none;">
-      <div class="si-cat">New · June 2026</div>
+      <div class="si-cat">Active Coverage</div>
       <div class="si-title">LLM Bias & Human-Injected Risk</div>
       <div class="si-date">Ongoing · 1 brief published</div>
     </a>
