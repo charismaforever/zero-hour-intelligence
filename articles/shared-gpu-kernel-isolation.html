@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Isolation That Isn't: Shared-GPU Kernel Risk in AI Infrastructure — Zero Hour Intelligence</title>
+<meta name="description" content="Every major AI inference platform rests on an isolation assumption that is architecturally unsound. What the shared-GPU kernel attack surface means for boards, and the questions to ask this quarter.">
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/FlairLogo_dazdkr.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+:root {
+  --void: #040608;
+  --deep: #080c12;
+  --panel: #0c1118;
+  --border: #1a2230;
+  --cyan: #00d4ff;
+  --cyan-dim: #0099bb;
+  --cyan-ghost: rgba(0,212,255,0.06);
+  --amber: #ffaa00;
+  --amber-dim: #cc8800;
+  --amber-ghost: rgba(255,170,0,0.07);
+  --text: #c8d8e8;
+  --text-dim: #6a7a8a;
+  --text-bright: #e8f4ff;
+  --red: #ff4444;
+  --green: #00ff88;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'Spectral', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
+}
+
+header {
+  background: rgba(4,6,8,0.96);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.logo { display: flex; flex-direction: column; gap: 1px; }
+.logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--cyan); line-height: 1; text-decoration:none; }
+.logo-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-dim); }
+nav { display: flex; gap: 2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+nav a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+nav a:hover { color: var(--cyan); }
+nav a.active { color: var(--cyan); }
+.header-status { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; color: var(--green); display: flex; align-items: center; gap: 0.5rem; }
+.status-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ARTICLE HERO */
+.article-hero {
+  background: var(--deep);
+  border-bottom: 1px solid var(--border);
+  padding: 3.5rem 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.article-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 20%, rgba(0,212,255,0.05) 0%, transparent 70%), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(0,212,255,0.03) 79px, rgba(0,212,255,0.03) 80px);
+}
+.hero-image-wrap { position: relative; max-width: 1200px; margin: 0 auto 2rem; height: 340px; overflow: hidden; border: 1px solid var(--border); }
+.hero-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.85) contrast(1.05); }
+.hero-image-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,6,8,0.2) 0%, rgba(4,6,8,0.85) 100%); }
+.hero-image-caption {
+  position: absolute; bottom: 0.9rem; left: 1.2rem; right: 1.2rem;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cyan-dim);
+}
+
+.article-hero-inner { max-width: 780px; margin: 0 auto; position: relative; z-index: 1; }
+.breadcrumb { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.5rem; }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--cyan); }
+.article-category-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.2rem; display:flex; align-items:center; gap: 0.75rem; }
+.threat-badge { font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.15rem 0.5rem; border: 1px solid; }
+.threat-high { color: var(--amber); border-color: rgba(255,170,0,0.4); }
+
+.article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.6rem); letter-spacing: 0.02em; line-height: 1.05; color: var(--text-bright); margin-bottom: 1.2rem; }
+.article-title em { color: var(--cyan); font-style: italic; }
+.article-dek { font-size: 1.05rem; font-weight: 300; font-style: italic; color: var(--text-dim); line-height: 1.65; margin-bottom: 1.75rem; max-width: 640px; }
+.article-byline { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; color: var(--text-dim); display: flex; gap: 1.25rem; align-items: center; }
+.article-byline strong { color: var(--text); font-weight: 500; }
+
+/* BODY */
+.article-body { max-width: 700px; margin: 0 auto; padding: 3.5rem 2rem 4rem; }
+.article-body h2 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.03em;
+  color: var(--text-bright); margin: 3rem 0 1.25rem; line-height: 1.2;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+}
+.article-body p { font-size: 1.02rem; color: var(--text); margin-bottom: 1.4rem; font-weight: 300; }
+.article-body p strong { color: var(--text-bright); font-weight: 600; }
+.article-body ul { margin: 0 0 1.6rem 0; padding-left: 0; list-style: none; }
+.article-body li {
+  font-size: 0.98rem; color: var(--text); font-weight: 300; margin-bottom: 0.9rem;
+  padding-left: 1.4rem; position: relative;
+}
+.article-body li::before { content: '▸'; position: absolute; left: 0; color: var(--cyan-dim); }
+.article-body li strong { color: var(--text-bright); font-weight: 600; }
+.pull-quote {
+  font-family: 'Spectral', serif; font-style: italic; font-size: 1.25rem; font-weight: 300;
+  color: var(--cyan); line-height: 1.5; margin: 2.5rem 0; padding: 1.5rem 0 1.5rem 1.75rem;
+  border-left: 2px solid var(--cyan-dim);
+}
+.brief-footer {
+  margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.05em;
+  color: var(--text-dim); font-style: normal; line-height: 1.8;
+}
+.brief-footer em { color: var(--cyan-dim); font-style: normal; }
+
+/* RELATED */
+.related-section { max-width: 1200px; margin: 0 auto; padding: 0 2rem 4rem; }
+.section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--amber-dim), transparent); }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
+.related-card { background: var(--panel); padding: 1.75rem; text-decoration: none; display: block; transition: background 0.2s; }
+.related-card:hover { background: rgba(12,17,24,0.8); }
+.related-cat { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-dim); margin-bottom: 0.6rem; }
+.related-title { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; color: var(--text-bright); line-height: 1.3; }
+
+footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; color: var(--cyan); }
+.footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.1em; color: var(--text-dim); }
+.footer-links { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; display: flex; gap: 1.5rem; }
+.footer-links a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--cyan); }
+
+@media (max-width: 900px) {
+  nav { display: none; }
+  .related-grid { grid-template-columns: 1fr; }
+  .hero-image-wrap { height: 220px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-main">ZERO HOUR INTELLIGENCE</span>
+      <span class="logo-sub">Imminent Flair LLC · Threat Intelligence &amp; Policy</span>
+    </a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html" class="active">Intelligence Briefs</a>
+      <a href="https://cipherintel.imminentflair.com/">Threat Feeds</a>
+      <a href="https://zerohourintelligence.imminentflair.com/newsletter/">Advisory</a>
+      <a href="https://zerohourintelligence.imminentflair.com/about/">About</a>
+    </nav>
+    <div class="header-status">
+      <span class="status-dot"></span>
+      INTEL FEED ACTIVE
+    </div>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="hero-image-wrap">
+    <img src="https://res.cloudinary.com/dyqlkc3ri/image/upload/atom-sphere-quantum_zhi.jpg" alt="Abstract render of an isolated core encased in glass, orbited by energy rings, symbolizing a false sense of contained security">
+    <div class="hero-image-overlay"></div>
+    <div class="hero-image-caption">VISUAL METAPHOR · ISOLATION THAT APPEARS ABSOLUTE, ENCASED IN A BOUNDARY THAT ISN'T</div>
+  </div>
+  <div class="article-hero-inner">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Intelligence Briefs</a> / The Isolation That Isn't</div>
+    <div class="article-category-tag">
+      <span>AI Infrastructure · Hardware Security</span>
+      <span class="threat-badge threat-high">HIGH PRIORITY</span>
+    </div>
+    <h1 class="article-title">The Isolation That Isn't: Why Your AI Vendor's <em>"Multi-Tenant"</em> Cluster Is a Single Point of Failure</h1>
+    <p class="article-dek">Boards have learned to ask whether their cloud vendor keeps customer data segregated. That question does not go deep enough for AI infrastructure — and almost no one outside a narrow circle of ML platform engineers is saying so publicly.</p>
+    <div class="article-byline">
+      <span><strong>Catrina Turner</strong></span>
+      <span>·</span>
+      <span>Jul 2026</span>
+      <span>·</span>
+      <span>11 min read</span>
+    </div>
+  </div>
+</section>
+
+<article class="article-body">
+
+  <p>There is a question boards have learned to ask about cloud vendors: <em>is our data segregated from other customers'?</em> The answer, for a decade, has been architecture diagrams showing virtual networks, identity policies, and container boundaries. Executives nodded. The diagrams were true, as far as they went.</p>
+
+  <p>They do not go far enough for AI infrastructure, and almost no one outside a narrow circle of ML platform engineers is saying so publicly.</p>
+
+  <h2>The Assumption Everyone Is Making</h2>
+
+  <p>Every major AI inference platform — the API called for completions, the "private" model endpoint a vendor sold, the GPU cluster an internal team just stood up — rests on one assumption: that a container boundary, a scheduling namespace, and an access policy are sufficient to keep one customer's workload separated from another's on the same physical GPU.</p>
+
+  <p>They are not, and this is not a hypothetical.</p>
+
+  <p>The GPU driver — the software layer that actually talks to the chip — does not run inside any customer's container. It runs in the host operating system's kernel, at the highest privilege level on the machine, shared identically by every tenant scheduled onto that node. When a workload calls into the GPU, that call passes through the same kernel code, in the same memory space, as every other customer's workload sitting on the same physical server. There is no wall there. There is a driver, written by one vendor, patched on that vendor's schedule, and trusted implicitly by every cloud platform built on top of it.</p>
+
+  <div class="pull-quote">"A container boundary was never designed to substitute for hardware isolation. It was designed to substitute for cooperation."</div>
+
+  <h2>Two Ways This Fails — Neither Requires an Attacker</h2>
+
+  <p><strong>The driver itself gets exploited.</strong> The GPU driver is a closed-source binary several million lines long, and it has shipped multiple kernel-level vulnerabilities in recent years — memory-safety bugs that let an ordinary process running inside a customer container escalate to full control of the underlying physical server. Once that happens, every other tenant's data on that machine — model weights, customer prompts, session data — becomes readable. This is not a vendor being careless. It is the mathematics of a shared, closed-source, kernel-privileged codebase serving customers who were never meant to trust each other.</p>
+
+  <p><strong>Nobody has to attack anything at all.</strong> This is the quieter problem, and the more common one. When a session ends and the GPU releases its memory back to the pool, that memory is not necessarily wiped before the next customer's workload is handed the same physical chips. Zeroing gigabytes of GPU memory on every handoff is expensive, so many platforms skip it as a performance decision made years before "AI infrastructure" was a board-level phrase. The next tenant scheduled onto those same chips can, without writing a single line of exploit code, read what is still sitting there: fragments of proprietary model weights, remnants of the previous customer's prompts. It is not theft in the legal sense of the word. It is leftovers.</p>
+
+  <p>A third mechanism sits underneath both. Many providers run a shared GPU scheduling service to squeeze more utilization out of expensive chips, letting several customers' workloads run on the same physical GPU simultaneously. That service is explicitly documented by the underlying hardware vendor as intended for trusted, cooperating jobs — not adversarial multi-tenancy. In that configuration, a crash triggered by one tenant's ordinary, non-malicious workload can take down every other tenant sharing that chip at that moment. No breach. No warning. A business-critical AI system goes dark because an unrelated customer's job hit a routine error three racks over.</p>
+
+  <h2>Why This Hasn't Reached the Board Yet</h2>
+
+  <p>This isn't classified. It is documented and discussed openly in ML infrastructure and security-research circles, and it is almost entirely absent from board decks. Three reasons explain the gap:</p>
+
+  <ul>
+    <li><strong>It sits below the line procurement teams evaluate.</strong> Vendor security questionnaires ask about encryption, access controls, and compliance certifications. They do not ask what happens at the kernel layer when a workload shares silicon with a stranger's.</li>
+    <li><strong>It doesn't fit the breach narrative.</strong> There is no negligence story here — no unpatched firewall, no leaked storage bucket. It is a structural property of how the industry currently builds shared GPU infrastructure, which makes it harder to litigate and easier to ignore.</li>
+    <li><strong>The fix exists, and it costs money.</strong> GPU manufacturers now offer hardware-partitioned instances that enforce isolation in silicon rather than software — but partitioning a physical chip into fewer, smaller pieces means fewer customers per GPU, hitting directly at the economics that make shared inference platforms cheap. Adoption is uneven for exactly that reason.</li>
+  </ul>
+
+  <h2>What This Means for Your Organization</h2>
+
+  <p>If AI workloads — internal infrastructure or a vendor's — run on shared GPU capacity without hardware-level partitioning, three things are true right now, independent of whether anyone has attacked anything:</p>
+
+  <ul>
+    <li>Model weights and customer data are exposed to any co-tenant who acquires kernel-level access to the shared server, through a vulnerability class with a recurring, multi-year track record.</li>
+    <li>Fragments of an organization's data may already be recoverable by other tenants sharing the same physical GPUs — with no exploit required, simply by allocating memory that was recently released.</li>
+    <li>An AI system's availability depends on the code quality of every other tenant sharing its GPU scheduling pool, not solely on the organization's own engineering discipline.</li>
+  </ul>
+
+  <h2>The Questions to Ask This Quarter</h2>
+
+  <p>Before the next vendor renewal or infrastructure review, put these directly to the team or vendor responsible for AI infrastructure:</p>
+
+  <ul>
+    <li>Do our AI workloads run on hardware-partitioned GPU instances, or are we sharing GPUs with other tenants at the software layer alone?</li>
+    <li>Is a shared GPU scheduling service enabled in our environment to improve utilization — and do we understand that a co-tenant's crash can take down our inference availability as a result?</li>
+    <li>What is our GPU driver patch cadence, and is it tracked separately from the operating system patch cycle? Most organizations do not track it at all.</li>
+    <li>Is GPU memory zeroed between different tenants' sessions, or only between our own?</li>
+  </ul>
+
+  <p>None of these questions have satisfying answers industry-wide yet. That is precisely why they belong on this quarter's risk register rather than next year's.</p>
+
+  <div class="brief-footer">
+    <em>Zero Hour Intelligence</em> tracks the vulnerabilities that haven't reached the board deck yet. This is one of them.
+  </div>
+
+</article>
+
+<section class="related-section">
+  <div class="section-label">Related Briefs</div>
+  <div class="related-grid">
+    <a class="related-card" href="agentic-ai-native-vulnerability-discovery.html">
+      <div class="related-cat">AI Security · Threat Research</div>
+      <div class="related-title">The Hunter Becomes the Weapon</div>
+    </a>
+    <a class="related-card" href="infrastructure-illusion.html">
+      <div class="related-cat">Critical Infrastructure</div>
+      <div class="related-title">The Infrastructure Illusion</div>
+    </a>
+    <a class="related-card" href="oauth-shadow-access.html">
+      <div class="related-cat">Identity Risk · SaaS Sprawl</div>
+      <div class="related-title">The OAuth Shadow</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">ZERO HOUR INTELLIGENCE</div>
+    <div class="footer-copy">© 2026 Imminent Flair LLC · All Rights Reserved</div>
+    <div class="footer-links">
+      <a href="https://imminentflair.com">Imminent Flair</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
