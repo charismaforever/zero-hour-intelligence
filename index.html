@@ -359,7 +359,7 @@ p { color: var(--mist); line-height: 1.85; }
   display: flex; flex-direction: column; justify-content: flex-end;
   background-image:
     linear-gradient(135deg, rgba(36,36,36,0.35) 0%, rgba(17,17,17,0.25) 100%),
-    url("https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/data-map-globe_zhi_1_eoqvha.jpg");
+    url("https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/The_Flair_Way_1_hg2jxh.png");
   background-size: cover;
   background-position: center;
 }
@@ -523,18 +523,18 @@ p { color: var(--mist); line-height: 1.85; }
 <section class="featured">
   <div class="container">
     <div class="section-label"><span class="mono">Featured Analysis</span></div>
-    <a href="articles/shared-gpu-kernel-isolation.html" class="featured-card" style="text-decoration:none;">
-  <div class="featured-card-visual"></div>
+    <a href="articles/implicit-permissions-zero-trust.html" class="featured-card" style="text-decoration:none;">
+  <div class="featured-card-visual" style="background-image: linear-gradient(135deg, rgba(9,9,9,0.55) 0%, rgba(9,9,9,0.35) 100%), url('https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/Blue_and_Black_Modern_Tech_Future_of_Computing_Carousel_Instagram_Post_g8fehv.png');"></div>
   <div class="featured-card-body">
-    <div class="featured-card-cat"><span class="mono">AI Infrastructure &middot; Hardware Security &middot; Multi-Tenant Risk &middot; July 2026</span></div>
-    <div class="featured-card-title">The Isolation That Isn't: Why Your AI Vendor's <em>"Multi-Tenant"</em> Cluster Is a Single Point of Failure</div>
-    <p class="featured-card-desc">Every major AI inference platform rests on one assumption: that a container boundary is enough to separate your workload from a stranger's on the same physical GPU. It isn't &mdash; and the failure mode doesn't require anyone to attack anything.</p>
+    <div class="featured-card-cat"><span class="mono">Agentic AI &middot; Zero Trust Architecture &middot; Standing Access Risk &middot; July 2026</span></div>
+    <div class="featured-card-title">The Implicit <em>Permission</em> Problem: Why Agentic Coding Tools Are Quietly Breaking Zero Trust</div>
+    <p class="featured-card-desc">Every agentic coding session begins with a single authorization event that never gets revisited. Zero trust was built to prevent exactly that kind of standing grant &mdash; and almost no one auditing these tools has noticed the gap.</p>
     <div class="featured-card-meta">
-      <span>11 min read</span>
+      <span>9 min read</span>
       <span class="dot"></span>
       <span>Catrina Turner</span>
       <span class="dot"></span>
-      <span>AI Infrastructure &middot; GPU Isolation &middot; Hardware Security</span>
+      <span>Agentic AI &middot; Zero Trust &middot; Access Governance</span>
     </div>
     <span class="btn btn-ghost">Read Full Analysis</span>
   </div>
@@ -547,11 +547,21 @@ p { color: var(--mist); line-height: 1.85; }
   <div class="container">
     <div class="section-label"><span class="mono">Intelligence Library</span></div>
     <div class="library-grid">
-      <!-- The Isolation That Isn't — NEW -->
+      <!-- The Implicit Permission Problem — NEW -->
+      <a href="/articles/implicit-permissions-zero-trust.html" class="library-card reveal">
+        <div class="library-card-cat">
+          <span>Agentic AI &amp; Zero Trust Architecture</span>
+          <span class="library-card-new">New</span>
+        </div>
+        <div class="library-card-title">The Implicit <em>Permission</em> Problem</div>
+        <p class="library-card-desc">Agentic coding tools run on standing, session-length trust &mdash; the exact grant zero trust architecture was built to eliminate. Capability is scaling faster than the governance wrapped around it.</p>
+        <div class="library-card-meta">July 2026 &middot; 9 min &rarr;</div>
+      </a>
+
+      <!-- The Isolation That Isn't -->
       <a href="/articles/shared-gpu-kernel-isolation.html" class="library-card reveal">
         <div class="library-card-cat">
           <span>AI Infrastructure &amp; Hardware Security</span>
-          <span class="library-card-new">New</span>
         </div>
         <div class="library-card-title">The Isolation That <em>Isn't</em></div>
         <p class="library-card-desc">Every AI inference platform assumes a container boundary keeps your workload separate from a stranger's on the same GPU. It doesn&rsquo;t &mdash; and the failure doesn&rsquo;t require an attacker.</p>
@@ -712,6 +722,7 @@ p { color: var(--mist); line-height: 1.85; }
       <div class="footer-col">
         <h4>Analysis</h4>
         <ul>
+          <li><a href="/articles/implicit-permissions-zero-trust.html">The Implicit Permission Problem</a></li>
           <li><a href="/articles/shared-gpu-kernel-isolation.html">The Isolation That Isn't</a></li>
           <li><a href="/articles/oauth-shadow-access.html">The OAuth Shadow</a></li>
           <li><a href="/articles/agentic-ai-native-vulnerability-discovery.html">Built to Find the Gap</a></li>
