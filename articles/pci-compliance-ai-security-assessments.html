@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Scope PCI Can't Draw: Why AI Adoption Is Quietly Breaking Cardholder Data Compliance — Zero Hour Intelligence</title>
+<meta name="description" content="PCI DSS assumes cardholder data lives somewhere you can map, segment, and tokenize. AI adoption creates data derivatives that fit none of those categories — and the standard has no control language for them yet.">
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/data-map-globe_zhi_1_eoqvha.jpg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+:root {
+  --void: #040608;
+  --deep: #080c12;
+  --panel: #0c1118;
+  --border: #1a2230;
+  --cyan: #00d4ff;
+  --cyan-dim: #0099bb;
+  --cyan-ghost: rgba(0,212,255,0.06);
+  --amber: #ffaa00;
+  --amber-dim: #cc8800;
+  --amber-ghost: rgba(255,170,0,0.07);
+  --text: #c8d8e8;
+  --text-dim: #6a7a8a;
+  --text-bright: #e8f4ff;
+  --red: #ff4444;
+  --green: #00ff88;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'Spectral', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
+}
+
+header {
+  background: rgba(4,6,8,0.96);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.logo { display: flex; flex-direction: column; gap: 1px; }
+.logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--cyan); line-height: 1; }
+.logo-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-dim); }
+nav { display: flex; gap: 2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+nav a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+nav a:hover { color: var(--cyan); }
+nav a.active { color: var(--cyan); }
+.header-status { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; color: var(--green); display: flex; align-items: center; gap: 0.5rem; }
+.status-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ── ARTICLE HERO ── */
+.article-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, rgba(4,6,8,0.35) 0%, rgba(4,6,8,0.55) 55%, var(--void) 100%), url("https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/premium_photo-1699387203637-6eac5a11a201_dcgjrn.avif");
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--border);
+}
+.article-hero-inner { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 3.5rem; width: 100%; }
+.breadcrumb { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--cyan); }
+.hero-category { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.25rem; }
+.article-hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.3rem, 5.5vw, 4rem);
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  color: var(--text-bright);
+  margin-bottom: 1.25rem;
+}
+.article-hero h1 em { color: var(--cyan); font-style: italic; }
+.hero-dek { font-size: 1.05rem; font-weight: 300; font-style: italic; color: var(--text); max-width: 700px; line-height: 1.7; margin-bottom: 1.75rem; }
+.article-meta-row { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; }
+.threat-badge { font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.2rem 0.6rem; border: 1px solid; }
+.threat-critical { color: var(--red); border-color: rgba(255,68,68,0.4); }
+
+/* ── ARTICLE BODY ── */
+.article-wrap { max-width: 780px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+.article-body p { font-size: 1.02rem; color: var(--text); line-height: 1.85; margin-bottom: 1.5rem; font-weight: 300; }
+.article-body h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  letter-spacing: 0.03em;
+  color: var(--text-bright);
+  margin: 3rem 0 1.25rem;
+  line-height: 1.15;
+}
+.article-body h2 span { color: var(--cyan); }
+.article-body h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin: 2.25rem 0 1rem;
+}
+.article-body strong { color: var(--text-bright); font-weight: 600; }
+.article-body em { color: var(--cyan); font-style: italic; }
+.article-body ul { margin: 0 0 1.75rem 0; padding: 0; list-style: none; }
+.article-body ul li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.9rem;
+  font-size: 0.98rem;
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.article-body ul li::before {
+  content: '';
+  position: absolute; left: 0; top: 0.55em;
+  width: 6px; height: 6px;
+  background: var(--cyan);
+}
+.article-body ul li strong { color: var(--cyan); }
+
+.pull-quote {
+  border-left: 2px solid var(--amber);
+  padding: 0.25rem 0 0.25rem 1.75rem;
+  margin: 2.5rem 0;
+}
+.pull-quote p {
+  font-family: 'Spectral', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--text-bright);
+  line-height: 1.55;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+.pull-quote span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin: 2.5rem 0;
+  border: 1px solid var(--border);
+}
+.stat-box { background: var(--panel); padding: 1.75rem 1.5rem; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--cyan); line-height: 1; margin-bottom: 0.5rem; }
+.stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); line-height: 1.5; }
+
+.callout {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--red);
+  padding: 1.75rem 2rem;
+  margin: 2.5rem 0;
+}
+.callout-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.75rem; }
+.callout p { margin-bottom: 0; font-size: 0.95rem; }
+
+.author-box {
+  display: flex; gap: 1.25rem; align-items: center;
+  margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border);
+}
+.author-avatar {
+  width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+  background: var(--panel); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--cyan-dim);
+}
+.author-name { font-family: 'Spectral', serif; font-weight: 600; color: var(--text-bright); font-size: 0.95rem; margin-bottom: 0.2rem; }
+.author-role { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+
+/* ── RELATED ── */
+.related-section { max-width: 1200px; margin: 0 auto; padding: 0 2rem 4rem; }
+.section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--amber-dim), transparent); }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
+.article-card { background: var(--panel); padding: 1.75rem; text-decoration: none; display: block; transition: background 0.2s; position: relative; overflow: hidden; }
+.article-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+.article-card:hover { background: rgba(12,17,24,0.8); }
+.article-card:hover::after { transform: scaleX(1); }
+.card-cat { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan-dim); margin-bottom: 0.6rem; }
+.card-hed { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; line-height: 1.3; color: var(--text-bright); margin-bottom: 0.6rem; }
+.card-dek { font-size: 0.76rem; font-weight: 300; font-style: italic; color: var(--text-dim); line-height: 1.55; }
+
+footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; color: var(--cyan); }
+.footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.1em; color: var(--text-dim); }
+.footer-links { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; display: flex; gap: 1.5rem; }
+.footer-links a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--cyan); }
+
+@media (max-width: 900px) {
+  nav { display: none; }
+  .related-grid { grid-template-columns: 1fr; }
+  .stat-strip { grid-template-columns: 1fr; }
+  .article-hero { min-height: 50vh; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-main">ZERO HOUR INTELLIGENCE</span>
+      <span class="logo-sub">Imminent Flair LLC · Threat Intelligence & Policy</span>
+    </div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html" class="active">Intelligence Briefs</a>
+      <a href="https://cipherintel.imminentflair.com/">Threat Feeds</a>
+      <a href="https://zerohourintelligence.imminentflair.com/newsletter/">Advisory</a>
+      <a href="https://zerohourintelligence.imminentflair.com/about/">About</a>
+    </nav>
+    <div class="header-status">
+      <span class="status-dot"></span>
+      INTEL FEED ACTIVE
+    </div>
+  </div>
+</header>
+
+<!-- ═══ ARTICLE HERO ═══ -->
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Intelligence Briefs</a> <span>/</span> <span>Payment Security</span></div>
+    <div class="hero-category">Payment Security · PCI DSS · AI Governance</div>
+    <h1>The Scope PCI Can't Draw: Why <em>AI Adoption</em> Is Quietly Breaking Cardholder Data Compliance</h1>
+    <p class="hero-dek">PCI DSS was built on the assumption that cardholder data lives somewhere you can point to, isolate, and prove. AI adoption breaks that assumption — and almost no security assessment is asking the question that matters.</p>
+    <div class="article-meta-row">
+      <span>Catrina Turner</span>
+      <span>·</span>
+      <span>July 2026</span>
+      <span>·</span>
+      <span>10 min read</span>
+      <span class="threat-badge threat-critical">CRITICAL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ARTICLE BODY ═══ -->
+<article class="article-wrap">
+  <div class="article-body">
+
+    <p>Every PCI DSS assessment starts with the same question: where does the cardholder data live? For thirty years, that question had a knowable answer. A database. A file share. A backup tape. A payment terminal. Cardholder data had an address, and the entire architecture of PCI compliance — scoping, segmentation, tokenization, encryption at rest — was built on the ability to point to that address and prove it was locked down.</p>
+
+    <p>That assumption is now wrong for a growing share of the enterprise, and almost nobody writing security assessments has updated the question. Generative AI does not store cardholder data the way a database does. It ingests it, transforms it, compresses it into representations that have no fixed location, and produces derivatives — embeddings, cached context, summarized tickets, fine-tuning artifacts — that no scoping document was written to describe. The compliance industry spent three years catching up to PCI DSS v4.0.1's 51 future-dated requirements, which became fully mandatory in every assessment as of March 31, 2025. Meanwhile, the standard those requirements sit inside says essentially nothing about AI.</p>
+
+    <div class="stat-strip">
+      <div class="stat-box">
+        <div class="stat-num">0</div>
+        <div class="stat-label">AI-specific control requirements currently codified in PCI DSS v4.0.1</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">Jun '26</div>
+        <div class="stat-label">PCI SSC opens request for comments citing AI use in payment environments</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">12.5.2</div>
+        <div class="stat-label">The scoping requirement written for systems that have a fixed boundary</div>
+      </div>
+    </div>
+
+    <h2>The Assumption PCI Was Built <span>On</span></h2>
+
+    <p>PCI DSS defines the Cardholder Data Environment as every system component that stores, processes, or transmits cardholder data — plus anything that could affect the security of that environment. Requirement 12.5.2 then asks organizations to document that boundary at least annually: every system, every person, every data flow that touches the CDE. The entire scope-reduction toolkit that follows — tokenization, point-to-point encryption, network segmentation — depends on that boundary being drawable. You tokenize a field in a database. You segment a network path. You truncate a PAN in a log. Every one of those controls assumes cardholder data is sitting in a structured location you can name.</p>
+
+    <p>That model held for decades because it matched how software actually worked. Payment data moved between defined systems along defined paths, and a QSA could walk a data flow diagram and mark where the line was. It is also why PCI DSS v4.0's most significant shift — from an annual compliance event to continuous, business-as-usual validation — still made sense within the same architecture. Continuous monitoring of a fixed boundary is still monitoring of a boundary.</p>
+
+    <h2>Where AI Breaks the <span>Model</span></h2>
+
+    <p>Generative AI does not respect that boundary because it was never designed to have one. Consider four ways cardholder data now moves through systems that PCI's scoping methodology has no vocabulary for:</p>
+
+    <ul>
+      <li><strong>Retrieval-augmented generation.</strong> When a support tool or internal copilot indexes tickets, chat transcripts, or documents into a vector database so an AI model can retrieve relevant context, any cardholder data in that source material gets converted into numerical embeddings. An embedding is not a masked field or a token — it is a mathematical representation distributed across a high-dimensional index. There is no established, PCI-recognized method to "render it unreadable" the way Requirement 3.4 expects for a stored PAN, and no clean way to prove deletion the way a database DELETE statement does.</li>
+      <li><strong>Session context and caching.</strong> A customer service AI agent handling a billing dispute may hold card details in its active context window for the duration of a session, then summarize that conversation into a downstream ticketing or CRM system that was never scoped as part of the CDE — because on paper, it never was.</li>
+      <li><strong>Prompt-level exposure.</strong> Employees paste real transaction data into general-purpose AI tools to draft dispute letters or debug payment logic. That data may be logged, cached, or used to improve the underlying model, depending on the vendor's data handling terms — terms most security teams have not reviewed with the same rigor applied to a payment processor contract.</li>
+      <li><strong>Fine-tuning and evaluation datasets.</strong> Organizations building internal models on historical support or fraud data can inadvertently bake cardholder data into training artifacts that persist independently of the original source system, invisible to any scoping exercise that only maps production databases.</li>
+    </ul>
+
+    <p>None of these four scenarios necessarily involve a system "storing" a PAN in the traditional sense. And that is exactly the problem.</p>
+
+    <h2>The Number One Issue No One Is <span>Discussing</span></h2>
+
+    <p>Here is the gap that almost no PCI conversation about AI is naming directly: the CDE definition already sweeps AI systems into scope through its "could impact the security of" clause — but PCI DSS provides <strong>zero technical controls</strong> capable of bounding, tokenizing, or provably deleting the kind of data an AI system actually produces. Organizations are applying a decades-old scoping methodology, built for discrete storage locations, to systems whose entire function is to blend and redistribute information in ways that resist discrete location.</p>
+
+    <div class="pull-quote">
+      <p>"Not touching card data directly" is not the same test as "cannot affect the security of card data" — and PCI DSS has always scoped on the second one.</p>
+      <span>— The Scoping Trap</span>
+    </div>
+
+    <p>Most organizations' current defense is a variant of "our AI tool doesn't touch card data directly." That framing misreads the standard. PCI DSS scopes in any system that <em>could</em> affect the security of the CDE, not only systems that store a PAN. A copilot with API access to a ticketing system that references transaction IDs, a chatbot that can query an order-status endpoint, an internal model fine-tuned on support logs that once contained unredacted card data — all of these are CDE-adjacent by the standard's own logic, whether or not anyone drew that line on a diagram.</p>
+
+    <p>PCI SSC has quietly acknowledged the gap. On June 3, 2026, the Council opened a request-for-comments period on the v4.0.1 standard, running through July 20, 2026, with language explicitly flagging AI use in payment environments as an area future guidance may need to address. That is a tacit admission that the current standard was not written with AI in mind. Until new language is codified — and RFC periods do not produce fast turnarounds — every QSA, every SAQ, and every internal assessment is applying 2022-era scoping logic to 2026-era data flows, largely by improvisation.</p>
+
+    <div class="callout">
+      <div class="callout-label">What This Means In Practice</div>
+      <p>If your last PCI scoping exercise did not include a line item for AI tools with any access — direct or indirect — to systems touching cardholder data, your documented CDE boundary is already incomplete, regardless of whether your last assessment passed.</p>
+    </div>
+
+    <h2>What Security Assessments For AI Adoption Actually Need To <span>Cover</span></h2>
+
+    <p>Waiting for PCI SSC to publish AI-specific requirements is not a defensible posture for a board or a CISO in 2026. The controls that matter can be implemented now, ahead of the standard, by extending existing assessment practice rather than waiting for new clause numbers:</p>
+
+    <ul>
+      <li><strong>Treat AI touchpoints as CDE-adjacent by default.</strong> Any AI system with API access, log access, or query access to a system in or near the CDE should be scoped in until proven otherwise — not scoped out until proven risky.</li>
+      <li><strong>Add a derivative-data layer to data flow diagrams.</strong> Traditional CDE diagrams map databases and network paths. They now need a parallel layer mapping embeddings, cached context, model logs, and fine-tuning datasets — anywhere cardholder data could be transformed rather than merely stored.</li>
+      <li><strong>Extend vendor due diligence beyond "do you store card data."</strong> Every LLM or copilot vendor assessment should ask how prompts are logged, whether data is used for model improvement, how long context is retained, and whether deletion requests actually propagate through embeddings and caches — not just primary storage.</li>
+      <li><strong>Test for reconstruction, not just exfiltration.</strong> Standard penetration testing validates network and application boundaries. AI-adjacent systems need testing for prompt injection and context-leakage attacks that can surface cardholder data an attacker never directly queried for.</li>
+      <li><strong>Architect for exclusion at ingestion, not redaction after the fact.</strong> The only control that reliably works today is preventing raw PANs from ever reaching an AI system — tokenizing or redacting before ingestion, not attempting to scrub derivatives after the data has already been embedded or cached.</li>
+      <li><strong>Document AI data lifecycle with the same rigor as database retention policies.</strong> If an assessor cannot get a straight answer on how long an AI vendor retains prompt data or whether a deletion request actually removes it from a vector index, that answer should be treated as a finding, not a shrug.</li>
+    </ul>
+
+    <h2>The Board <span>Question</span></h2>
+
+    <p>The organizations that will handle this well are not the ones waiting for PCI SSC's next version. They are the ones who recognize that a compliance standard is a floor, not a ceiling, and that "the requirement doesn't exist yet" has never been a defense that held up after a breach. The right question for a board to ask this quarter is not whether the company passed its last PCI assessment. It is whether that assessment's scoping diagram has a line for AI at all — and if it doesn't, whether that's because AI genuinely isn't touching anything near cardholder data, or because nobody has looked hard enough to find out.</p>
+
+    <p>PCI DSS will eventually catch up. The RFC closing July 20, 2026 is the first formal signal that it's coming. Until then, the gap between what the standard requires and what AI adoption actually exposes is not a compliance technicality. It is the operating definition of unmanaged risk.</p>
+
+    <div class="author-box">
+      <div class="author-avatar">CT</div>
+      <div>
+        <div class="author-name">Catrina Turner</div>
+        <div class="author-role">Principal, Imminent Flair · Zero Hour Intelligence</div>
+      </div>
+    </div>
+
+  </div>
+</article>
+
+<!-- ═══ RELATED ═══ -->
+<section class="related-section">
+  <div class="section-label">Related Briefs</div>
+  <div class="related-grid">
+    <a class="article-card" href="oauth-shadow-access.html">
+      <div class="card-cat">Identity Risk · SaaS Sprawl</div>
+      <h3 class="card-hed">The OAuth Shadow</h3>
+      <p class="card-dek">Standing third-party access that no MFA policy governs and no firewall log shows.</p>
+    </a>
+    <a class="article-card" href="implicit-permissions-zero-trust.html">
+      <div class="card-cat">Agentic AI · Zero Trust</div>
+      <h3 class="card-hed">The Implicit Permission Problem</h3>
+      <p class="card-dek">Standing, session-length trust is the exact grant zero trust was built to eliminate.</p>
+    </a>
+    <a class="article-card" href="agentic-ai-oversight-frameworks.html">
+      <div class="card-cat">AI Governance · Enterprise Risk</div>
+      <h3 class="card-hed">Governing the Unscripted Machine</h3>
+      <p class="card-dek">Deterministic governance frameworks are structurally insufficient for agentic systems.</p>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">ZERO HOUR INTELLIGENCE</div>
+    <div class="footer-copy">© 2026 Imminent Flair LLC · All Rights Reserved</div>
+    <div class="footer-links">
+      <a href="https://imminentflair.com">Imminent Flair</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
