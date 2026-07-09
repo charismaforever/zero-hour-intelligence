@@ -3,784 +3,643 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Imminent Flair &middot; Cybersecurity Intelligence</title>
-<meta name="description" content="Strategic cybersecurity intelligence by Catrina Turner. Executive briefings on AI governance, quantum risk, board accountability, and critical infrastructure security.">
-<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/FlairLogo_dazdkr.png">
+<title>Intelligence Briefs — Zero Hour Intelligence</title>
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/data-map-globe_zhi_1_eoqvha.jpg">
 <style>
-/* ═══════════════════════════════════════════════
-   IMMINENT FLAIR — Global Stylesheet
-   Catrina Turner · Cybersecurity Intelligence
-   ═══════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap');
-
-/* ── RESET ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-img, video { max-width: 100%; display: block; }
-button { cursor: pointer; }
-
-/* ── TOKENS ── */
 :root {
-  --ink:         #090909;
-  --ink-mid:     #111111;
-  --ink-soft:    #1a1a1a;
-  --ink-lifted:  #242424;
-  --gold:        #b8966e;
-  --gold-light:  #d4b896;
-  --gold-pale:   #e8d5bc;
-  --gold-dim:    #7a6045;
-  --gold-deep:   #4a3820;
-  --ivory:       #f4efe6;
-  --ivory-dim:   #d8cfc0;
-  --mist:        #9a8870;
-  --mist-light:  #b8a890;
-  --rule:        rgba(184,150,110,0.18);
-  --rule-strong: rgba(184,150,110,0.35);
-
-  --ff-display: 'Cormorant Garamond', Georgia, serif;
-  --ff-body:    'Instrument Sans', sans-serif;
-  --ff-mono:    'DM Mono', monospace;
-
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --void: #040608;
+  --deep: #080c12;
+  --panel: #0c1118;
+  --border: #1a2230;
+  --cyan: #00d4ff;
+  --cyan-dim: #0099bb;
+  --cyan-ghost: rgba(0,212,255,0.06);
+  --amber: #ffaa00;
+  --amber-dim: #cc8800;
+  --amber-ghost: rgba(255,170,0,0.07);
+  --text: #c8d8e8;
+  --text-dim: #6a7a8a;
+  --text-bright: #e8f4ff;
+  --red: #ff4444;
+  --green: #00ff88;
 }
 
-/* ── BASE ── */
-html { scroll-behavior: smooth; font-size: 16px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--ink);
-  color: var(--ivory);
-  font-family: var(--ff-body);
-  font-weight: 300;
+  background: var(--void);
+  color: var(--text);
+  font-family: 'Spectral', Georgia, serif;
+  font-size: 16px;
   line-height: 1.7;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
 }
 
-/* ── NOISE OVERLAY ── */
 body::before {
   content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 9999; opacity: 0.45;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
 }
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 2px; }
-::-webkit-scrollbar-track { background: var(--ink); }
-::-webkit-scrollbar-thumb { background: var(--gold-dim); }
-
-/* ── TYPOGRAPHY ── */
-h1, h2, h3, h4 {
-  font-family: var(--ff-display);
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--ivory);
+header {
+  background: rgba(4,6,8,0.96);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
 }
-h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 300; }
-h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); }
-h3 { font-size: clamp(1.3rem, 2vw, 1.9rem); }
-h4 { font-size: 1.1rem; }
-em { font-style: italic; color: var(--gold-light); }
-strong { font-weight: 500; color: var(--ivory); }
-a { color: inherit; text-decoration: none; }
 
-p { color: var(--mist); line-height: 1.85; }
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
 
-.mono {
-  font-family: var(--ff-mono);
-  font-size: 0.62rem;
+.logo { display: flex; flex-direction: column; gap: 1px; }
+.logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--cyan); line-height: 1; }
+.logo-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-dim); }
+
+nav { display: flex; gap: 2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+nav a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+nav a:hover { color: var(--cyan); }
+nav a.active { color: var(--cyan); }
+
+.header-status { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; color: var(--green); display: flex; align-items: center; gap: 0.5rem; }
+.status-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.page-hero {
+  background: var(--deep);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(0,212,255,0.04) 0%, transparent 70%), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(0,212,255,0.03) 79px, rgba(0,212,255,0.03) 80px);
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  animation: scanline 4s ease-in-out infinite;
+}
+@keyframes scanline { 0% { transform: translateX(-100%); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateX(100%); opacity: 0; } }
+
+.page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.page-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cyan-dim); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+.page-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--cyan-dim); }
+.page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.05em; color: var(--text-bright); line-height: 1; margin-bottom: 1rem; }
+.page-title span { color: var(--cyan); }
+.page-desc { font-family: 'Spectral', serif; font-size: 0.95rem; font-weight: 300; color: var(--text-dim); max-width: 500px; font-style: italic; }
+
+.featured-section { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 0; }
+.section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--amber-dim), transparent); }
+
+.featured-card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  min-height: 480px;
+  text-decoration: none;
+}
+.featured-card:hover { border-color: var(--cyan-dim); }
+
+.featured-canvas-wrap { position: relative; overflow: hidden; }
+.featured-canvas-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.featured-canvas-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 50%, var(--panel) 100%); }
+
+.featured-content {
+  padding: 3rem 2.5rem 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.featured-content::before {
+  content: 'FEATURED';
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  color: var(--amber);
+  border: 1px solid var(--amber-dim);
+  padding: 0.2rem 0.6rem;
+}
+
+.article-category { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem; }
+.featured-hed { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; letter-spacing: 0.04em; line-height: 1.05; color: var(--text-bright); margin-bottom: 1rem; }
+.featured-hed em { color: var(--cyan); font-style: italic; }
+.featured-dek { font-size: 0.88rem; font-weight: 300; color: var(--text-dim); line-height: 1.65; margin-bottom: 2rem; font-style: italic; }
+.article-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; color: var(--text-dim); display: flex; gap: 1.5rem; margin-bottom: 2rem; }
+
+.read-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid var(--cyan-dim);
+  padding: 0.65rem 1.5rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: transparent;
+  cursor: pointer;
+  width: fit-content;
 }
+.read-btn:hover { background: var(--cyan-ghost); border-color: var(--cyan); }
+.read-btn::after { content: '→'; transition: transform 0.2s; }
+.read-btn:hover::after { transform: translateX(4px); }
 
-/* ── LAYOUT ── */
-.container { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
-.container-narrow { max-width: 860px; margin: 0 auto; padding: 0 64px; }
-.container-wide { max-width: 1440px; margin: 0 auto; padding: 0 80px; }
+.grid-section { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+.articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
 
-/* ── NAVIGATION ── */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: 68px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 64px;
-  background: rgba(9,9,9,0.90);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--rule);
-  transition: border-color 0.3s;
+.article-card {
+  background: var(--panel);
+  padding: 2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
 }
+.article-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+.article-card:hover { background: rgba(12,17,24,0.8); }
+.article-card:hover::after { transform: scaleX(1); }
 
-.nav-logo { text-decoration: none; display: flex; flex-direction: column; gap: 2px; }
-.nav-logo-name {
-  font-family: var(--ff-display);
-  font-size: 1.25rem; font-weight: 500;
-  letter-spacing: 0.1em; color: var(--ivory); line-height: 1;
-}
-.nav-logo-sub { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+.card-number { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--border); margin-bottom: 1rem; }
+.card-cat { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-dim); margin-bottom: 0.6rem; }
+.card-hed { font-family: 'Spectral', serif; font-size: 1.1rem; font-weight: 600; line-height: 1.3; color: var(--text-bright); margin-bottom: 0.75rem; }
+.card-dek { font-size: 0.8rem; font-weight: 300; font-style: italic; color: var(--text-dim); line-height: 1.6; margin-bottom: 1.5rem; }
+.card-footer { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.1em; color: var(--text-dim); display: flex; justify-content: space-between; align-items: center; }
 
-.nav-links { display: flex; align-items: center; gap: 40px; }
-.nav-links a {
-  font-family: var(--ff-mono); font-size: 0.62rem;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--mist); text-decoration: none;
-  transition: color 0.2s; position: relative;
-}
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-  height: 1px; background: var(--gold);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.25s var(--ease-out);
-}
-.nav-links a:hover { color: var(--gold-light); }
-.nav-links a:hover::after { transform: scaleX(1); }
-.nav-links a.active { color: var(--gold-light); }
-.nav-links a.active::after { transform: scaleX(1); }
+.threat-badge { font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.15rem 0.5rem; border: 1px solid; }
+.threat-critical { color: var(--red); border-color: rgba(255,68,68,0.4); }
+.threat-high { color: var(--amber); border-color: rgba(255,170,0,0.4); }
+.threat-advisory { color: var(--cyan-dim); border-color: rgba(0,153,187,0.4); }
 
-.nav-cta {
-  border: 1px solid var(--gold-dim) !important;
-  padding: 9px 22px;
-  color: var(--gold-light) !important;
-  transition: background 0.25s, color 0.25s !important;
-}
-.nav-cta::after { display: none !important; }
-.nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
+.two-col { max-width: 1200px; margin: 0 auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: 1fr 300px; gap: 1px; background: var(--border); }
+.main-col { background: var(--panel); }
+.sidebar { background: var(--panel); padding: 2rem; border-left: 1px solid var(--border); }
+.sidebar-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
 
-/* ── TICKER ── */
-.ticker {
-  background: var(--ink-mid);
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  overflow: hidden; white-space: nowrap; padding: 11px 0;
-}
-.ticker-track { display: inline-flex; animation: ticker 35s linear infinite; }
-.ticker-item {
-  display: inline-flex; align-items: center; gap: 20px;
-  padding: 0 40px;
-  font-family: var(--ff-mono); font-size: 0.6rem;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--mist);
-}
-.ticker-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.sidebar-item { padding: 1rem 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+.sidebar-item:last-child { border-bottom: none; }
+.si-cat { font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-dim); margin-bottom: 0.4rem; }
+.si-title { font-family: 'Spectral', serif; font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 0.35rem; transition: color 0.2s; }
+.sidebar-item:hover .si-title { color: var(--cyan); }
+.si-date { font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; color: var(--text-dim); }
 
-/* ── SECTION LABELS ── */
-.section-label {
-  display: flex; align-items: center; gap: 16px; margin-bottom: 52px;
-}
-.section-label .mono { color: var(--gold); }
-.section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
-.section-label-right { justify-content: flex-end; }
-.section-label-right::before { content: ''; flex: 1; height: 1px; background: var(--rule); }
-.section-label-right::after { display: none; }
+.list-articles { padding: 2rem; }
+.list-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem; cursor: pointer; text-decoration: none; }
+.list-item:last-child { border-bottom: none; }
+.li-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--border); line-height: 1; padding-top: 4px; }
+.li-cat { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-dim); margin-bottom: 0.4rem; }
+.li-hed { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; color: var(--text-bright); line-height: 1.35; margin-bottom: 0.4rem; transition: color 0.2s; }
+.list-item:hover .li-hed { color: var(--cyan); }
+.li-dek { font-size: 0.78rem; font-style: italic; font-weight: 300; color: var(--text-dim); line-height: 1.55; margin-bottom: 0.5rem; }
+.li-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.1em; color: var(--text-dim); display: flex; gap: 1rem; align-items: center; }
 
-/* ── BUTTONS ── */
-.btn {
-  display: inline-flex; align-items: center; gap: 12px;
-  font-family: var(--ff-mono); font-size: 0.62rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  text-decoration: none; transition: all 0.25s;
-}
-.btn-ghost {
-  color: var(--ivory); border-bottom: 1px solid var(--gold-dim); padding-bottom: 5px;
-}
-.btn-ghost:hover { color: var(--gold-light); border-color: var(--gold-light); }
-.btn-ghost::after { content: '→'; transition: transform 0.25s; }
-.btn-ghost:hover::after { transform: translateX(5px); }
+footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; color: var(--cyan); }
+.footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.1em; color: var(--text-dim); }
+.footer-links { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; display: flex; gap: 1.5rem; }
+.footer-links a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--cyan); }
 
-.btn-solid {
-  background: var(--gold); color: var(--ink);
-  padding: 14px 32px; font-weight: 400;
-}
-.btn-solid:hover { background: var(--gold-light); }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.featured-card { animation: fadeInUp 0.6s ease both; }
+.article-card:nth-child(1) { animation: fadeInUp 0.6s 0.1s ease both; }
+.article-card:nth-child(2) { animation: fadeInUp 0.6s 0.2s ease both; }
+.article-card:nth-child(3) { animation: fadeInUp 0.6s 0.3s ease both; }
+.article-card:nth-child(4) { animation: fadeInUp 0.6s 0.4s ease both; }
+.article-card:nth-child(5) { animation: fadeInUp 0.6s 0.5s ease both; }
+.article-card:nth-child(6) { animation: fadeInUp 0.6s 0.6s ease both; }
 
-.btn-outline {
-  border: 1px solid var(--gold-dim); color: var(--gold-light);
-  padding: 13px 30px;
-}
-.btn-outline:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
-
-/* ── CARD VARIANTS ── */
-.card {
-  background: var(--ink-mid);
-  border: 1px solid var(--rule);
-  transition: border-color 0.3s, background 0.3s;
-}
-.card:hover { border-color: var(--rule-strong); background: var(--ink-soft); }
-
-/* ── TAGS ── */
-.tag {
-  font-family: var(--ff-mono); font-size: 0.58rem;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
-}
-.tag-pill {
-  border: 1px solid var(--gold-dim); padding: 4px 12px;
-  font-family: var(--ff-mono); font-size: 0.56rem;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
-  white-space: nowrap;
-}
-
-/* ── DIVIDER ── */
-.rule { border: none; border-top: 1px solid var(--rule); margin: 0; }
-.rule-strong { border-color: var(--rule-strong); }
-
-/* ── FOOTER ── */
-.footer {
-  background: var(--ink-mid);
-  border-top: 1px solid var(--rule);
-  padding: 72px 0 0;
-}
-.footer-grid {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 60px; padding-bottom: 60px; border-bottom: 1px solid var(--rule);
-}
-.footer-brand-name { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 500; letter-spacing: 0.1em; color: var(--ivory); margin-bottom: 4px; }
-.footer-brand-sub { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
-.footer-brand-desc { font-size: 0.88rem; color: var(--mist); line-height: 1.75; max-width: 260px; }
-.footer-col h4 { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 400; }
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 10px; }
-.footer-col a { font-size: 0.9rem; color: var(--mist); text-decoration: none; transition: color 0.2s; font-weight: 300; }
-.footer-col a:hover { color: var(--ivory); }
-.footer-bottom {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 0;
-  font-family: var(--ff-mono); font-size: 0.58rem;
-  letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim);
-}
-
-/* ── SCROLL REVEAL ── */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out); }
-.reveal.visible { opacity: 1; transform: none; }
-.reveal-delay-1 { transition-delay: 0.08s; }
-.reveal-delay-2 { transition-delay: 0.16s; }
-.reveal-delay-3 { transition-delay: 0.24s; }
-.reveal-delay-4 { transition-delay: 0.32s; }
-
-/* ── PAGE HEADER (for inner pages) ── */
-.page-header {
-  padding-top: 68px;
-  background: var(--ink-mid);
-  border-bottom: 1px solid var(--rule);
-}
-.page-header-inner {
-  padding: 72px 0 64px;
-}
-.page-header-eyebrow { margin-bottom: 24px; }
-.page-header h1 { margin-bottom: 20px; }
-.page-header-desc { font-size: 1.05rem; color: var(--mist); max-width: 560px; line-height: 1.8; }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes pulse-ring {
-  0%   { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.8); opacity: 0; }
-}
-@keyframes scanline {
-  0%,100% { left: -100%; }
-  50%      { left: 100%; }
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .container, .container-narrow, .container-wide { padding: 0 40px; }
-  .nav { padding: 0 40px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-}
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .container, .container-narrow, .container-wide { padding: 0 24px; }
-  .nav { padding: 0 24px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
-}
-
-/* ── HOMEPAGE HERO ── */
-.hero {
-  padding-top: 68px;
-  min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(184,150,110,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(184,150,110,0.03) 0%, transparent 50%);
-  z-index: 0;
-}
-.hero-inner { position: relative; z-index: 2; padding: 80px 0; }
-.hero-eyebrow { margin-bottom: 32px; }
-.hero-eyebrow .mono { color: var(--gold); }
-.hero h1 { margin-bottom: 28px; max-width: 800px; }
-.hero h1 em { font-weight: 300; }
-.hero-desc { font-size: 1.1rem; color: var(--mist); max-width: 600px; line-height: 1.85; margin-bottom: 48px; }
-.hero-actions { display: flex; gap: 20px; flex-wrap: wrap; }
-
-/* Hero Stats Bar */
-.hero-stats {
-  display: flex; gap: 0; margin-top: 72px;
-  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-}
-.hero-stat {
-  flex: 1; padding: 28px 32px;
-  border-right: 1px solid var(--rule);
-}
-.hero-stat:last-child { border-right: none; }
-.hero-stat-num {
-  font-family: var(--ff-display); font-size: 2.8rem; font-weight: 300;
-  color: var(--gold); line-height: 1; margin-bottom: 8px;
-}
-.hero-stat-label {
-  font-family: var(--ff-mono); font-size: 0.56rem;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--mist);
-}
-
-/* ── FEATURED ANALYSIS ── */
-.featured {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--rule);
-}
-.featured-card {
-  display: grid; grid-template-columns: 1fr 1fr;
-  background: var(--ink-mid); border: 1px solid var(--rule);
-  min-height: 420px; transition: border-color 0.3s;
-}
-.featured-card:hover { border-color: var(--rule-strong); }
-.featured-card-visual {
-  position: relative; padding: 48px;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  background-image:
-    linear-gradient(135deg, rgba(36,36,36,0.35) 0%, rgba(17,17,17,0.25) 100%),
-    url("https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/premium_photo-1699387203637-6eac5a11a201_dcgjrn.avif");
-  background-size: cover;
-  background-position: center;
-}
-.featured-card-body { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
-.featured-card-cat { margin-bottom: 20px; }
-.featured-card-cat .mono { color: var(--gold); }
-.featured-card-title {
-  font-family: var(--ff-display); font-weight: 400;
-  font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.15;
-  color: var(--ivory); margin-bottom: 20px;
-}
-.featured-card-title em { font-weight: 300; }
-.featured-card-desc { font-size: 0.95rem; color: var(--mist); line-height: 1.8; margin-bottom: 28px; }
-.featured-card-meta {
-  font-family: var(--ff-mono); font-size: 0.56rem;
-  letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist);
-  display: flex; align-items: center; gap: 10px; margin-bottom: 28px;
-}
-.featured-card-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold-dim); }
-
-/* ── INTELLIGENCE LIBRARY ── */
-.library { padding: 80px 0; }
-.library-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-  margin-bottom: 40px;
-}
-.library-card {
-  display: block; text-decoration: none;
-  padding: 32px 28px;
-  background: var(--ink-mid); border: 1px solid var(--rule);
-  transition: border-color 0.3s, background 0.3s;
-}
-.library-card:hover { border-color: var(--rule-strong); background: var(--ink-soft); }
-.library-card-cat {
-  font-family: var(--ff-mono); font-size: 0.56rem;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
-  margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-}
-.library-card-new {
-  display: inline-block; padding: 2px 8px;
-  font-family: var(--ff-mono); font-size: 0.48rem; letter-spacing: 0.15em;
-  text-transform: uppercase; background: var(--gold); color: var(--ink); font-weight: 400;
-}
-.library-card-title {
-  font-family: var(--ff-display); font-weight: 400;
-  font-size: 1.3rem; line-height: 1.25; color: var(--ivory); margin-bottom: 14px;
-}
-.library-card-title em { font-weight: 300; }
-.library-card-desc { font-size: 0.85rem; color: var(--mist); line-height: 1.7; margin-bottom: 16px; }
-.library-card-meta {
-  font-family: var(--ff-mono); font-size: 0.56rem;
-  letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); margin-top: auto;
-}
-.library-more { text-align: right; }
-
-/* ── INTELLIGENCE PILLARS ── */
-.pillars { padding: 80px 0; border-top: 1px solid var(--rule); }
-.pillars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.pillar-card {
-  display: block; text-decoration: none;
-  padding: 36px 28px;
-  background: var(--ink-mid); border: 1px solid var(--rule);
-  transition: border-color 0.3s, background 0.3s;
-}
-.pillar-card:hover { border-color: var(--rule-strong); background: var(--ink-soft); }
-.pillar-num {
-  font-family: var(--ff-display); font-size: 3.5rem; font-weight: 300;
-  color: var(--ink-lifted); line-height: 1; margin-bottom: 20px;
-}
-.pillar-title {
-  font-family: var(--ff-display); font-weight: 400;
-  font-size: 1.4rem; line-height: 1.2; color: var(--ivory); margin-bottom: 14px;
-}
-.pillar-title em { font-weight: 300; }
-.pillar-desc { font-size: 0.85rem; color: var(--mist); line-height: 1.7; margin-bottom: 20px; }
-.pillar-link {
-  font-family: var(--ff-mono); font-size: 0.58rem;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
-}
-
-/* ── ABOUT CT ── */
-.about-ct {
-  padding: 80px 0; border-top: 1px solid var(--rule);
-  display: flex; align-items: center; gap: 72px;
-}
-.about-ct-avatar {
-  width: 160px; height: 160px; border-radius: 50%;
-  background: var(--ink-mid); border: 1px solid var(--rule);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--ff-display); font-size: 3.5rem; font-weight: 300; color: var(--gold-dim);
-  flex-shrink: 0;
-}
-.about-ct-text h3 { margin-bottom: 6px; }
-.about-ct-text h3 em { font-weight: 300; }
-.about-ct-text p { margin-bottom: 20px; max-width: 520px; }
-
-@media (max-width: 1024px) {
-  .library-grid { grid-template-columns: repeat(2, 1fr); }
-  .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) {
   .featured-card { grid-template-columns: 1fr; }
-  .hero-stats { flex-wrap: wrap; }
-  .hero-stat { flex: 1 1 calc(50% - 1px); }
-  .about-ct { flex-direction: column; gap: 32px; align-items: flex-start; }
+  .featured-canvas-wrap { height: 260px; }
+  .featured-canvas-overlay { background: linear-gradient(0deg, var(--panel) 0%, transparent 60%); }
+  .articles-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  nav { display: none; }
 }
-@media (max-width: 768px) {
-  .library-grid { grid-template-columns: 1fr; }
-  .pillars-grid { grid-template-columns: 1fr; }
-  .hero-stats { flex-direction: column; }
-  .hero-stat { border-right: none; border-bottom: 1px solid var(--rule); }
-  .hero-stat:last-child { border-bottom: none; }
-}
-
 </style>
 </head>
 <body>
 
-<!-- ═══ NAVIGATION ═══ -->
-<nav class="nav">
-  <a href="/" class="nav-logo">
-    <span class="nav-logo-name">Imminent Flair</span>
-    <span class="nav-logo-sub">Cybersecurity Intelligence</span>
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-main">ZERO HOUR INTELLIGENCE</span>
+      <span class="logo-sub">Imminent Flair LLC · Threat Intelligence & Policy</span>
+    </div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html" class="active">Intelligence Briefs</a>
+      <a href="https://cipherintel.imminentflair.com/">Threat Feeds</a>
+      <a href="https://zerohourintelligence.imminentflair.com/newsletter/">Advisory</a>
+      <a href="https://zerohourintelligence.imminentflair.com/about/">About</a>
+    </nav>
+    <div class="header-status">
+      <span class="status-dot"></span>
+      INTEL FEED ACTIVE
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Intelligence Repository</div>
+    <h1 class="page-title">INTELLIGENCE <span>BRIEFS</span></h1>
+    <p class="page-desc">Board-level analysis on AI governance, cyber threat, and the architecture of enterprise risk.</p>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured-section">
+  <div class="section-label">Latest Brief</div>
+  <a class="featured-card" href="zhi-automation-phi-false-positives.html">
+    <div class="featured-canvas-wrap">
+      <img src="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/EmergingTech.webp" alt="Emerging technology automation risk">
+      <div class="featured-canvas-overlay"></div>
+    </div>
+    <div class="featured-content">
+      <div class="article-category">Governance & Data Risk</div>
+      <h2 class="featured-hed">The Automation Blind Spot</h2>
+      <p class="featured-dek">Boards have spent two years asking whether their AI vendors will leak protected health information. Almost none have asked what happens when an automated system doesn't leak the data — it just gets the match wrong, and that wrong match starts traveling faster than anyone can correct it.</p>
+      <div class="article-meta">
+        <span>Catrina Turner</span>
+        <span>·</span>
+        <span>Jul 2026</span>
+        <span>·</span>
+        <span>12 min read</span>
+      </div>
+      <span class="read-btn">Read Brief</span>
+    </div>
   </a>
-  <div class="nav-links">
-    <a href="/articles/">Analysis</a>
-    <a href="/topics/">Topics</a>
-    <a href="/about/">About</a>
-    <a href="/newsletter/" class="nav-cta">Subscribe</a>
-  </div>
-</nav>
+</section>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero">
-  <div class="container hero-inner">
-    <div class="hero-eyebrow">
-      <span class="mono">Strategic Intelligence &middot; Executive Briefings &middot; July 2026</span>
-    </div>
-    <h1>Where <em>Cyber Risk</em><br>Meets the Boardroom</h1>
-    <p class="hero-desc">Intelligence for leaders shaping digital civilization &mdash; translated from technical threat to executive strategy, without losing the signal.</p>
-    <div class="hero-actions">
-      <a href="/articles/" class="btn btn-solid">Read the Analysis</a>
-      <a href="/about/" class="btn btn-outline">About Catrina</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">$10.5T</div>
-        <div class="hero-stat-label">Annual cost of cybercrime by 2025</div>
+<!-- GRID — 10 cards -->
+<section class="grid-section">
+  <div class="section-label">Recent Briefs</div>
+  <div class="articles-grid">
+
+    <a class="article-card" href="zhi-automation-phi-false-positives.html">
+      <div class="card-number">001</div>
+      <div class="card-cat">Governance & Data Risk</div>
+      <h3 class="card-hed">The Automation Blind Spot: PHI, Identity Records, and the False Positive Nobody Is Auditing</h3>
+      <p class="card-dek">Boards have spent two years asking whether their AI vendors will leak protected health information. Almost none have asked what happens when an automated system doesn't leak the data — it just gets the match wrong, and that wrong match starts traveling faster than anyone can correct it.</p>
+      <div class="card-footer">
+        <span>Jul 2026 · 12 min</span>
+        <span class="threat-badge threat-critical">CRITICAL</span>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">4.8M</div>
-        <div class="hero-stat-label">Global cybersecurity workforce gap</div>
+    </a>
+
+    <a class="article-card" href="pci-compliance-ai-security-assessments.html">
+      <div class="card-number">002</div>
+      <div class="card-cat">Payment Security · AI Governance</div>
+      <h3 class="card-hed">The Scope PCI Can't Draw</h3>
+      <p class="card-dek">PCI's entire compliance model runs on being able to map, segment, and tokenize where cardholder data lives. AI adoption creates untethered data derivatives that fit none of those categories — and the standard has no control language for them yet.</p>
+      <div class="card-footer">
+        <span>Jul 2026 · 10 min</span>
+        <span class="threat-badge threat-critical">CRITICAL</span>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">82:1</div>
-        <div class="hero-stat-label">AI agents to human workers in enterprise</div>
+    </a>
+
+    <a class="article-card" href="implicit-permissions-zero-trust.html">
+      <div class="card-number">003</div>
+      <div class="card-cat">Agentic AI · Zero Trust Architecture</div>
+      <h3 class="card-hed">The Implicit Permission Problem</h3>
+      <p class="card-dek">Agentic coding tools run on standing, session-length trust — the exact grant zero trust architecture was built to eliminate. Capability is scaling faster than the permission model wrapped around it.</p>
+      <div class="card-footer">
+        <span>Jul 2026 · 9 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
       </div>
-    </div>
+    </a>
+
+    <a class="article-card" href="shared-gpu-kernel-isolation.html">
+      <div class="card-number">004</div>
+      <div class="card-cat">AI Infrastructure · Hardware Security</div>
+      <h3 class="card-hed">The Isolation That Isn't</h3>
+      <p class="card-dek">Every major AI inference platform assumes a container boundary is enough to isolate tenants on shared GPUs. It isn't, and the failure mode requires no attacker at all — just leftover memory and a driver nobody audits.</p>
+      <div class="card-footer">
+        <span>Jul 2026 · 11 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="oauth-shadow-access.html">
+      <div class="card-number">005</div>
+      <div class="card-cat">Identity Risk · SaaS Sprawl</div>
+      <h3 class="card-hed">The OAuth Shadow</h3>
+      <p class="card-dek">Every third-party app your employees ever approved still holds standing access to corporate data — long after anyone remembers granting it. No firewall log shows it, no MFA policy governs it.</p>
+      <div class="card-footer">
+        <span>Jul 2026 · 14 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="agentic-ai-native-vulnerability-discovery.html">
+      <div class="card-number">006</div>
+      <div class="card-cat">AI Security · Threat Research</div>
+      <h3 class="card-hed">The Hunter Becomes the Weapon</h3>
+      <p class="card-dek">Agentic AI systems built to find vulnerabilities are now being turned against the infrastructure they were meant to defend. Native vulnerability discovery at machine speed is reshaping the threat landscape — permanently.</p>
+      <div class="card-footer">
+        <span>Jun 2026 · 11 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="agentic-ai-oversight-frameworks.html">
+      <div class="card-number">007</div>
+      <div class="card-cat">AI Governance · Enterprise Risk</div>
+      <h3 class="card-hed">Governing the Unscripted Machine</h3>
+      <p class="card-dek">Agentic AI systems no longer wait for instructions. The governance frameworks built for deterministic software are structurally insufficient. Here is what effective oversight actually requires.</p>
+      <div class="card-footer">
+        <span>May 2026 · 12 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="zhi-vendor-threat-article.html">
+      <div class="card-number">008</div>
+      <div class="card-cat">Supply Chain Risk</div>
+      <h3 class="card-hed">The Vendor You Trust May Be the Threat You Never Saw Coming</h3>
+      <p class="card-dek">Third-party vendor risk has quietly become the dominant attack vector for enterprise breaches. Boards that ignore it are operating with a critical blind spot.</p>
+      <div class="card-footer">
+        <span>May 2026 · 10 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="harvest-now-decrypt-later.html">
+      <div class="card-number">009</div>
+      <div class="card-cat">Post-Quantum Security</div>
+      <h3 class="card-hed">Harvest Now, Decrypt Later: The Silent Threat to Long-Term Data</h3>
+      <p class="card-dek">Nation-state actors are collecting encrypted data today to decrypt it once quantum computing matures. The migration window is shorter than most procurement cycles.</p>
+      <div class="card-footer">
+        <span>Apr 2026 · 9 min</span>
+        <span class="threat-badge threat-high">HIGH PRIORITY</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="ceo-doppelganger.html">
+      <div class="card-number">010</div>
+      <div class="card-cat">Deepfake Threat Intelligence</div>
+      <h3 class="card-hed">The CEO Doppelgänger: Executive Identity Spoofing at Scale</h3>
+      <p class="card-dek">Real-time voice cloning and synthetic video now operate below the detection threshold of current enterprise security awareness programs.</p>
+      <div class="card-footer">
+        <span>Mar 2026 · 7 min</span>
+        <span class="threat-badge threat-critical">CRITICAL</span>
+      </div>
+    </a>
+
   </div>
 </section>
 
-<!-- ═══ FEATURED ANALYSIS ═══ -->
-<section class="featured">
-  <div class="container">
-    <div class="section-label"><span class="mono">Featured Analysis</span></div>
-    <a href="articles/pci-compliance-ai-security-assessments.html" class="featured-card" style="text-decoration:none;">
-  <div class="featured-card-visual"></div>
-  <div class="featured-card-body">
-    <div class="featured-card-cat"><span class="mono">Payment Security &middot; PCI DSS &middot; AI Governance &middot; July 2026</span></div>
-    <div class="featured-card-title">The Scope PCI Can&rsquo;t Draw: Why <em>AI Adoption</em> Is Quietly Breaking Cardholder Data Compliance</div>
-    <p class="featured-card-desc">PCI DSS was built on the assumption that cardholder data lives somewhere you can point to, isolate, and prove. AI adoption breaks that assumption &mdash; and almost no security assessment is asking the question that matters.</p>
-    <div class="featured-card-meta">
-      <span>10 min read</span>
-      <span class="dot"></span>
-      <span>Catrina Turner</span>
-      <span class="dot"></span>
-      <span>PCI DSS &middot; AI Risk &middot; Security Assessments</span>
-    </div>
-    <span class="btn btn-ghost">Read Full Analysis</span>
-  </div>
-</a>
-  </div>
-</section>
+<!-- LIST + SIDEBAR -->
+<div class="two-col">
+  <div class="main-col">
+    <div class="list-articles">
+      <div class="section-label" style="padding: 1.5rem 0 0;">Archive</div>
 
-<!-- ═══ INTELLIGENCE LIBRARY ═══ -->
-<section class="library">
-  <div class="container">
-    <div class="section-label"><span class="mono">Intelligence Library</span></div>
-    <div class="library-grid">
-      <!-- The Scope PCI Can't Draw — NEW -->
-      <a href="/articles/pci-compliance-ai-security-assessments.html" class="library-card reveal">
-        <div class="library-card-cat">
-          <span>Payment Security &amp; AI Governance</span>
-          <span class="library-card-new">New</span>
+      <a class="list-item" href="architecture-of-failure.html">
+        <div class="li-num">11</div>
+        <div>
+          <div class="li-cat">Zero Trust Architecture</div>
+          <div class="li-hed">The Architecture of Failure: Why Zero Trust Breaks at the Identity Layer</div>
+          <p class="li-dek">The architectural principle is sound. Execution consistently breaks at the same three points — and adversaries know exactly where to look.</p>
+          <div class="li-meta">
+            <span>Feb 2026</span>
+            <span>·</span>
+            <span>10 min read</span>
+            <span class="threat-badge threat-advisory" style="margin-left:auto;">ADVISORY</span>
+          </div>
         </div>
-        <div class="library-card-title">The Scope PCI <em>Can&rsquo;t Draw</em></div>
-        <p class="library-card-desc">PCI DSS assumes cardholder data lives in places you can map, segment, and tokenize. AI adoption creates data derivatives &mdash; embeddings, cached context, copilot logs &mdash; that fit none of those categories.</p>
-        <div class="library-card-meta">July 2026 &middot; 10 min &rarr;</div>
       </a>
 
-      <!-- The Implicit Permission Problem -->
-      <a href="/articles/implicit-permissions-zero-trust.html" class="library-card reveal">
-        <div class="library-card-cat">
-          <span>Agentic AI &amp; Zero Trust Architecture</span>
+      <a class="list-item" href="infrastructure-illusion.html">
+        <div class="li-num">12</div>
+        <div>
+          <div class="li-cat">Critical Infrastructure</div>
+          <div class="li-hed">The Infrastructure Illusion: Why Resilience Plans Fail Under Real Pressure</div>
+          <p class="li-dek">Most business continuity plans are designed for auditors, not adversaries. The gap between documented resilience and operational reality is where threats live.</p>
+          <div class="li-meta">
+            <span>Feb 2026</span>
+            <span>·</span>
+            <span>8 min read</span>
+            <span class="threat-badge threat-high" style="margin-left:auto;">HIGH PRIORITY</span>
+          </div>
         </div>
-        <div class="library-card-title">The Implicit <em>Permission</em> Problem</div>
-        <p class="library-card-desc">Agentic coding tools run on standing, session-length trust &mdash; the exact grant zero trust architecture was built to eliminate. Capability is scaling faster than the governance wrapped around it.</p>
-        <div class="library-card-meta">July 2026 &middot; 9 min &rarr;</div>
       </a>
 
-      <!-- The Isolation That Isn't -->
-      <a href="/articles/shared-gpu-kernel-isolation.html" class="library-card reveal">
-        <div class="library-card-cat">
-          <span>AI Infrastructure &amp; Hardware Security</span>
+      <a class="list-item" href="you-are-the-algorithm.html">
+        <div class="li-num">13</div>
+        <div>
+          <div class="li-cat">AI Governance · LLM Risk</div>
+          <div class="li-hed">You Are the Algorithm: How Human Bias Becomes Machine Behavior</div>
+          <p class="li-dek">LLMs do not arrive with bias — we inject it, reinforce it through interaction, and watch it scale. The governance question is whether that signal is intentional.</p>
+          <div class="li-meta">
+            <span>Jun 2026</span>
+            <span>·</span>
+            <span>9 min read</span>
+            <span class="threat-badge threat-high" style="margin-left:auto;">HIGH PRIORITY</span>
+          </div>
         </div>
-        <div class="library-card-title">The Isolation That <em>Isn't</em></div>
-        <p class="library-card-desc">Every AI inference platform assumes a container boundary keeps your workload separate from a stranger's on the same GPU. It doesn&rsquo;t &mdash; and the failure doesn&rsquo;t require an attacker.</p>
-        <div class="library-card-meta">July 2026 &middot; 11 min &rarr;</div>
       </a>
 
-      <!-- The OAuth Shadow -->
-      <a href="/articles/oauth-shadow-access.html" class="library-card reveal">
-        <div class="library-card-cat">
-          <span>Identity Risk &amp; SaaS Sprawl</span>
+      <a class="list-item" href="nis2-supply-chain-mandate.html">
+        <div class="li-num">14</div>
+        <div>
+          <div class="li-cat">Regulatory Compliance</div>
+          <div class="li-hed">NIS2 and the Supply Chain Mandate: What European Compliance Means for US Firms</div>
+          <p class="li-dek">NIS2 extends security obligations deep into supply chains. US companies doing business in Europe face exposure they have not yet mapped.</p>
+          <div class="li-meta">
+            <span>Jan 2026</span>
+            <span>·</span>
+            <span>8 min read</span>
+            <span class="threat-badge threat-advisory" style="margin-left:auto;">ADVISORY</span>
+          </div>
         </div>
-        <div class="library-card-title">The OAuth <em>Shadow</em></div>
-        <p class="library-card-desc">Every third-party app your employees ever approved still holds standing access to corporate data. No MFA policy governs it, no firewall log shows it &mdash; and almost no board has ever asked about it.</p>
-        <div class="library-card-meta">July 2026 &middot; 14 min &rarr;</div>
       </a>
 
-      <!-- You Are the Algorithm -->
-      <a href="/articles/you-are-the-algorithm.html" class="library-card reveal">
-        <div class="library-card-cat">
-          <span>AI Governance &amp; LLM Risk</span>
+      <a class="list-item" href="governance-autonomous-engineering.html">
+        <div class="li-num">15</div>
+        <div>
+          <div class="li-cat">AI Governance</div>
+          <div class="li-hed">Governing Autonomous Engineering: When Code Writes and Deploys Itself</div>
+          <p class="li-dek">When code writes code and deploys itself, the traditional SDLC governance model becomes a relic. The accountability gap is structural, not procedural.</p>
+          <div class="li-meta">
+            <span>Jan 2026</span>
+            <span>·</span>
+            <span>8 min read</span>
+            <span class="threat-badge threat-high" style="margin-left:auto;">HIGH PRIORITY</span>
+          </div>
         </div>
-        <div class="library-card-title">You Are the <em>Algorithm</em></div>
-        <p class="library-card-desc">LLMs do not carry inherent bias &mdash; we inject it through training feedback, amplify it through interaction, and scale it across every automated decision. The governance obligation is structural, not optional.</p>
-        <div class="library-card-meta">June 2026 &middot; 9 min &rarr;</div>
       </a>
 
-       <a href="/articles/agentic-ai-native-vulnerability-discovery.html" class="library-card reveal">
-  <div class="library-card-cat">AI Governance &amp; Data Risk</div>
-  <div class="library-card-title">Built to Find the Gap: Agentic AI's Native Vulnerability-Discovery <em>Instinct</em></div>
-  <p class="library-card-desc">The same training objective that makes an agent efficient at finishing a task makes it efficient at finding the paths your security model never anticipated &mdash; and the governance it demands.</p>
-  <div class="library-card-meta">June 2026 &middot; 8 min &rarr;</div>
-</a>
-
-      <!-- NIS2 -->
-      <a href="/articles/nis2-supply-chain-mandate.html" class="library-card reveal">
-        <div class="library-card-cat">
-          <span>EU Compliance</span>
+      <a class="list-item" href="enemy-inside-the-walls.html">
+        <div class="li-num">16</div>
+        <div>
+          <div class="li-cat">Insider Threat</div>
+          <div class="li-hed">The Enemy Inside the Walls: Insider Threat in the Age of AI-Augmented Work</div>
+          <p class="li-dek">AI tools have dramatically expanded what a single insider can exfiltrate, manipulate, or destroy. Traditional insider threat programs were not built for this threat model.</p>
+          <div class="li-meta">
+            <span>Dec 2025</span>
+            <span>·</span>
+            <span>9 min read</span>
+            <span class="threat-badge threat-critical" style="margin-left:auto;">CRITICAL</span>
+          </div>
         </div>
-        <div class="library-card-title">NIS2 &amp; the Supply Chain <em>Mandate</em></div>
-        <p class="library-card-desc">The Cyber Resilience Act is embedding security into product lifecycles. What organizations must do &mdash; and the personal board liability at stake.</p>
-        <div class="library-card-meta">April 2026 &middot; 18 min &rarr;</div>
       </a>
 
-      <!-- Architecture of Failure -->
-      <a href="/articles/architecture-of-failure.html" class="library-card reveal reveal-delay-1">
-        <div class="library-card-cat">Strategic Analysis</div>
-        <div class="library-card-title">The Architecture of <em>Failure</em></div>
-        <p class="library-card-desc">The perimeter model has collapsed. Zero Trust, post-quantum cryptography, and AI-native operations are rewriting the rules of digital defense.</p>
-        <div class="library-card-meta">March 2026 &middot; 12 min &rarr;</div>
+      <a class="list-item" href="fiduciary-exposure.html">
+        <div class="li-num">17</div>
+        <div>
+          <div class="li-cat">Board Advisory</div>
+          <div class="li-hed">Fiduciary Exposure: The Board's Legal Liability for Cybersecurity Failures</div>
+          <p class="li-dek">SEC disclosure rules, Delaware Caremark standards, and a wave of derivative litigation are making cybersecurity governance a personal liability issue for board members.</p>
+          <div class="li-meta">
+            <span>Nov 2025</span>
+            <span>·</span>
+            <span>11 min read</span>
+            <span class="threat-badge threat-high" style="margin-left:auto;">HIGH PRIORITY</span>
+          </div>
+        </div>
       </a>
 
-      <!-- Harvest Now, Decrypt Later -->
-      <a href="/articles/harvest-now-decrypt-later.html" class="library-card reveal reveal-delay-2">
-        <div class="library-card-cat">Quantum Risk</div>
-        <div class="library-card-title">Harvest Now, Decrypt <em>Later</em></div>
-        <p class="library-card-desc">Nation-state actors are collecting encrypted data today with one intention &mdash; decrypting it within a three-to-five year horizon.</p>
-        <div class="library-card-meta">March 2026 &middot; 14 min &rarr;</div>
-      </a>
-
-      <!-- Enemy Inside the Walls -->
-      <a href="/articles/enemy-inside-the-walls.html" class="library-card reveal">
-        <div class="library-card-cat">Insider Risk</div>
-        <div class="library-card-title">The Enemy Inside the <em>Walls</em></div>
-        <p class="library-card-desc">How organizations are rethinking insider threat programs &mdash; from punitive detection to behavioral analytics that identify anomaly before action.</p>
-        <div class="library-card-meta">March 2026 &middot; 14 min &rarr;</div>
-      </a>
-
-      <!-- CEO Doppelgänger -->
-      <a href="/articles/ceo-doppelganger.html" class="library-card reveal reveal-delay-1">
-        <div class="library-card-cat">AI &amp; Security</div>
-        <div class="library-card-title">The CEO <em>Doppelg&auml;nger</em></div>
-        <p class="library-card-desc">Your executives&rsquo; voices have already been harvested. How AI voice cloning and deepfake video are weaponizing executive identity &mdash; and draining corporate accounts at scale.</p>
-        <div class="library-card-meta">March 2026 &middot; 10 min &rarr;</div>
-      </a>
-
-      <!-- Fiduciary Exposure -->
-      <a href="/articles/fiduciary-exposure.html" class="library-card reveal reveal-delay-2">
-        <div class="library-card-cat">Board Governance</div>
-        <div class="library-card-title">Fiduciary <em>Exposure</em></div>
-        <p class="library-card-desc">Cybersecurity has become a matter of executive accountability. What boards must understand about legal and strategic obligations in the post-breach era.</p>
-        <div class="library-card-meta">April 2026 &middot; 13 min &rarr;</div>
-      </a>
-
-      <!-- Infrastructure Illusion -->
-      <a href="/articles/infrastructure-illusion.html" class="library-card reveal">
-        <div class="library-card-cat">Infrastructure Security</div>
-        <div class="library-card-title">The Infrastructure <em>Illusion</em></div>
-        <p class="library-card-desc">What managed platforms don&rsquo;t tell you about your own data &mdash; and why infrastructure ownership is the prerequisite for quantum readiness.</p>
-        <div class="library-card-meta">April 2026 &middot; 15 min &rarr;</div>
-      </a>
-          <a href="/articles/agentic-ai-oversight-frame.html" class="library-card reveal">
-        <div class="library-card-cat">Governing the Unscripted Machine</div>
-        <div class="library-card-title">Governing the Unscripted <em>Machine</em></div>
-        <p class="library-card-desc">Agentic AI systems no longer wait for instructions&rsquo;They plan, act, and chain&mdash; decisions across tools and environments. </p>
-        <div class="library-card-meta">April 2026 &middot; 15 min &rarr;</div>
-      </a>
-    </div>
-    <div class="library-more">
-      <a href="/articles/" class="btn btn-ghost">View All Analysis</a>
     </div>
   </div>
-</section>
 
-<!-- ═══ INTELLIGENCE PILLARS ═══ -->
-<section class="pillars">
-  <div class="container">
-    <div class="section-label"><span class="mono">Intelligence Pillars</span></div>
-    <div class="pillars-grid">
-      <a href="/topics/#quantum" class="pillar-card reveal" data-delay="70">
-        <div class="pillar-num">01</div>
-        <div class="pillar-title">Quantum <em>Risk</em></div>
-        <p class="pillar-desc">Post-quantum cryptography, NIST FIPS standards, crypto agility, and the harvest-now-decrypt-later threat landscape.</p>
-        <span class="pillar-link">Explore &rarr;</span>
-      </a>
-      <a href="/topics/#ai" class="pillar-card reveal reveal-delay-1" data-delay="140">
-        <div class="pillar-num">02</div>
-        <div class="pillar-title">AI-Native <em>Defense</em></div>
-        <p class="pillar-desc">Autonomous threat detection, machine-speed response, and the adversarial use of generative AI at enterprise scale.</p>
-        <span class="pillar-link">Explore &rarr;</span>
-      </a>
-      <a href="/topics/#governance" class="pillar-card reveal reveal-delay-2" data-delay="210">
-        <div class="pillar-num">03</div>
-        <div class="pillar-title">Executive <em>Governance</em></div>
-        <p class="pillar-desc">Board-level risk communication, fiduciary obligations, and cybersecurity as a strategic executive imperative.</p>
-        <span class="pillar-link">Explore &rarr;</span>
-      </a>
-      <a href="/topics/#insider" class="pillar-card reveal reveal-delay-3" data-delay="280">
-        <div class="pillar-num">04</div>
-        <div class="pillar-title">Insider <em>Intelligence</em></div>
-        <p class="pillar-desc">Behavioral analytics, privileged access governance, and the psychology of insider risk in modern enterprise.</p>
-        <span class="pillar-link">Explore &rarr;</span>
-      </a>
-    </div>
-  </div>
-</section>
+  <aside class="sidebar">
+    <div class="sidebar-title">Focus Areas</div>
 
-<!-- ═══ ABOUT CT ═══ -->
-<section class="container">
-  <div class="about-ct">
-    <div class="about-ct-avatar">CT</div>
-    <div class="about-ct-text">
-      <h3>Catrina <em>Turner</em></h3>
-      <p>Principal of Imminent Flair. Senior cybersecurity professional and researcher at the intersection of security, quantum computing, and artificial intelligence. Advisor to C-suite leaders and boards navigating existential digital risk.</p>
-      <a href="/about/" class="btn btn-ghost">Full Profile</a>
-    </div>
-  </div>
-</section>
+    <a class="sidebar-item" href="zhi-automation-phi-false-positives.html" style="text-decoration:none;">
+      <div class="si-cat">New · July 2026</div>
+      <div class="si-title">The Automation Blind Spot</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
 
-<!-- ═══ FOOTER ═══ -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand-name">Imminent Flair</div>
-        <div class="footer-brand-sub">Cybersecurity Intelligence</div>
-        <p class="footer-brand-desc">Strategic cybersecurity intelligence for C-suite leaders and boards. Translating technical risk into executive clarity.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Analysis</h4>
-        <ul>
-          <li><a href="/articles/pci-compliance-ai-security-assessments.html">The Scope PCI Can&rsquo;t Draw</a></li>
-          <li><a href="/articles/implicit-permissions-zero-trust.html">The Implicit Permission Problem</a></li>
-          <li><a href="/articles/shared-gpu-kernel-isolation.html">The Isolation That Isn't</a></li>
-          <li><a href="/articles/oauth-shadow-access.html">The OAuth Shadow</a></li>
-          <li><a href="/articles/agentic-ai-native-vulnerability-discovery.html">Built to Find the Gap</a></li>
-          <li><a href="/articles/governance-autonomous-engineering.html">Governance Modeling</a></li>
-          <li><a href="/articles/nis2-supply-chain-mandate.html">NIS2 &amp; the Supply Chain Mandate</a></li>
-          <li><a href="/articles/infrastructure-illusion.html">The Infrastructure Illusion</a></li>
-          <li><a href="/articles/architecture-of-failure.html">The Architecture of Failure</a></li>
-          <li><a href="/articles/harvest-now-decrypt-later.html">Harvest Now, Decrypt Later</a></li>
-           <li><a href="/articles/agentic-ai-oversight-frameworks.html">Governing the Unscripted Machine</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Topics</h4>
-        <ul>
-          <li><a href="/topics/#zero-trust">Zero Trust</a></li>
-          <li><a href="/topics/#quantum">Post-Quantum</a></li>
-          <li><a href="/topics/#insider">Insider Risk</a></li>
-          <li><a href="/topics/#governance">Governance</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul>
-          <li><a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://orcid.org/" target="_blank" rel="noopener">ORCID Research</a></li>
-          <li><a href="/about/">About Catrina</a></li>
-          <li><a href="/newsletter/">Subscribe</a></li>
-        </ul>
-      </div>
+    <a class="sidebar-item" href="pci-compliance-ai-security-assessments.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">PCI DSS Scope &amp; AI Data Derivatives</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="implicit-permissions-zero-trust.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Agentic AI Standing Access &amp; Zero Trust</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="shared-gpu-kernel-isolation.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Shared-GPU Kernel Isolation Risk</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="oauth-shadow-access.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Identity Risk & SaaS Sprawl</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="you-are-the-algorithm.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">LLM Bias & Human-Injected Risk</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="agentic-ai-native-vulnerability-discovery.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">AI-Native Vulnerability Discovery</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="agentic-ai-oversight-frameworks.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Agentic AI & Automation Governance</div>
+      <div class="si-date">Ongoing · 2 briefs published</div>
+    </a>
+
+    <a class="sidebar-item" href="harvest-now-decrypt-later.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Post-Quantum Cryptography Migration</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="ceo-doppelganger.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Synthetic Identity & Deepfake Threats</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="architecture-of-failure.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Zero Trust Architecture Execution</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <a class="sidebar-item" href="zhi-vendor-threat-article.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Third-Party & Supply Chain Risk</div>
+      <div class="si-date">Ongoing · 2 briefs published</div>
+    </a>
+
+    <a class="sidebar-item" href="fiduciary-exposure.html" style="text-decoration:none;">
+      <div class="si-cat">Active Coverage</div>
+      <div class="si-title">Board Liability & Cyber Governance</div>
+      <div class="si-date">Ongoing · 1 brief published</div>
+    </a>
+
+    <div style="margin-top:2rem; padding-top:2rem; border-top:1px solid var(--border);">
+      <div class="sidebar-title">About ZHI</div>
+      <p style="font-size:0.78rem; font-style:italic; color:var(--text-dim); line-height:1.6;">Zero Hour Intelligence is the threat analysis and policy publication of Imminent Flair LLC. Written for CISOs, boards, and technology executives navigating enterprise AI and cybersecurity risk.</p>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 Imminent Flair &middot; Catrina Turner</span>
-      <span>Cybersecurity Intelligence &middot; Strategic Analysis</span>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">ZERO HOUR INTELLIGENCE</div>
+    <div class="footer-copy">© 2026 Imminent Flair LLC · All Rights Reserved</div>
+    <div class="footer-links">
+      <a href="https://imminentflair.com">Imminent Flair</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
     </div>
   </div>
 </footer>
-
-<!-- ═══ SCROLL REVEAL ═══ -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
-});
-</script>
 
 </body>
 </html>
