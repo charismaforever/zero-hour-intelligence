@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Quantum Trust Fabric — Zero Hour Intelligence</title>
+<meta name="description" content="The next post-quantum failure may not begin with encrypted data. It may begin with the certificates, signatures, machine identities, and trust anchors that decide what the enterprise believes.">
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/data-map-globe_zhi_1_eoqvha.jpg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+:root{
+  --void:#040608;--deep:#080c12;--panel:#0c1118;--border:#1a2230;
+  --cyan:#00d4ff;--cyan-dim:#0099bb;--cyan-ghost:rgba(0,212,255,.06);
+  --amber:#ffaa00;--amber-dim:#cc8800;--text:#c8d8e8;--text-dim:#6a7a8a;
+  --text-bright:#e8f4ff;--red:#ff4444;--green:#00ff88;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--text);font-family:'Spectral',Georgia,serif;font-size:16px;line-height:1.8;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);pointer-events:none;z-index:999;opacity:.4}
+a{color:inherit}
+header{background:rgba(4,6,8,.96);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;flex-direction:column;gap:1px}
+.logo-main{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.12em;color:var(--cyan);line-height:1}
+.logo-sub{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--text-dim)}
+nav{display:flex;gap:2rem;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase}
+nav a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+nav a:hover,nav a.active{color:var(--cyan)}
+.header-status{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.15em;color:var(--green);display:flex;align-items:center;gap:.5rem}
+.status-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.article-hero{max-width:1200px;margin:0 auto;padding:4.5rem 2rem 2.5rem}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem}
+.eyebrow span{color:var(--amber)}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6.3rem);line-height:.96;letter-spacing:.035em;color:var(--text-bright);max-width:1000px}
+h1 em{font-family:'Spectral',serif;color:var(--cyan);font-weight:300}
+.deck{max-width:850px;margin:1.6rem 0 1.5rem;font-size:1.15rem;font-style:italic;color:var(--text-dim);line-height:1.7}
+.meta{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-dim)}
+.meta .dot{width:3px;height:3px;border-radius:50%;background:var(--cyan-dim)}
+.badge{border:1px solid rgba(255,68,68,.4);color:var(--red);padding:.15rem .5rem}
+.hero-image{max-width:1200px;margin:0 auto;padding:0 2rem}
+.hero-image figure{border:1px solid var(--border);background:var(--panel);overflow:hidden}
+.hero-image img{width:100%;height:min(62vw,560px);object-fit:cover;display:block}
+.hero-image figcaption{padding:.75rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-top:1px solid var(--border)}
+.layout{max-width:1200px;margin:0 auto;padding:3.5rem 2rem 5rem;display:grid;grid-template-columns:minmax(0,820px) 280px;gap:4rem}
+.article{min-width:0}
+.article .lead{font-size:1.25rem;color:var(--text);line-height:1.85}
+.article p{margin:0 0 1.35rem}
+.article h2{font-family:'Bebas Neue',sans-serif;font-size:2.15rem;letter-spacing:.035em;color:var(--text-bright);margin:3.2rem 0 1rem;line-height:1}
+.article h2 span{color:var(--cyan)}
+.article h3{font-family:'Spectral',serif;font-size:1.2rem;color:var(--text-bright);margin:2rem 0 .65rem}
+.article strong{color:var(--text-bright);font-weight:600}
+.article ul,.article ol{padding-left:1.4rem;margin:0 0 1.5rem;color:var(--text-dim)}
+.article li{margin-bottom:.55rem}
+.callout{border-left:2px solid var(--cyan);background:var(--cyan-ghost);padding:1.3rem 1.4rem;margin:2rem 0;color:var(--text);font-style:italic}
+.callout strong{font-style:normal}
+.image-break{margin:2.5rem 0;border:1px solid var(--border);background:var(--panel)}
+.image-break img{width:100%;max-height:430px;object-fit:cover}
+.image-break figcaption{padding:.7rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);border-top:1px solid var(--border)}
+.risk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin:1.5rem 0 2rem}
+.risk-card{background:var(--panel);padding:1.4rem}
+.risk-num{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--border);line-height:1;margin-bottom:.5rem}
+.risk-title{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:.55rem}
+.risk-card p{font-size:.78rem;line-height:1.65;margin:0}
+.checklist{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0;margin:1.5rem 0 2rem}
+.checklist div{display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid rgba(26,34,48,.7)}
+.checklist div:last-child{border-bottom:0}
+.check{font-family:'IBM Plex Mono',monospace;color:var(--amber);font-size:.55rem;padding-top:.25rem}
+.checklist span:last-child{color:var(--text-dim);font-size:.88rem}
+.sources{border-top:1px solid var(--border);margin-top:3rem;padding-top:2rem}
+.sources h3{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);margin:0 0 1rem}
+.sources ol{padding-left:1.2rem}
+.sources li{font-size:.72rem;margin-bottom:.65rem}
+.sources a{color:var(--cyan);text-decoration:none}
+.sources a:hover{text-decoration:underline}
+.sidebar{position:sticky;top:85px;height:max-content;background:var(--panel);border:1px solid var(--border);padding:1.5rem}
+.side-title{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);padding-bottom:.75rem;border-bottom:1px solid var(--border);margin-bottom:1rem}
+.side-item{padding:.8rem 0;border-bottom:1px solid var(--border)}
+.side-item:last-child{border-bottom:0}
+.side-label{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan-dim);margin-bottom:.3rem}
+.side-item p{font-size:.76rem;color:var(--text-dim);line-height:1.55;margin:0}
+.side-item a{text-decoration:none}
+footer{background:var(--deep);border-top:1px solid var(--border);padding:2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;color:var(--cyan)}
+.footer-copy,.footer-links{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;color:var(--text-dim)}
+.footer-links{display:flex;gap:1.5rem;text-transform:uppercase}
+.footer-links a{text-decoration:none;color:var(--text-dim)}
+.footer-links a:hover{color:var(--cyan)}
+@media(max-width:900px){
+  nav{display:none}.layout{grid-template-columns:1fr}.sidebar{position:static}
+  .risk-grid{grid-template-columns:1fr}.hero-image img{height:360px}
+}
+@media(max-width:600px){
+  .article-hero,.hero-image,.layout{padding-left:1.2rem;padding-right:1.2rem}
+  .article-hero{padding-top:3rem}.header-inner{height:60px}
+  .meta{gap:.65rem}.footer-inner{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-main">ZERO HOUR INTELLIGENCE</span>
+      <span class="logo-sub">Imminent Flair LLC · Threat Intelligence & Policy</span>
+    </div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html" class="active">Intelligence Briefs</a>
+      <a href="https://cipherintel.imminentflair.com/">Threat Feeds</a>
+      <a href="https://zerohourintelligence.imminentflair.com/newsletter/">Advisory</a>
+      <a href="https://zerohourintelligence.imminentflair.com/about/">About</a>
+    </nav>
+    <div class="header-status"><span class="status-dot"></span>INTEL FEED ACTIVE</div>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="eyebrow">Post-Quantum Security <span>·</span> PKI <span>·</span> Machine Identity</div>
+  <h1>THE QUANTUM TRUST <em>FABRIC</em></h1>
+  <p class="deck">Why the first enterprise post-quantum failure may not be the ciphertext. It may be the certificate, signature, machine identity, or trust anchor that tells the enterprise what to believe.</p>
+  <div class="meta">
+    <span>Catrina Turner</span><span class="dot"></span><span>Aug 2026</span><span class="dot"></span><span>12 min read</span><span class="badge">CRITICAL WATCH</span>
+  </div>
+</section>
+
+<section class="hero-image">
+  <figure>
+    <img src="images/quantum-trust-fabric.jpg" alt="Quantum computing architecture represented as a glowing cyber network">
+    <figcaption>Quantum systems are being discussed as a future encryption problem. The more immediate enterprise question is whether the trust infrastructure around machines, software, and networks can survive the transition.</figcaption>
+  </figure>
+</section>
+
+<div class="layout">
+<main class="article">
+  <p class="lead">The post-quantum conversation has settled into a familiar rhythm: inventory RSA and elliptic-curve cryptography, identify long-lived secrets, test ML-KEM and post-quantum signatures, and build a migration roadmap. That work is necessary. It is also incomplete.</p>
+
+  <p>The underexamined problem is <strong>trust</strong>.</p>
+
+  <p>Enterprises do not merely encrypt information. They constantly make assertions about what is legitimate: this server is trusted, this device belongs to us, this software update is authentic, this employee certificate is valid, this API endpoint is the right endpoint, this route authorization is genuine, and this firmware image was approved by the manufacturer.</p>
+
+  <p>Those assertions are carried by public-key infrastructure, digital signatures, certificates, code-signing systems, machine identities, trust stores, certificate authorities, and routing-security mechanisms. If quantum-resistant migration treats those components as a secondary detail behind “encryption,” an organization can become quantum-ready on paper while leaving its <em>decision fabric</em> exposed.</p>
+
+  <div class="callout"><strong>The strategic shift:</strong> Post-quantum readiness should be measured not only by whether sensitive data can survive a quantum attack, but by whether the enterprise can still determine <em>who and what to trust</em> when classical public-key signatures are no longer trustworthy.</div>
+
+  <h2>01 / The encryption story is <span>too small</span></h2>
+
+  <p>“PQC migration” is often interpreted as replacing vulnerable public-key encryption and key-establishment mechanisms. NIST's current migration guidance is broader: a cryptographic inventory should include algorithms, protocols, keys, certificates, systems, components, and the data protected by cryptography. NIST also explicitly identifies certificates and certificate chains as inventory objects. <a href="https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/" target="_blank" rel="noopener">NIST NCCoE's June 2026 FAQ</a> makes that scope explicit.</p>
+
+  <p>That distinction matters because a certificate is not merely an encrypted file. It is a signed statement about identity and authorization. A digital signature is not merely a privacy control. It is an integrity and authenticity control.</p>
+
+  <p>When the underlying public-key assumptions fail, the question becomes much larger than “Can someone decrypt this database?” It becomes:</p>
+
+  <ul>
+    <li>Can an attacker manufacture a credential that looks legitimate?</li>
+    <li>Can software signing chains still distinguish authorized releases from forged releases?</li>
+    <li>Can devices validate one another without trusting an obsolete signature scheme?</li>
+    <li>Can network infrastructure distinguish a legitimate routing authorization from a counterfeit one?</li>
+    <li>Can an organization rotate trust anchors without breaking millions of dependent systems?</li>
+  </ul>
+
+  <h2>02 / The certificate is becoming a <span>security boundary</span></h2>
+
+  <p>Modern enterprises have quietly transformed certificates into infrastructure. TLS certificates protect web traffic. Mutual TLS certificates authenticate services. Device certificates identify machines. Code-signing certificates establish software provenance. Enterprise PKI supports smart cards, VPNs, Wi-Fi authentication, workload identity, privileged administration, and internal service meshes.</p>
+
+  <p>That means the certificate lifecycle is part of the attack surface.</p>
+
+  <p>Current IETF work is already grappling with the mechanics of post-quantum authentication, including composite certificates, dual certificates, and PQC-only certificates. A 2025 IETF Internet-Draft on PQC signature migration frames the problem as a transition in PKI-based protocols rather than simply a replacement of one encryption algorithm. The document is work in progress—not a final standard—but its existence is a useful signal: <strong>the trust layer is becoming a migration problem of its own.</strong></p>
+
+  <p>There is another complication. A certificate ecosystem is a dependency graph. A root CA signs an intermediate. The intermediate signs certificates. Applications trust stores. Devices contain firmware and embedded roots. Service meshes rotate identities. Vendors build certificate automation into products. A change at the top can create failure at the bottom.</p>
+
+  <p>That is why a successful PQC pilot can be almost meaningless if the organization has not mapped the trust relationships around it.</p>
+
+  <figure class="image-break">
+    <img src="images/quantum-ai-core.jpg" alt="Quantum AI core represented on a circuit board">
+    <figcaption>The quantum transition is also a software and identity transition: algorithms, certificates, signatures, libraries, firmware, trust stores, and automation must evolve together.</figcaption>
+  </figure>
+
+  <h2>03 / The machine-identity problem nobody wants on the <span>board agenda</span></h2>
+
+  <p>Human identities are comparatively visible. Machine identities are not.</p>
+
+  <p>A large enterprise can have certificates and cryptographic identities attached to servers, containers, APIs, IoT devices, industrial controllers, workloads, build systems, code-signing pipelines, network appliances, databases, HSMs, mobile devices, and third-party integrations. Many are created and rotated automatically. Others are embedded in firmware or vendor-managed systems.</p>
+
+  <p>Quantum migration therefore collides with a problem that cybersecurity teams already struggle to solve: <strong>knowing what exists.</strong></p>
+
+  <div class="risk-grid">
+    <div class="risk-card"><div class="risk-num">01</div><div class="risk-title">Invisible Identity</div><p>Certificates and keys may exist outside the CMDB, IAM platform, or security tooling that leadership assumes is authoritative.</p></div>
+    <div class="risk-card"><div class="risk-num">02</div><div class="risk-title">Embedded Trust</div><p>Roots, signing keys, algorithms, and validation logic can be buried inside firmware, appliances, libraries, and vendor software.</p></div>
+    <div class="risk-card"><div class="risk-num">03</div><div class="risk-title">Rotation Failure</div><p>A post-quantum credential is useless if dependent clients cannot parse it, validate its chain, or complete the handshake.</p></div>
+    <div class="risk-card"><div class="risk-num">04</div><div class="risk-title">Vendor Dependency</div><p>An enterprise may be ready while a critical supplier's PKI, code-signing infrastructure, or device fleet is not.</p></div>
+  </div>
+
+  <p>The board-level risk is not simply cryptographic weakness. It is <strong>loss of reliable identity at scale</strong>.</p>
+
+  <h2>04 / The overlooked attack: <span>trust inversion</span></h2>
+
+  <p>Consider a future in which a cryptographically relevant quantum computer exists and a vulnerable signing algorithm is still accepted somewhere in an enterprise's trust chain.</p>
+
+  <p>The obvious scenario is decryption. The less discussed scenario is <strong>trust inversion</strong>: an adversary uses a broken public-key assumption to create something that a system recognizes as authentic.</p>
+
+  <p>The impact depends on the role of the compromised key. A forged web certificate may enable interception. A forged device credential may provide network access. A compromised code-signing key can turn a software distribution channel into a delivery mechanism. A compromised trust anchor can invalidate the entire meaning of downstream identity assertions.</p>
+
+  <p>This is why post-quantum digital signatures deserve board-level attention equal to key establishment. NIST's current PQC program identifies ML-DSA and SLH-DSA as foundational signature standards, while continuing to evaluate additional signature schemes. In May 2026, NIST advanced nine additional candidates to a third round of evaluation. The standards landscape is therefore active, and enterprises should build for <em>agility</em> rather than assume today's PQC choice will be the last cryptographic change they ever make.</p>
+
+  <h2>05 / Routing is part of the <span>quantum trust fabric</span></h2>
+
+  <p>One of the clearest examples of this broader problem is the Resource Public Key Infrastructure, or RPKI, which helps authenticate Internet number resource holdings and routing authorizations.</p>
+
+  <p>In July 2026, an IETF Internet-Draft proposed a post-quantum authentication layer for RPKI, explicitly noting that current RPKI relies on classical RSA signatures and that replacing signatures at global scale creates repository-size and validation-cost problems. Another June 2026 draft proposed an initial PQC signature profile for RPKI.</p>
+
+  <p>That is an important clue about the future of cybersecurity: <strong>quantum migration is becoming a systems-engineering problem at the infrastructure level.</strong> It is not confined to databases, browsers, VPNs, or encrypted archives.</p>
+
+  <p>The trust fabric includes the systems that decide which networks, software, machines, services, and identities deserve belief.</p>
+
+  <h2>06 / What “quantum ready” should mean in <span>2026</span></h2>
+
+  <p>A more useful executive definition is:</p>
+
+  <div class="callout"><strong>Quantum readiness = cryptographic visibility + migration capability + trust continuity.</strong><br><br>It is not enough to know where RSA and ECC exist. The organization must know which identities depend on them, which trust anchors validate them, which vendors control them, and how those relationships will be rotated without operational collapse.</div>
+
+  <div class="checklist">
+    <div><span class="check">01</span><span><strong>Inventory the trust fabric.</strong> Map certificates, certificate authorities, trust stores, signing systems, HSMs, machine identities, code-signing keys, firmware-signing chains, and routing-security dependencies.</span></div>
+    <div><span class="check">02</span><span><strong>Separate confidentiality from authenticity.</strong> Track encryption/key-establishment dependencies and digital-signature/identity dependencies as different migration classes.</span></div>
+    <div><span class="check">03</span><span><strong>Find the non-updatable systems.</strong> Flag devices, appliances, firmware, OT environments, legacy applications, and third-party products whose cryptography cannot be changed through normal software deployment.</span></div>
+    <div><span class="check">04</span><span><strong>Test trust-chain rotation.</strong> Do not stop at algorithm benchmarks. Test certificate issuance, chain validation, revocation, trust-store updates, rollback, client compatibility, and automated renewal.</span></div>
+    <div><span class="check">05</span><span><strong>Build crypto agility.</strong> NIST's 2025/2026 guidance treats crypto agility as the capability to replace cryptographic mechanisms across protocols, applications, software, hardware, firmware, and infrastructure while preserving operations.</span></div>
+    <div><span class="check">06</span><span><strong>Put machine identity on the risk register.</strong> If a critical business service cannot explain who or what is authorized to authenticate to it, it is not quantum-ready—even if its data encryption has been upgraded.</span></div>
+  </div>
+
+  <h2>07 / The board question should be <span>different</span></h2>
+
+  <p>Most executives will eventually hear some version of: “What is our PQC migration plan?” That is a reasonable question. It is not the most revealing one.</p>
+
+  <p>The better question is:</p>
+
+  <div class="callout"><strong>“If the public-key assumptions underneath our identity and signing systems fail, what exactly would our enterprise still be able to trust—and how quickly could we rotate that trust?”</strong></div>
+
+  <p>That question forces a company to connect cryptography to operational resilience. It pulls PKI, IAM, endpoint engineering, software supply chain, network security, procurement, OT, cloud architecture, incident response, and third-party risk into one conversation.</p>
+
+  <p>It also changes the economics of the migration. Instead of buying “quantum-safe” products, the organization begins building a <strong>replaceable trust architecture</strong>.</p>
+
+  <h2>Conclusion / The real race is not to <span>decrypt</span></h2>
+
+  <p>The post-quantum era will not arrive as a single switch being flipped. It will arrive as a long period in which classical and post-quantum mechanisms coexist, vendors move at different speeds, standards evolve, and enterprises discover dependencies they did not know they had.</p>
+
+  <p>NIST's latest migration work emphasizes cryptographic discovery, interoperability, inventory, and crypto agility. That direction is correct. But executive programs should extend the same discipline to the <em>trust relationships</em> those cryptographic mechanisms support.</p>
+
+  <p>The organization that wins the transition will not simply be the one that replaces the most RSA keys first.</p>
+
+  <p>It will be the one that can change its cryptographic assumptions <strong>without losing its ability to tell the difference between legitimate and illegitimate.</strong></p>
+
+  <p>That is the quantum trust problem. And unlike the quantum computer itself, the enterprise does not have to wait for it to become real before the risk becomes measurable.</p>
+
+  <div class="sources">
+    <h3>Selected Sources & Further Reading</h3>
+    <ol>
+      <li>NIST, <a href="https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/" target="_blank" rel="noopener">Frequently Asked Questions about Post-Quantum Cryptography</a>, updated June 30, 2026.</li>
+      <li>NIST, <a href="https://csrc.nist.gov/Projects/Post-Quantum-Cryptography" target="_blank" rel="noopener">Post-Quantum Cryptography</a>, current project and standards guidance.</li>
+      <li>NIST, <a href="https://csrc.nist.gov/pubs/cswp/39/upd1/considerations-for-achieving-crypto-agility/final" target="_blank" rel="noopener">CSWP 39upd1: Considerations for Achieving Crypto Agility</a>, updated June 29, 2026.</li>
+      <li>NIST, <a href="https://csrc.nist.gov/news/2026/nist-advances-9-candidates-to-the-3rd-round-of-pqc" target="_blank" rel="noopener">Nine Candidates Advance to the Third Round of the Additional Digital Signatures for the PQC Standardization Process</a>, May 14, 2026.</li>
+      <li>IETF, <a href="https://datatracker.ietf.org/doc/html/draft-reddy-pquip-pqc-signature-migration-01" target="_blank" rel="noopener">Guidance for Migration to Composite, Dual, or PQC Authentication</a>, Internet-Draft, October 2025. Work in progress.</li>
+      <li>IETF, <a href="https://www.ietf.org/archive/id/draft-li-sidrops-pqrpki-00.html" target="_blank" rel="noopener">Post-Quantum Authentication for the Resource Public Key Infrastructure</a>, Internet-Draft, July 2026. Work in progress.</li>
+      <li>IETF, <a href="https://datatracker.ietf.org/doc/html/draft-wang-lamps-root-ca-cert-rekeying-04" target="_blank" rel="noopener">Root CA Certificate Rekeying in the Scenario of Post Quantum Migration</a>, Internet-Draft, May 2026. Work in progress.</li>
+    </ol>
+  </div>
+</main>
+
+<aside class="sidebar">
+  <div class="side-title">Executive Signal</div>
+  <div class="side-item"><div class="side-label">Core Risk</div><p>Quantum migration can preserve encryption while leaving authentication and software provenance dependent on vulnerable public-key signatures.</p></div>
+  <div class="side-item"><div class="side-label">Most Exposed</div><p>PKI, code signing, firmware signing, machine identity, mTLS, device certificates, trust stores, and routing-security infrastructure.</p></div>
+  <div class="side-item"><div class="side-label">Board Metric</div><p>Percentage of critical trust relationships with a documented PQC migration path and tested rollback capability.</p></div>
+  <div class="side-item"><div class="side-label">Strategic Response</div><p>Build cryptographic visibility and crypto agility before forcing an enterprise-wide algorithm cutover.</p></div>
+  <div class="side-item"><div class="side-label">Bottom Line</div><p>Do not ask only whether data can survive quantum. Ask whether the enterprise can still trust its machines, software, networks, and identities.</p></div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">ZERO HOUR INTELLIGENCE</div>
+    <div class="footer-copy">© 2026 Imminent Flair LLC · All Rights Reserved</div>
+    <div class="footer-links">
+      <a href="https://imminentflair.com">Imminent Flair</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
