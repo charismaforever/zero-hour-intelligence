@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post-Quantum Side-Channel Attacks &middot; Imminent Flair</title>
+<meta name="description" content="Executive Briefing on Post-Quantum Side-Channel Attacks on Algorithmic Sideband Cryptography by Catrina Turner.">
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dyqlkc3ri/image/upload/FlairLogo_dazdkr.png">
+<style>
+/* ═══════════════════════════════════════════════
+   IMMINENT FLAIR — Global Stylesheet
+   Catrina Turner · Cybersecurity Intelligence
+   ═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap');
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img, video { max-width: 100%; display: block; }
+button { cursor: pointer; }
+
+/* ── TOKENS ── */
+:root {
+  --ink:         #090909;
+  --ink-mid:     #111111;
+  --ink-soft:    #1a1a1a;
+  --ink-lifted:  #242424;
+  --gold:        #b8966e;
+  --gold-light:  #d4b896;
+  --gold-pale:   #e8d5bc;
+  --gold-dim:    #7a6045;
+  --gold-deep:   #4a3820;
+  --ivory:       #f4efe6;
+  --ivory-dim:   #d8cfc0;
+  --mist:        #9a8870;
+  --mist-light:  #b8a890;
+  --rule:        rgba(184,150,110,0.18);
+  --rule-strong: rgba(184,150,110,0.35);
+
+  --ff-display: 'Cormorant Garamond', Georgia, serif;
+  --ff-body:    'Instrument Sans', sans-serif;
+  --ff-mono:    'DM Mono', monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* ── BASE ── */
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--ff-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.45;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3, h4 {
+  font-family: var(--ff-display);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ivory);
+}
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+h3 { font-size: clamp(1.3rem, 2vw, 1.8rem); }
+h4 { font-size: 1.1rem; }
+em { font-style: italic; color: var(--gold-light); }
+strong { font-weight: 500; color: var(--ivory); }
+a { color: inherit; text-decoration: none; }
+
+p { color: var(--mist); line-height: 1.85; margin-bottom: 24px; font-size: 1.05rem; }
+
+.mono {
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── LAYOUT ── */
+.container-narrow { max-width: 800px; margin: 0 auto; padding: 0 40px; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+
+/* ── NAVIGATION ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px;
+  background: rgba(9,9,9,0.90);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-logo { text-decoration: none; display: flex; flex-direction: column; gap: 2px; }
+.nav-logo-name {
+  font-family: var(--ff-display);
+  font-size: 1.25rem; font-weight: 500;
+  letter-spacing: 0.1em; color: var(--ivory); line-height: 1;
+}
+.nav-logo-sub { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+
+.nav-links { display: flex; align-items: center; gap: 40px; }
+.nav-links a {
+  font-family: var(--ff-mono); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--mist); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold-light); }
+
+.nav-cta {
+  border: 1px solid var(--gold-dim) !important;
+  padding: 9px 22px;
+  color: var(--gold-light) !important;
+  transition: background 0.25s, color 0.25s !important;
+}
+.nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
+
+/* ── ARTICLE HEADER ── */
+.article-header {
+  padding-top: 140px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--ink-mid);
+}
+
+.article-meta {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+}
+
+.tag-pill {
+  border: 1px solid var(--gold-dim); padding: 4px 12px;
+  font-family: var(--ff-mono); font-size: 0.56rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+}
+
+/* ── ARTICLE CONTENT ── */
+.article-body {
+  padding: 80px 0;
+}
+
+.article-body h3 {
+  margin-top: 48px;
+  margin-bottom: 20px;
+  color: var(--gold-light);
+}
+
+.article-body ul, .article-body ol {
+  margin-left: 24px;
+  margin-bottom: 32px;
+  color: var(--mist);
+}
+
+.article-body li {
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+blockquote {
+  border-left: 2px solid var(--gold);
+  padding-left: 24px;
+  margin: 40px 0;
+  font-family: var(--ff-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--ivory-dim);
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--ink-mid);
+  border-top: 1px solid var(--rule);
+  padding: 60px 0 24px;
+}
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--ff-mono); font-size: 0.58rem;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim);
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-name">IMMINENT FLAIR</span>
+    <span class="nav-logo-sub">Cybersecurity Intelligence</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Overview</a>
+    <a href="index.html#briefings">Executive Briefings</a>
+    <a href="index.html#about">About Catrina</a>
+    <a href="#subscribe" class="nav-cta">Subscribe</a>
+  </div>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <div class="container-narrow">
+    <div class="article-meta">
+      <span class="tag-pill">Quantum & Cybersecurity</span>
+      <span class="mono" style="color: var(--mist);">Catrina Turner &middot; 2026</span>
+    </div>
+    <h1>Post-Quantum Side-Channel Attacks on <em>Algorithmic Sideband Cryptography</em></h1>
+  </div>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article class="article-body">
+  <div class="container-narrow">
+    <p>For years, post-quantum readiness conversations have centered around mathematical risk: when will a quantum computer grow large enough to run Shor’s algorithm and break RSA or ECC? This macro-level threat model has driven the NIST PQC standardization process and motivated enterprise quantum migration roadmaps globally.</p>
+
+    <p>However, a critical vulnerability vector remains almost entirely unaddressed in corporate risk strategies: <strong>Side-Channel Attack (SCA) vulnerabilities embedded within the physical implementations of Post-Quantum Cryptography algorithms</strong>.</p>
+
+    <blockquote>
+      "Adversaries do not break the mathematics when they can exploit the physical reality of the chip."
+    </blockquote>
+
+    <h3>The Mechanics of Lattice-Based Sideband Leakage</h3>
+    <p>Lattice-based cryptographic schemes (such as ML-KEM / Kyber and ML-DSA / Dilithium) rely on complex polynomial multiplication and discrete Gaussian sampling. When executed on commercial microcontrollers, modern Hardware Security Modules (HSMs), or System-on-Chip (SoC) environments, these mathematical operations generate distinct physical sideband emissions:</p>
+
+    <ul>
+      <li><strong>Electromagnetic Emanations:</strong> Radiated signals from processing cores during Number Theoretic Transform (NTT) multiplication phases.</li>
+      <li><strong>Differential Power Analysis (DPA):</strong> Power consumption spikes that directly correlate with secret polynomial coefficients.</li>
+      <li><strong>Microarchitectural Timing & Cache Leakage:</strong> Non-constant-time sampling algorithms leaking state information to co-located processes in shared cloud environments.</li>
+    </ul>
+
+    <h3>Why Traditional PQC Masking Falls Short</h3>
+    <p>To defend against side-channel analysis, cryptographic implementations traditionally employ <em>algorithmic masking</em>. However, applying higher-order masking to complex PQC algorithms induces massive memory and computational overheads, often increasing latency by 10x to 50x. As a result, early commercial adopters of PQC hardware are deploying unmasked or weakly-masked chips to preserve throughput—opening a massive window for physical and remote side-channel exploitation.</p>
+
+    <h3>Strategic Imperatives for Executive Leadership</h3>
+    <p>Board members and CISOs cannot assume that PQC software compliance equals physical security. Key defense imperatives include:</p>
+    
+    <ol>
+      <li><strong>Audit Hardware Supply Chains:</strong> Demand explicit SCA resistance verification and masking level certification from HSM and semiconductor vendors.</li>
+      <li><strong>Prioritize Constant-Time Implementations:</strong> Mandate software verification tools that check for timing and microarchitectural leakage in post-quantum libraries.</li>
+      <li><strong>Redefine Post-Quantum Risk Assessment:</strong> Factor physical access, cloud multi-tenancy, and edge-node exposure into quantum migration roadmaps.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container-narrow">
+    <div class="footer-bottom">
+      <div>&copy; 2026 IMMINENT FLAIR. ALL RIGHTS RESERVED.</div>
+      <div>STRATEGIC CYBERSECURITY INTELLIGENCE</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
