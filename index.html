@@ -236,6 +236,7 @@ p { color: var(--mist); line-height: 1.85; }
 .footer-brand-name { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 500; letter-spacing: 0.1em; color: var(--ivory); margin-bottom: 4px; }
 .footer-brand-sub { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
 .footer-brand-desc { font-size: 0.88rem; color: var(--mist); line-height: 1.75; max-width: 260px; }
+.footer-brand-seal { max-width: 220px; margin-bottom: 20px; border: 1px solid var(--rule); opacity: 0.92; }
 .footer-col h4 { font-family: var(--ff-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 400; }
 .footer-col ul { list-style: none; }
 .footer-col li { margin-bottom: 10px; }
@@ -396,6 +397,11 @@ p { color: var(--mist); line-height: 1.85; }
   transition: border-color 0.3s, background 0.3s;
 }
 .library-card:hover { border-color: var(--rule-strong); background: var(--ink-soft); }
+.library-card-thumb {
+  display: block; width: calc(100% + 56px); height: 160px;
+  margin: -32px -28px 24px; object-fit: cover;
+  border-bottom: 1px solid var(--rule); filter: saturate(0.9);
+}
 .library-card-cat {
   font-family: var(--ff-mono); font-size: 0.56rem;
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
@@ -524,16 +530,16 @@ p { color: var(--mist); line-height: 1.85; }
 <section class="featured">
   <div class="container">
     <div class="section-label"><span class="mono">Featured Analysis</span></div>
-    <a href="/articles/article-ai-pause-paradox.html" class="featured-card" style="text-decoration:none;">
+    <a href="/articles/quantum-trust-fabric.html" class="featured-card" style="text-decoration:none;">
       <div class="featured-card-visual"></div>
       <div class="featured-card-body">
-        <div class="featured-card-cat"><span class="mono">Zero Hour Intelligence &middot; Strategic Analysis &middot; August 2026</span></div>
-        <div class="featured-card-title">AI Governance <em>The AI Pause Paradox</em> Close the Gap</div>
-        <p class="featured-card-desc">Why stopping the frontier AI race could make the world less secure, empower incumbent monopolies, and push critical development into unmonitored defense siloes.</p>
+        <div class="featured-card-cat"><span class="mono">Zero Hour Intelligence &middot; Post-Quantum Security &middot; August 2026</span></div>
+        <div class="featured-card-title">Post-Quantum Security <em>The Quantum Trust Fabric</em></div>
+        <p class="featured-card-desc">The next post-quantum failure may not begin with encrypted data. It may begin with the certificates, signatures, machine identities, and trust anchors that decide what the enterprise believes.</p>
         <div class="featured-card-meta">
           <span>Zero Hour Intelligence</span>
           <span class="dot"></span>
-          <span>AI Governance &middot; National Security &middot; Strategic Policy</span>
+          <span>Post-Quantum Security &middot; PKI &middot; Machine Identity</span>
         </div>
         <span class="btn btn-ghost">Read Full Analysis</span>
       </div>
@@ -559,6 +565,7 @@ p { color: var(--mist); line-height: 1.85; }
 
       <!-- The Automation Blind Spot -->
       <a href="/articles/zhi-automation-phi-false-positives.html" class="library-card reveal">
+        <img class="library-card-thumb" src="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/EmergingTech.webp" alt="The Automation Blind Spot">
         <div class="library-card-cat">
           <span>Zero Hour Intelligence &middot; Automation Risk</span>
         </div>
@@ -579,6 +586,7 @@ p { color: var(--mist); line-height: 1.85; }
 
       <!-- The Implicit Permission Problem -->
       <a href="/articles/implicit-permissions-zero-trust.html" class="library-card reveal">
+        <img class="library-card-thumb" src="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/Blue_and_Black_Modern_Tech_Future_of_Computing_Carousel_Instagram_Post_g8fehv.png" alt="The Implicit Permission Problem">
         <div class="library-card-cat">
           <span>Agentic AI &amp; Zero Trust Architecture</span>
         </div>
@@ -589,6 +597,7 @@ p { color: var(--mist); line-height: 1.85; }
 
       <!-- The Isolation That Isn't -->
       <a href="/articles/shared-gpu-kernel-isolation.html" class="library-card reveal">
+        <img class="library-card-thumb" src="https://res.cloudinary.com/dyqlkc3ri/image/upload/f_auto/q_auto/atom-sphere-quantum_zhi_1_20_jzqjh1.jpg" alt="The Isolation That Isn't">
         <div class="library-card-cat">
           <span>AI Infrastructure &amp; Hardware Security</span>
         </div>
@@ -747,6 +756,7 @@ p { color: var(--mist); line-height: 1.85; }
   <div class="container">
     <div class="footer-grid">
       <div>
+        <img src="https://res.cloudinary.com/dyqlkc3ri/image/upload/v1792439674/tqs89s4ghh6etmnj4osh.png" alt="Imminent Flair brand seal" class="footer-brand-seal">
         <div class="footer-brand-name">Imminent Flair</div>
         <div class="footer-brand-sub">Cybersecurity Intelligence</div>
         <p class="footer-brand-desc">Strategic cybersecurity intelligence for C-suite leaders and boards. Translating technical risk into executive clarity.</p>
